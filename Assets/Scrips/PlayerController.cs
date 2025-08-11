@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -10,7 +11,6 @@ public class PlayerController : MonoBehaviour
     private float movHori;
     private float movVert;
     public float speed;
-    [SerializeField] float speedDash;
     private float gravity = -9.81f;
     private Vector3 velocity;
     [SerializeField] float forceJump;
@@ -21,10 +21,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Vector3 sizeDetection;
     [SerializeField] LayerMask layerGround;
 
-    private void Awake()
-    {
-        
-    }
+    //dash
+    private Vector3 movDash;
+    private bool canDash = true;
+    [SerializeField] float speedDash;
+    [SerializeField] float cooldownDash;
+    [SerializeField] float timeDash;
+
+
     void Start()
     {
         character = GetComponent<CharacterController>();
@@ -52,11 +56,38 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         character.Move(velocity*Time.deltaTime);
         
-        if (Input.GetButtonDown("Fire3"))
+        // condicion de dash
+        if (Input.GetButtonDown("Fire3") && canDash)
         {
-            character.Move(mov*speedDash*Time.deltaTime);
+            
+            StartCoroutine(dash());
+            Debug.Log("se oprimio shift");
         }
 
+    }
+
+    IEnumerator dash()
+    {
+        Debug.Log("entro a la coruutina");
+        canDash = false;
+        float horiDash = Input.GetAxisRaw("Horizontal");
+        float vertDash = Input.GetAxisRaw("Vertical");
+        movDash = new Vector3(horiDash, 0, vertDash);
+
+        if (movDash == Vector3.zero)
+        {
+            movDash = transform.forward;
+        }
+
+        float timer =0;
+        while (timer<timeDash)
+        {
+            character.Move(movDash*speedDash*Time.deltaTime);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        yield return new WaitForSeconds(cooldownDash);
+        canDash = true;
     }
 
     private void OnDrawGizmos()
