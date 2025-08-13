@@ -1,8 +1,8 @@
 using System.Collections;
-using UnityEditor;
+using System.Net.Sockets;
+using Unity.Cinemachine;
+using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 
@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private float gravity = -9.81f;
     private Vector3 velocity;
     [SerializeField] float forceJump;
+    public Transform cam;
 
     //deteccion del piso
     private bool isGrounded;
@@ -47,17 +48,22 @@ public class PlayerController : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(forceJump*-2*gravity);
         }
-
+        Debug.Log(cam.eulerAngles.y);
         // movimiento eje X y Z
         movHori = Input.GetAxis("Horizontal");
         movVert = Input.GetAxis("Vertical");
         Vector3 mov = new Vector3(movHori, 0, movVert);
 
-        character.Move(mov * speed*Time.deltaTime);
+        float camDirection = cam.eulerAngles.y;
+        Vector3 movByCam = Quaternion.Euler(0f,camDirection,0f)*mov;
+        Debug.Log(camDirection);
+
+        character.Move(movByCam * speed*Time.deltaTime);
         if (mov != Vector3.zero)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(mov);
+            Quaternion targetRotation = Quaternion.LookRotation(movByCam);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, sdRotate * Time.deltaTime);
+
         }
         velocity.y += gravity * Time.deltaTime;
         character.Move(velocity*Time.deltaTime);

@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  sdRotate: 0
+  sdRotate: 10
   forceJump: 5
   centerPoint: {fileID: 1416222101650374574}
   sizeDetection: {x: 0.7, y: 0.15, z: 0.7}
