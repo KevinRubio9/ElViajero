@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private float movHori;
     private float movVert;
     public float speed;
+    public float sdRotate;
     private float gravity = -9.81f;
     private Vector3 velocity;
     [SerializeField] float forceJump;
@@ -52,7 +54,11 @@ public class PlayerController : MonoBehaviour
         Vector3 mov = new Vector3(movHori, 0, movVert);
 
         character.Move(mov * speed*Time.deltaTime);
-
+        if (mov != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(mov);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, sdRotate * Time.deltaTime);
+        }
         velocity.y += gravity * Time.deltaTime;
         character.Move(velocity*Time.deltaTime);
         
