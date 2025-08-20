@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(forceJump*-2*gravity);
         }
-        Debug.Log(cam.eulerAngles.y);
         // movimiento eje X y Z
         movHori = Input.GetAxis("Horizontal");
         movVert = Input.GetAxis("Vertical");
@@ -56,12 +55,11 @@ public class PlayerController : MonoBehaviour
 
         float camDirection = cam.eulerAngles.y;
         Vector3 movByCam = Quaternion.Euler(0f,camDirection,0f)*mov;
-        Debug.Log(camDirection);
 
         character.Move(movByCam * speed*Time.deltaTime);
         if (mov != Vector3.zero)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(movByCam);
+            Quaternion targetRotation = Quaternion.LookRotation(movByCam);                      
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, sdRotate * Time.deltaTime);
 
         }
