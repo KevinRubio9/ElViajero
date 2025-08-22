@@ -1,53 +1,69 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UiController : MonoBehaviour
 {
-    [SerializeField] GameObject menuInicial, menuPausa, menuGameOver, menuHud;
+    [SerializeField] GameObject menuInicial, menuPausa, menuGameOver, menuHud, menuConfiguración;
 
     private void Start()
     {
-        MostrarInicio();
+        ShowStart();
     }
 
     // Update is called once per frame
-    private void Update()
+    private void OnEnable()
     {
-        GameController.instace.startEvent += ShowHud;
-        GameController.instace.gameOverEvent += ShowGameOver;
-        GameController.instace.pauseEvent += ShowPausa;
-        GameController.instace.resumedEvent += ShowHud;
+        GameController.instance.startEvent += ShowHud;
+        GameController.instance.gameOverEvent += ShowGameOver;
+        GameController.instance.pauseEvent += ShowPausa;
+        GameController.instance.resumedEvent += ShowHud;
+        GameController.instance.configurationEvent += ShowConfiguration;
+        GameController.instance.startmenuEvent += ShowStart;
 
     }
 
 
-    private void ShowPausa()
+    public void ShowPausa()
     {
         menuInicial.SetActive(false);
         menuPausa.SetActive(true);
         menuGameOver.SetActive(false);
         menuHud.SetActive(false);
+        menuConfiguración.SetActive(false); 
     }
-    private void ShowGameOver()
+    public void ShowGameOver()
     {
         menuInicial.SetActive(false);
         menuPausa.SetActive(false);
         menuGameOver.SetActive(true);
         menuHud.SetActive(false);
+        menuConfiguración.SetActive(false);
     }
-    private void ShowHud()
+    public void ShowHud()
     {
         menuInicial.SetActive(false);
         menuPausa.SetActive(false);
         menuGameOver.SetActive(false);
         menuHud.SetActive(true);
+        menuConfiguración.SetActive(false);
     }
-    private void MostrarInicio()
+    public void ShowConfiguration()
+    {
+        menuInicial.SetActive(false);
+        menuPausa.SetActive(false);
+        menuGameOver.SetActive(false);
+        menuHud.SetActive(false);   
+        menuConfiguración.SetActive(true);
+    }
+
+    public void ShowStart()
     {
         menuInicial.SetActive(true);
         menuPausa.SetActive(false);
         menuGameOver.SetActive(false);
         menuHud.SetActive(false);
+        menuConfiguración.SetActive(false) ;
     }
 }

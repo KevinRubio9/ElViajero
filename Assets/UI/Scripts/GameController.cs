@@ -1,11 +1,12 @@
-using UnityEditor.SearchService;
-using UnityEditorInternal;
-using UnityEngine.SceneManagement;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GameController : MonoBehaviour
 {
-    public static GameController instace;
+    public static GameController instance;
 
     public delegate void eventsGameDelegates();
 
@@ -13,12 +14,14 @@ public class GameController : MonoBehaviour
     public eventsGameDelegates gameOverEvent;
     public eventsGameDelegates pauseEvent;
     public eventsGameDelegates resumedEvent;
+    public eventsGameDelegates configurationEvent;
+    public eventsGameDelegates startmenuEvent;
 
-    public void Start()
+    public void Awake()
     {
-        if(instace == null)
+        if(instance == null)
         {
-            instace = this;
+            instance = this;
         }
         else
         {
@@ -31,11 +34,22 @@ public class GameController : MonoBehaviour
     {
         Time.timeScale = 1f;
         startEvent?.Invoke();
+        Debug.Log("el juego inicio");
     }
     public void GameOver()
     {
         Time.timeScale = 0f;
         gameOverEvent?.Invoke();
+    }
+    public void Configuration()
+    {
+        Time.timeScale = 0f;
+        configurationEvent?.Invoke();
+    }
+    public void StartMenu()
+    {
+        Time.timeScale = 0f;
+        startmenuEvent?.Invoke();
     }
     public void PauseGame()
     {
@@ -55,4 +69,5 @@ public class GameController : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene");
     }
+   
 }
