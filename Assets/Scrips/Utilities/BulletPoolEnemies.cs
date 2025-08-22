@@ -9,17 +9,23 @@ public class BulletPoolEnemies : MonoBehaviour
     [SerializeField] List<GameObject> bulletsType2;
     void Start()
     {
-        InitialsBullet(amountBullet, bullets, prefabBullet[0]);
+        InitialsBullet(amountBullet);
     }
 
-    public void InitialsBullet(int sizePool, List<GameObject> bulletsList, GameObject bulletPrefab)
+    public void InitialsBullet(int sizePool)
     {
 
         for (int i = 0; i < sizePool; i++)
         {
-            GameObject newbullet = Instantiate(bulletPrefab);
+            GameObject newbullet = Instantiate(prefabBullet[0]);
             newbullet.SetActive(false);
-            bulletsList.Add(newbullet);
+            bullets.Add(newbullet);
+        }
+        for (int i = 0; i < sizePool; i++)
+        {
+            GameObject newbullet = Instantiate(prefabBullet[1]);
+            newbullet.SetActive(false);
+            bulletsType2.Add(newbullet);
         }
     }
 

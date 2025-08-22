@@ -25,11 +25,17 @@ public class EnemyShooterLogic : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            GameObject bulletAvaiable = bulletPool.UseBullet();
-            bulletAvaiable.SetActive(true);
-            bulletAvaiable.transform.position = pointBullet.position;
-            bulletAvaiable.transform.rotation = pointBullet.rotation;
+            Shoot();
         }
+    }
+
+    private void Shoot()
+    {
+        GameObject bulletAvaiable = bulletPool.UseBullet();
+        bulletAvaiable.SetActive(true);
+        bulletAvaiable.transform.position = pointBullet.position;
+        bulletAvaiable.transform.rotation = pointBullet.rotation;
+
     }
 
 }
