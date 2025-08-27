@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private float gravity = -9.81f;
     private Vector3 velocity;
     [SerializeField] float forceJump;
-    public Transform cam;
+    public Transform cam; //Enlazar la freelookcamera desde el prefab de camara
 
     //deteccion del piso
     private bool isGrounded;
