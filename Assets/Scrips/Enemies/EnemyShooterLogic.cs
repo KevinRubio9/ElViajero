@@ -4,15 +4,23 @@ using UnityEngine.AI;
 
 public class EnemyShooterLogic : MonoBehaviour
 {
-    NavMeshAgent agent;
     [SerializeField] Transform player;
-    [SerializeField] List<Transform> pointsMov;
-    [SerializeField] Transform currrentPosition;
     [SerializeField] float sp;
-    public int currentTargert = 0;
-    BulletPoolEnemies bulletPool;
-    Transform pointBullet;
 
+    //patrol
+    NavMeshAgent agent;
+    bool isPatrolling =true ;
+    bool playerDetected;
+    [SerializeField] List<Transform> pointsMov;
+    public int currentTargert = 0;
+
+
+
+    //shoot
+    BulletPoolEnemies bulletPool;
+    [SerializeField]Transform pointBullet;
+    [SerializeField] float fireRate;
+    float rateTimeShoot;
 
 
     // Update is called once per frame
@@ -20,17 +28,41 @@ public class EnemyShooterLogic : MonoBehaviour
     {
         bulletPool = FindAnyObjectByType<BulletPoolEnemies>();
         agent = GetComponent<NavMeshAgent>();
+
+        foreach (Transform t in pointsMov)
+        {
+            t.SetParent(null);
+        }
     }
     void Update()
     {
-        Patrol();
+        if (isPatrolling)
+        { Patrol(); }
+        
     }
 
     private void OnTriggerStay(Collider other)
     {
+        if (other.gameObject.CompareTag("Player") && Time.time >= rateTimeShoot)
+        {
+            isPatrolling = false;
+            Shoot();
+            rateTimeShoot = Time.time + fireRate;
+        }
+
         if (other.gameObject.CompareTag("Player"))
         {
-            Shoot();
+            playerDetected = true;
+
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            isPatrolling = true;
+            playerDetected = false;
         }
     }
 
@@ -44,15 +76,21 @@ public class EnemyShooterLogic : MonoBehaviour
     }
     public void Patrol()
     {
-
-
-       for (int i = 0; i < pointsMov.Count; i++)
+        if (!playerDetected)
         {
-            if (agent.transform.position.z != pointsMov[i].position.z && agent.transform.position.x != pointsMov[i].position.x)
+            for (int i = 0; i < pointsMov.Count; i++)
             {
-                agent.SetDestination(pointsMov[i].position);
+                if (agent.transform.position.z != pointsMov[i].position.z && agent.transform.position.x != pointsMov[i].position.x)
+                {
+                    agent.SetDestination(pointsMov[currentTargert].position);
+                    currentTargert++;
+                    if (currentTargert >= pointsMov.Count)
+                    { currentTargert = 0; }
+                    Debug.Log(currentTargert);
+                }
             }
         }
+        else { agent.SetDestination(transform.position); }
     }
 }
 
