@@ -11,7 +11,7 @@ public class BulletEnemy : MonoBehaviour
     {
         StartCoroutine(DisableBullet());
     }
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
@@ -35,6 +35,14 @@ public class BulletEnemy : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+    }
+
+    private void OnDisable()
+    {
+        rb.linearVelocity =Vector3.zero;
+        rb.angularVelocity =Vector3.zero;
+        rb.Sleep();
+        rb.WakeUp();
     }
 
 }
