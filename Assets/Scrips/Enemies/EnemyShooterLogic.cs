@@ -109,8 +109,6 @@ public class EnemyShooterLogic : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(direction);
 
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSd * Time.deltaTime);
-                Shoot();
-           
         }
     }
 }

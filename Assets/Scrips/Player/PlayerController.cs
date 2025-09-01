@@ -3,31 +3,44 @@ using System.Net.Sockets;
 using Unity.Cinemachine;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class PlayerController : MonoBehaviour
 
 {
-    // movimiento 
     CharacterController character;
+
+    public float timeCorrupted;
+    [Header("Movimiento")]
+
+    public float speed;
+    public float speedCorrupted;
+    public float sdRotate;
     private float movHori;
     private float movVert;
-    public float speed;
-    public float sdRotate;
     private float gravity = -9.81f;
     private Vector3 velocity;
     [SerializeField] float forceJump;
+    [SerializeField] float forceJumpCorrupted;
     public Transform cam; //Enlazar la freelookcamera desde el prefab de camara
+    bool corrupted = false ;
 
-    //deteccion del piso
+
+    [Space]
+    [Header("Detecion de suelo")]
+
     private bool isGrounded;
     [SerializeField] Transform centerPoint;
     [SerializeField] Vector3 sizeDetection;
     [SerializeField] LayerMask layerGround;
 
-    //dash
+    [Space]
+    [Header("Dash")]
+
     private Vector3 movDash;
     private bool canDash = true;
     [SerializeField] float speedDash;
+    [SerializeField] float speedDashCorrupted;
     [SerializeField] float cooldownDash;
     [SerializeField] float timeDash;
 
@@ -42,35 +55,44 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // deteccion de suelo
-        isGrounded = Physics.CheckBox(centerPoint.position,sizeDetection, Quaternion.identity ,layerGround);
-        
+        isGrounded = Physics.CheckBox(centerPoint.position, sizeDetection, Quaternion.identity, layerGround);
+
+
         // condicion de salto
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded && !corrupted)
         {
-            velocity.y = Mathf.Sqrt(forceJump*-2*gravity);
+            velocity.y = Mathf.Sqrt(forceJump * -2 * gravity);
         }
-        // movimiento eje X y Z
-        movHori = Input.GetAxis("Horizontal");
+        else if (Input.GetButtonDown("Jump") && isGrounded && corrupted)
+        {
+            velocity.y = Mathf.Sqrt(forceJumpCorrupted * -2 * gravity);
+        }
+            // movimiento eje X y Z
+            movHori = Input.GetAxis("Horizontal");
         movVert = Input.GetAxis("Vertical");
         Vector3 mov = new Vector3(movHori, 0, movVert);
 
         float camDirection = cam.eulerAngles.y;
-        Vector3 movByCam = Quaternion.Euler(0f,camDirection,0f)*mov;
+        Vector3 movByCam = Quaternion.Euler(0f, camDirection, 0f) * mov;
+        if (!corrupted)
+        {
+            character.Move(movByCam * speed * Time.deltaTime);
 
-        character.Move(movByCam * speed*Time.deltaTime);
+        }
+        else { character.Move(movByCam * speedCorrupted * Time.deltaTime); }
         if (mov != Vector3.zero)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(movByCam);                      
+            Quaternion targetRotation = Quaternion.LookRotation(movByCam);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, sdRotate * Time.deltaTime);
 
         }
         velocity.y += gravity * Time.deltaTime;
-        character.Move(velocity*Time.deltaTime);
-        
+        character.Move(velocity * Time.deltaTime);
+
         // condicion de dash
         if (Input.GetButtonDown("Fire3") && canDash)
         {
-            
+
             StartCoroutine(dash());
             Debug.Log("se oprimio shift");
         }
@@ -90,15 +112,23 @@ public class PlayerController : MonoBehaviour
             movDash = transform.forward;
         }
 
-        float timer =0;
-        while (timer<timeDash)
+        float timer = 0;
+        while (timer < timeDash)
         {
-            character.Move(movDash*speedDash*Time.deltaTime);
+            character.Move(movDash * speedDash * Time.deltaTime);
             timer += Time.deltaTime;
             yield return null;
         }
         yield return new WaitForSeconds(cooldownDash);
         canDash = true;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet1") && Time.time > timeCorrupted)
+        {
+            corrupted =true;
+        }
     }
 
     private void OnDrawGizmos()
