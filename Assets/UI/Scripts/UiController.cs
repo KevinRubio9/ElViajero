@@ -11,8 +11,6 @@ public class UiController : MonoBehaviour
     {
         ShowStart();
     }
-
-    // Update is called once per frame
     private void OnEnable()
     {
         GameController.instance.startEvent += ShowHud;
@@ -31,7 +29,7 @@ public class UiController : MonoBehaviour
         menuPausa.SetActive(true);
         menuGameOver.SetActive(false);
         menuHud.SetActive(false);
-        menuConfiguración.SetActive(false); 
+        menuConfiguración.SetActive(false);
     }
     public void ShowGameOver()
     {
@@ -54,7 +52,7 @@ public class UiController : MonoBehaviour
         menuInicial.SetActive(false);
         menuPausa.SetActive(false);
         menuGameOver.SetActive(false);
-        menuHud.SetActive(false);   
+        menuHud.SetActive(false);
         menuConfiguración.SetActive(true);
     }
 
@@ -64,6 +62,6 @@ public class UiController : MonoBehaviour
         menuPausa.SetActive(false);
         menuGameOver.SetActive(false);
         menuHud.SetActive(false);
-        menuConfiguración.SetActive(false) ;
+        menuConfiguración.SetActive(false);
     }
 }

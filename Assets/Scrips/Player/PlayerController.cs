@@ -105,4 +105,10 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.DrawCube(centerPoint.position, sizeDetection);
     }
+    public void Tackle(Vector3 direction, float force)
+    {
+        direction.Normalize();
+        Vector3 push = direction * force;
+        character.Move(push * Time.deltaTime);
+    }
 }
