@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 971193678150942100}
   - component: {fileID: 1318397506051494174}
   - component: {fileID: 3687354453686333626}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1416222101650374574}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Centerpoint
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -148,7 +148,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1267057505398492889}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PointBullet
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 1796793092414625556}
   - component: {fileID: 4063449495892067439}
   - component: {fileID: 8539117443862295713}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 5142880262434161245}
   - component: {fileID: 8237137093717436684}
   - component: {fileID: 3511770870559325177}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
