@@ -15,7 +15,7 @@ public class UiController : MonoBehaviour
     {
         GameController.instance.startEvent += ShowHud;
         GameController.instance.gameOverEvent += ShowGameOver;
-        GameController.instance.pauseEvent += ShowPausa;
+        GameController.instance.pauseEvent += ShowPause;
         GameController.instance.resumedEvent += ShowHud;
         GameController.instance.configurationEvent += ShowConfiguration;
         GameController.instance.startmenuEvent += ShowStart;
@@ -23,7 +23,7 @@ public class UiController : MonoBehaviour
     }
 
 
-    public void ShowPausa()
+    public void ShowPause()
     {
         menuInicial.SetActive(false);
         menuPausa.SetActive(true);
