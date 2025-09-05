@@ -20,6 +20,7 @@ public class EnemyShooterLogic : MonoBehaviour
     [SerializeField]Transform pointBullet;
     [SerializeField] float fireRate;
     float rateTimeShoot;
+    bool pinnedPlayer;
 
 
 
@@ -36,6 +37,7 @@ public class EnemyShooterLogic : MonoBehaviour
     }
     void Update()
     {
+
         if (isPatrolling && !playerDetected)
         {
             agent.updateRotation = true;
