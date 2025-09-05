@@ -10,39 +10,42 @@ public class PlayerController : MonoBehaviour
 {
     CharacterController character;
 
-    public float timeCorrupted;
+    [Header("Envenenamiento")]
+    public float timePoisoned;
+    public bool poisoned = false;
+
+
     [Header("Movimiento")]
 
     public float speed;
     public float speedCorrupted;
     public float sdRotate;
+    [SerializeField] float forceJump;
+    [SerializeField] float forceJumpCorrupted;
+    public Transform cam; //Enlazar la freelookcamera desde el prefab de camara
     private float movHori;
     private float movVert;
     private float gravity = -9.81f;
     private Vector3 velocity;
-    [SerializeField] float forceJump;
-    [SerializeField] float forceJumpCorrupted;
-    public Transform cam; //Enlazar la freelookcamera desde el prefab de camara
-    bool corrupted = false ;
 
 
     [Space]
     [Header("Detecion de suelo")]
 
-    private bool isGrounded;
     [SerializeField] Transform centerPoint;
     [SerializeField] Vector3 sizeDetection;
     [SerializeField] LayerMask layerGround;
+    private bool isGrounded;
 
     [Space]
     [Header("Dash")]
 
-    private Vector3 movDash;
-    private bool canDash = true;
     [SerializeField] float speedDash;
     [SerializeField] float speedDashCorrupted;
     [SerializeField] float cooldownDash;
     [SerializeField] float timeDash;
+    private Vector3 movDash;
+    private bool canDash = true;
 
 
     void Start()
@@ -54,27 +57,27 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // deteccion de suelo
+
         isGrounded = Physics.CheckBox(centerPoint.position, sizeDetection, Quaternion.identity, layerGround);
 
 
         // condicion de salto
-        if (Input.GetButtonDown("Jump") && isGrounded && !corrupted)
+        if (Input.GetButtonDown("Jump") && isGrounded && !poisoned)
         {
             velocity.y = Mathf.Sqrt(forceJump * -2 * gravity);
         }
-        else if (Input.GetButtonDown("Jump") && isGrounded && corrupted)
+        else if (Input.GetButtonDown("Jump") && isGrounded && poisoned)
         {
             velocity.y = Mathf.Sqrt(forceJumpCorrupted * -2 * gravity);
         }
-            // movimiento eje X y Z
-            movHori = Input.GetAxis("Horizontal");
+        // movimiento eje X y Z
+        movHori = Input.GetAxis("Horizontal");
         movVert = Input.GetAxis("Vertical");
         Vector3 mov = new Vector3(movHori, 0, movVert);
 
         float camDirection = cam.eulerAngles.y;
         Vector3 movByCam = Quaternion.Euler(0f, camDirection, 0f) * mov;
-        if (!corrupted)
+        if (!poisoned)
         {
             character.Move(movByCam * speed * Time.deltaTime);
 
@@ -94,14 +97,12 @@ public class PlayerController : MonoBehaviour
         {
 
             StartCoroutine(dash());
-            Debug.Log("se oprimio shift");
         }
 
     }
 
     IEnumerator dash()
     {
-        Debug.Log("entro a la coruutina");
         canDash = false;
         float horiDash = Input.GetAxisRaw("Horizontal");
         float vertDash = Input.GetAxisRaw("Vertical");
@@ -123,12 +124,22 @@ public class PlayerController : MonoBehaviour
         canDash = true;
     }
 
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Bullet1") && Time.time > timeCorrupted)
+        if (collision.gameObject.CompareTag("Bullet1"))
         {
-            corrupted =true;
+           StartCoroutine(Poisoned());
         }
+ 
+    }
+
+    IEnumerator Poisoned ()
+    {
+        poisoned = true;
+
+        yield return new WaitForSeconds(timePoisoned);
+        poisoned = false;
     }
 
     private void OnDrawGizmos()

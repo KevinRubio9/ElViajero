@@ -331,9 +331,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90904f68e25d6fa468e478cf6510eeec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timePoisoned: 2
+  poisoned: 0
   speed: 10
+  speedCorrupted: 5
   sdRotate: 10
   forceJump: 5
+  forceJumpCorrupted: 2.5
   cam: {fileID: 0}
   centerPoint: {fileID: 1416222101650374574}
   sizeDetection: {x: 0.7, y: 0.15, z: 0.7}
@@ -341,6 +345,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   speedDash: 10
+  speedDashCorrupted: 5
   cooldownDash: 1
   timeDash: 0.3
 --- !u!114 &3511770870559325177

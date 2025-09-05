@@ -13,7 +13,6 @@ public class EnemyShooterLogic : MonoBehaviour
     public bool playerDetected;
     [SerializeField] List<Transform> pointsMov;
     public int currentTargert = 0;
-    [SerializeField] float stopFollow;
     [SerializeField]float rotationSd;
 
     //shoot
@@ -46,13 +45,14 @@ public class EnemyShooterLogic : MonoBehaviour
 
         else if (playerDetected )
         {
+            LookTarget();
             agent.SetDestination(transform.position);
             agent.updateRotation = false;
-            LookTarget();
             if (Time.time >= rateTimeShoot)
             {
                 Shoot();
                 rateTimeShoot = Time.time + fireRate;
+                Debug.Log(rateTimeShoot);
             }
         }
     }
@@ -76,30 +76,21 @@ public class EnemyShooterLogic : MonoBehaviour
         }
     }
 
-    private void Shoot()
-    {
-        GameObject bulletAvaiable = bulletPool.UseBullet();
-        bulletAvaiable.SetActive(true);
-        bulletAvaiable.transform.position = pointBullet.position;
-        bulletAvaiable.transform.rotation = pointBullet.rotation;
-
-    }
     public void Patrol()
     {
-        agent.stoppingDistance = 0; 
-            for (int i = 0; i < pointsMov.Count; i++)
+        agent.stoppingDistance = 0;
+        for (int i = 0; i < pointsMov.Count; i++)
+        {
+            if (agent.transform.position.z != pointsMov[i].position.z && agent.transform.position.x != pointsMov[i].position.x)
             {
-                if (agent.transform.position.z != pointsMov[i].position.z && agent.transform.position.x != pointsMov[i].position.x)
-                {
-                    agent.SetDestination(pointsMov[currentTargert].position);
-                    currentTargert++;
-                    if (currentTargert >= pointsMov.Count)
-                    { currentTargert = 0; }
-                }
+                agent.SetDestination(pointsMov[currentTargert].position);
+                currentTargert++;
+                if (currentTargert >= pointsMov.Count)
+                { currentTargert = 0; }
             }
+        }
 
     }
-
     private void LookTarget()
     {
         Vector3 direction = player.position - transform.position;
@@ -111,6 +102,17 @@ public class EnemyShooterLogic : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSd * Time.deltaTime);
         }
     }
+    private void Shoot()
+    {
+        GameObject bulletAvaiable = bulletPool.UseBullet();
+        bulletAvaiable.SetActive(true);
+        bulletAvaiable.transform.position = pointBullet.position;
+        bulletAvaiable.transform.rotation = pointBullet.rotation;
+
+    }
+    
+
+
 }
 
 
