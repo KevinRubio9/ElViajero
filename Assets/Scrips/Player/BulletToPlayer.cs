@@ -13,7 +13,7 @@ public class BulletToPlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce(transform.forward*sdBullet*Time.fixedDeltaTime, ForceMode.Impulse);
+        transform.Translate(Vector3.forward*sdBullet*Time.fixedDeltaTime,Space.Self);
     }
     private void Update()
     {
