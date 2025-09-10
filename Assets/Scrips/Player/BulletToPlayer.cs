@@ -6,7 +6,7 @@ public class BulletToPlayer : MonoBehaviour
     Rigidbody rb;
     public float sdBullet;
     float timer = 0;
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
@@ -23,7 +23,6 @@ public class BulletToPlayer : MonoBehaviour
             gameObject.SetActive(false);
             timer = 0;
         }
-        Debug.Log(timer);
     }
     private void OnDisable()
     {
