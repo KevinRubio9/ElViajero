@@ -3,19 +3,10 @@
 public class ItemBox : MonoBehaviour
 {
 
-    public List<GameObject> objects;
+    public GameObject item;
+    public float countItems;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
-    {
-        foreach (GameObject item in objects)
-        {
-            item.transform.SetParent(null);
-            item.SetActive(false);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
     {
 
     }
@@ -25,15 +16,20 @@ public class ItemBox : MonoBehaviour
         if (collision.gameObject.CompareTag("BulletP"))
         {
             Debug.Log("bala detectada");
-            collision.gameObject.SetActive(false);
             gameObject.SetActive(false);
         }
     }
     private void OnDisable()
     {
-        foreach (GameObject item in objects)
+        DropItem();
+    }
+
+    public void DropItem()
+    {
+        for (int i = 0; i < countItems; i++)
         {
-            //item.SetActive(true);
+            Instantiate(item,transform.position,transform.rotation);
         }
     }
+
 }
