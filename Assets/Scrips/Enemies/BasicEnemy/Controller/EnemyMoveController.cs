@@ -10,7 +10,7 @@ public class EnemyMoveController : MonoBehaviour
 
     [Header("Components")]
 
-    public Animator anim;
+    //public Animator anim;
     [SerializeField] public NavMeshAgent agent;
 
     [Header("Player")]
@@ -35,7 +35,7 @@ public class EnemyMoveController : MonoBehaviour
 
     public void Awake()
     {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
     }
     void Start()
@@ -51,7 +51,7 @@ public class EnemyMoveController : MonoBehaviour
     {
         if (currentStatus != null)
         {
-            currentStatus.EnterState();
+            currentStatus.UpdateState();
         }
 
     }

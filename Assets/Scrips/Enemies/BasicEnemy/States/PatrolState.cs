@@ -6,8 +6,8 @@ public class PatrolState : StatesBase
     public PatrolState(EnemyMoveController parameters) : base(parameters) { }
     public override void EnterState()
     {
-        controller.anim.CrossFade("Walk", 0.1f);
-        controller.agent.speed = controller.patrolSpeed;
+        //controller.anim.CrossFade("Walk", 0.1f);
+        //controller.agent.speed = controller.patrolSpeed;
 
         if (controller.patrolPoints.Count > 0)
         {

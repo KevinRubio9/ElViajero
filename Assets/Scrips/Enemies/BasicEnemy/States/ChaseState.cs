@@ -5,7 +5,7 @@ public class ChaseState : StatesBase
     public ChaseState(EnemyMoveController parameters) : base(parameters) { }
     public override void EnterState()
     {
-        controller.anim.CrossFade("Chase", 0.1f);
+        //controller.anim.CrossFade("Chase", 0.1f);
     }
     public override void UpdateState()
     {
