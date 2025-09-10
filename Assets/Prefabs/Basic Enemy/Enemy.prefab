@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4401891770567000881}
   - component: {fileID: 8506222821457130611}
   - component: {fileID: 2094983875906223396}
-  - component: {fileID: 5976348860579889630}
+  - component: {fileID: 564920428580169347}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -108,7 +108,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &5976348860579889630
+--- !u!114 &564920428580169347
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,18 +117,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 838264277507321435}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7623b7373f886049bc6f8c228cfaa85, type: 3}
+  m_Script: {fileID: 11500000, guid: dffd68a72e95e3a44ac20f5760047171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetAgent: {fileID: 0}
+  anim: {fileID: 0}
+  agent: {fileID: 0}
+  targetAgent: {fileID: 4039405833769636021, guid: 1db378445c80da241bf85caa15391a91, type: 3}
   actionDistance: 5
-  currDistance: 6
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  waitTime: 5
+  currDistance: 0
+  patrolPoints: []
+  currentPoint: 0
+  waitCounter: 0
+  waitTime: 2
+  patrolSpeed: 2
+  tackleSpeed: 5
 --- !u!1 &7111689002229378200
 GameObject:
   m_ObjectHideFlags: 0

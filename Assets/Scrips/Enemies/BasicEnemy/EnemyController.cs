@@ -13,8 +13,8 @@ public class EnemyController : MonoBehaviour
     public float currDistance;
 
     [Header("Patrulla")]
-    public List<Transform> patrolPoints;
-    private int currentPoint = 0;
+    public List<Transform> patrolPoints; 
+    private int currentPoint = 0; // Punto de patrulla actual
     public float waitTime = 2f;  // Tiempo entre puntos de patrulla
     private float waitCounter; // Contador para el tiempo de espera entre los puntos
 
