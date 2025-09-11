@@ -121,7 +121,6 @@ public class EnemyShooterLogic : MonoBehaviour
         bulletAvaiable.SetActive(true);
         bulletAvaiable.transform.position = pointBullet.position;
         bulletAvaiable.transform.rotation = pointBullet.rotation;
-
     }
 
     private void OnDrawGizmos()
