@@ -11,12 +11,12 @@ public class EnemyMoveController : MonoBehaviour
     [Header("Components")]
 
     //public Animator anim;
-    [SerializeField] public NavMeshAgent agent;
+    public NavMeshAgent agent;
 
     [Header("Player")]
     public Transform targetAgent;
     public float actionDistance = 5f;
-    [HideInInspector] public float currDistance;
+    [SerializeField] public float currDistance;
 
     [Header("Patrol")]
     public List<Transform> patrolPoints;
@@ -27,6 +27,8 @@ public class EnemyMoveController : MonoBehaviour
 
     [Header("Tackle")]
     public float tackleSpeed = 5f;
+    public float tacklePause = 0.3f;
+    [HideInInspector] public float lastTackleTime;
 
     // States
     public PatrolState patrol;
@@ -51,6 +53,8 @@ public class EnemyMoveController : MonoBehaviour
     {
         if (currentStatus != null)
         {
+            currentStatus.UpdateState();
+            Debug.Log("Estado actual: " + currentStatus.GetType().Name);
             currentStatus.UpdateState();
         }
 

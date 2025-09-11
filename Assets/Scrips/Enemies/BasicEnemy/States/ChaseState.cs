@@ -6,6 +6,7 @@ public class ChaseState : StatesBase
     public override void EnterState()
     {
         //controller.anim.CrossFade("Chase", 0.1f);
+        
     }
     public override void UpdateState()
     {
@@ -16,11 +17,13 @@ public class ChaseState : StatesBase
         controller.agent.SetDestination(controller.targetAgent.position);
 
         if (controller.currDistance <= controller.actionDistance * 0.7f)
-        {
+        { 
+            Debug.Log("Cerca suficiente para atacar, cambiando a tackle");
             ExitState(controller.tackle);
         }
         if (controller.currDistance > controller.actionDistance * 2f)
         {
+            Debug.Log("Player lejos, cambiando a patrulla");
             ExitState(controller.patrol);
         }
         
@@ -28,6 +31,7 @@ public class ChaseState : StatesBase
     public override void ExitState(StatesBase newState)
     {
         controller.ChangeStatus(newState);
+       
     }
 
 

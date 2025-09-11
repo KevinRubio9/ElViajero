@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,7 +14,7 @@ public class EnemyController : MonoBehaviour
     public float currDistance;
 
     [Header("Patrulla")]
-    public List<Transform> patrolPoints; 
+    public List<Transform> patrolPoints;
     private int currentPoint = 0; // Punto de patrulla actual
     public float waitTime = 2f;  // Tiempo entre puntos de patrulla
     private float waitCounter; // Contador para el tiempo de espera entre los puntos
@@ -22,7 +23,7 @@ public class EnemyController : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-     
+
     }
 
     void Start()
@@ -67,11 +68,10 @@ public class EnemyController : MonoBehaviour
         {
             Vector3 pushDirection = collision.transform.position - transform.position;
 
-            collision.gameObject.GetComponent<PlayerController>().Tackle(pushDirection, 5f);
+            //collision.gameObject.GetComponent<PlayerController>().Tackle(pushDirection, 5f);
         }
     }
 }
-
 
 
 

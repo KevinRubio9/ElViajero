@@ -7,7 +7,8 @@ public class PatrolState : StatesBase
     public override void EnterState()
     {
         //controller.anim.CrossFade("Walk", 0.1f);
-        //controller.agent.speed = controller.patrolSpeed;
+        controller.agent.speed = controller.patrolSpeed;
+        
 
         if (controller.patrolPoints.Count > 0)
         {
@@ -17,31 +18,37 @@ public class PatrolState : StatesBase
     public override void UpdateState()
     {
         controller.currDistance = Vector3.Distance(controller.transform.position, controller.targetAgent.position);
-
-        if (controller.currDistance < controller.actionDistance)
+        
+        if (controller.currDistance <= controller.actionDistance)
         {
+            Debug.Log("Player serca cambiando a chase");
             ExitState(controller.Chase);
         }
-
-        if (controller.patrolPoints.Count == 0) return;
-
-        if (!controller.agent.pathPending && controller.agent.remainingDistance < 0.5f)
+        else
         {
-            if (controller.waitCounter <= 0f)
+            if (controller.patrolPoints.Count == 0) return;
+
+            if (!controller.agent.pathPending && controller.agent.remainingDistance < 0.5f)
             {
-                controller.currentPoint = (controller.currentPoint + 1) % controller.patrolPoints.Count;
-                controller.agent.SetDestination(controller.patrolPoints[controller.currentPoint].position);
-                controller.waitCounter = controller.waitTime;
-            }
-            else
-            {
-                controller.waitCounter -= Time.deltaTime;
+                if (controller.waitCounter <= 0f)
+                {
+                    controller.currentPoint = (controller.currentPoint + 1) % controller.patrolPoints.Count;
+                    controller.agent.SetDestination(controller.patrolPoints[controller.currentPoint].position);
+                    controller.waitCounter = controller.waitTime;
+                }
+                else
+                {
+                    controller.waitCounter -= Time.deltaTime;
+                }
             }
         }
+
+
 
     }
     public override void ExitState(StatesBase newState)
     {
         controller.ChangeStatus(newState);
+     
     }
 }

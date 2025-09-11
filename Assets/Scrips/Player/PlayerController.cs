@@ -47,6 +47,14 @@ public class PlayerController : MonoBehaviour
     private Vector3 movDash;
     private bool canDash = true;
 
+    [Space]
+    [Header("Tackle")]
+    private bool isTackled;
+    private Vector3 tackleDirection;
+    private float tackleForce;
+    private float tackleTimer;
+
+
 
     void Start()
     {
@@ -99,6 +107,18 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(dash());
         }
 
+        if (isTackled)
+        {
+            character.Move(tackleDirection * tackleForce * Time.deltaTime);
+            tackleTimer -= Time.deltaTime;
+
+            if (tackleTimer <= 0)
+            {
+                isTackled = false;
+            }
+        }
+
+
     }
 
     IEnumerator dash()
@@ -146,10 +166,11 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.DrawCube(centerPoint.position, sizeDetection);
     }
-    public void Tackle(Vector3 direction, float force)
+    public void Tackle(Transform pusher, float force, float duration = 1f)
     {
-        direction.Normalize();
-        Vector3 push = direction * force;
-        character.Move(push * Time.deltaTime);
+        tackleDirection = (transform.position - pusher.position);
+        tackleForce = force;
+        tackleTimer = duration;
+        isTackled = true;
     }
 }
