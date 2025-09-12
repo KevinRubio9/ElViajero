@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8506222821457130611}
   - component: {fileID: 2094983875906223396}
   - component: {fileID: 564920428580169347}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dffd68a72e95e3a44ac20f5760047171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
   agent: {fileID: 0}
   targetAgent: {fileID: 4039405833769636021, guid: 1db378445c80da241bf85caa15391a91, type: 3}
   actionDistance: 5
@@ -131,6 +130,8 @@ MonoBehaviour:
   waitTime: 2
   patrolSpeed: 2
   tackleSpeed: 5
+  tacklePause: 0.5
+  lastTackleTime: 0
 --- !u!1 &7111689002229378200
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +143,7 @@ GameObject:
   - component: {fileID: 775589882351312980}
   - component: {fileID: 7523660982950892468}
   - component: {fileID: 6486349313513521665}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

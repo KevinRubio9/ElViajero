@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
         }
  
     }
-
+   
     IEnumerator Poisoned ()
     {
         poisoned = true;
@@ -168,9 +168,18 @@ public class PlayerController : MonoBehaviour
     }
     public void Tackle(Transform pusher, float force, float duration = 1f)
     {
-        tackleDirection = (transform.position - pusher.position);
+        tackleDirection = (transform.position - pusher.position).normalized;
         tackleForce = force;
         tackleTimer = duration;
         isTackled = true;
+    }
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+
+        FallingPlatform platform = hit.collider.GetComponent<FallingPlatform>();
+        if (platform != null)
+        {
+            platform.ActivateFalling();
+        }
     }
 }
