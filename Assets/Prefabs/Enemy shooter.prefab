@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6959651080574761114}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Target Mov Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4307710200304801871}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Point Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4829941169463278227}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Target Mov Enemy (2)
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6630629033788705447}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Point Center Detection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6537337551853612216}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Target Mov Enemy (1)
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 6560508681622822438}
   - component: {fileID: 1668728519713625124}
   - component: {fileID: 6001972048232575526}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 8193182419863730463}
   - component: {fileID: 4794115283606354712}
   - component: {fileID: 7675611938537236266}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +362,7 @@ GameObject:
   - component: {fileID: 3217322688304417834}
   - component: {fileID: 5237675014680095044}
   - component: {fileID: 4372847184756759908}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Enemy shooter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -459,8 +459,6 @@ MonoBehaviour:
   pinnedPlayer: 0
   playerInZone: 0
   distanceDetection: 10
-  sizeDetection: {x: 1, y: 1, z: 10}
-  pointCenterDetection: {fileID: 6630629033788705447}
   layerPlayer:
     serializedVersion: 2
     m_Bits: 256
