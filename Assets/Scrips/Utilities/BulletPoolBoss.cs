@@ -54,7 +54,7 @@ public class BulletPoolBoss : MonoBehaviour
         }
         else if (listSelected == 1)
         {
-            for (int i = 0; i < bulletType2.Count;i++)
+            for (int i = 0; i < bulletType2.Count; i++)
             {
                 if (!bulletType2[i].activeInHierarchy)
                 {
