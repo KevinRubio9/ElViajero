@@ -26,8 +26,8 @@ public class EnemyMoveController : MonoBehaviour
     public float patrolSpeed = 2f;
 
     [Header("Tackle")]
-    public float tackleSpeed = 5f;
-    public float tacklePause = 0.3f;
+    public float tackleSpeed = 10f;
+    public float tacklePause = 0.5f;
     [HideInInspector] public float lastTackleTime;
 
     // States

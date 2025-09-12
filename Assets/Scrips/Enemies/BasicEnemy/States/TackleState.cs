@@ -15,7 +15,7 @@ public class TackleState : StatesBase
 
         controller.currDistance = Vector3.Distance(controller.transform.position, controller.targetAgent.position);
 
-        if (controller.currDistance <= controller.actionDistance * 0.5f)
+        if (controller.currDistance < controller.actionDistance * 0.2f)
         {
             PlayerController player = controller.targetAgent.GetComponent<PlayerController>();
 
@@ -33,7 +33,7 @@ public class TackleState : StatesBase
         }
         else if (controller.currDistance <= controller.actionDistance)
         {
-            Debug.Log("Cerca suficiente para empujar, cambiando a chase");
+            Debug.Log("Cerca suficiente para seguir, cambiando a chase");
             ExitState(controller.Chase);
         }
     }
