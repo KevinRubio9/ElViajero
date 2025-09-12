@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5431773055161544906}
   m_Layer: 0
   m_Name: Bullet Pool
-  m_TagString: Untagged
+  m_TagString: BulletP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

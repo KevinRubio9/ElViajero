@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6959651080574761114}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Target Mov Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4307710200304801871}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Point Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4829941169463278227}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Target Mov Enemy (2)
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -93,6 +93,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3407193868009366790}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4403939530546796256
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6630629033788705447}
+  m_Layer: 7
+  m_Name: Point Center Detection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6630629033788705447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4403939530546796256}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3407193868009366790}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4706505915175470361
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,7 +133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6537337551853612216}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Target Mov Enemy (1)
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -135,7 +166,7 @@ GameObject:
   - component: {fileID: 6560508681622822438}
   - component: {fileID: 1668728519713625124}
   - component: {fileID: 6001972048232575526}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +254,7 @@ GameObject:
   - component: {fileID: 8193182419863730463}
   - component: {fileID: 4794115283606354712}
   - component: {fileID: 7675611938537236266}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +362,7 @@ GameObject:
   - component: {fileID: 3217322688304417834}
   - component: {fileID: 5237675014680095044}
   - component: {fileID: 4372847184756759908}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy shooter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,6 +387,7 @@ Transform:
   - {fileID: 6959651080574761114}
   - {fileID: 6537337551853612216}
   - {fileID: 4829941169463278227}
+  - {fileID: 6630629033788705447}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &3217322688304417834
@@ -423,4 +455,12 @@ MonoBehaviour:
   currentTargert: 0
   rotationSd: 10
   pointBullet: {fileID: 4307710200304801871}
-  fireRate: 3
+  fireRate: 2
+  pinnedPlayer: 0
+  playerInZone: 0
+  distanceDetection: 10
+  sizeDetection: {x: 1, y: 1, z: 10}
+  pointCenterDetection: {fileID: 6630629033788705447}
+  layerPlayer:
+    serializedVersion: 2
+    m_Bits: 256
