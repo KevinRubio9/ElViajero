@@ -5,20 +5,22 @@ using Unity.Mathematics;
 
 public class EnemyShooterLogic : MonoBehaviour
 {
-    
+
     [SerializeField] Transform player;
 
     //patrol
     NavMeshAgent agent;
-    public bool isPatrolling =true ;
+    public bool isPatrolling = true;
     public bool playerDetected;
     [SerializeField] List<Transform> pointsMov;
     public int currentTargert = 0;
-    [SerializeField]float rotationSd;
+    public float maxDistance;
+    [SerializeField] float rotationSd;
+
 
     //shoot
     BulletPoolEnemies bulletPool;
-    [SerializeField]Transform pointBullet;
+    [SerializeField] Transform pointBullet;
     [SerializeField] float fireRate;
     float rateTimeShoot;
     public bool pinnedPlayer;
@@ -44,11 +46,10 @@ public class EnemyShooterLogic : MonoBehaviour
 
         if (isPatrolling && !playerDetected)
         {
-            agent.updateRotation = true;
-            Patrol(); 
             agent.angularSpeed = 120f;
+            Patrol();
         }
-        else if (playerDetected )
+        else if (playerDetected)
         {
             LookTarget();
             agent.SetDestination(transform.position);
@@ -82,18 +83,19 @@ public class EnemyShooterLogic : MonoBehaviour
 
     public void Patrol()
     {
+        agent.updateRotation = true;
         agent.stoppingDistance = 0;
-        for (int i = 0; i < pointsMov.Count; i++)
+        float distanceTarget  = Vector3.Distance(agent.transform.position, pointsMov[currentTargert].position);
+        
+        if (distanceTarget <= maxDistance)
         {
-            if (agent.transform.position.z != pointsMov[i].position.z || agent.transform.position.x != pointsMov[i].position.x)
-            {
-                agent.SetDestination(pointsMov[currentTargert].position);
-                currentTargert++;
-                if (currentTargert >= pointsMov.Count)
-                { currentTargert = 0; }
-            }
+            currentTargert++;
+            if (currentTargert >= pointsMov.Count)
+            { currentTargert = 0; }
         }
+        agent.SetDestination(pointsMov[currentTargert].position);
 
+        Debug.Log(currentTargert);
     }
     private void LookTarget()
     {
@@ -103,7 +105,7 @@ public class EnemyShooterLogic : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSd * Time.deltaTime);
         }
-        
+
         if (pinnedPlayer)
         {
             playerInZone = true;
@@ -120,7 +122,7 @@ public class EnemyShooterLogic : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawRay(transform.position,transform.forward*distanceDetection);
+        Gizmos.DrawRay(transform.position, transform.forward * distanceDetection);
     }
 
 }
