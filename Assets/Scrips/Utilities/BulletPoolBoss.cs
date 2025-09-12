@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class BulletPoolBoss : MonoBehaviour
 {
-    [SerializeField] float amountBullets;
+    [SerializeField] int amountBullets;
     [SerializeField] List<GameObject> prefabs;
     [SerializeField] List<GameObject> bulletType1;
     [SerializeField] List<GameObject> bulletType2;
@@ -12,7 +12,7 @@ public class BulletPoolBoss : MonoBehaviour
 
     void Start()
     {
-        
+        InstantiateBullet(amountBullets);
     }
 
     // Update is called once per frame
@@ -40,21 +40,21 @@ public class BulletPoolBoss : MonoBehaviour
     {
         if (listSelected == 0)
         {
-            for( int i = 0; i < bulletType1.Count; i ++)
+            for( int i = 0; i < bulletType1.Count;i++)
             { 
                 if (!bulletType1[i].activeInHierarchy)
                 {
                     return bulletType1[i];
                 }
-                GameObject newBullet = Instantiate(prefabs[1]);
+                GameObject newBullet = Instantiate(prefabs[0]);
                 bulletType1.Add(newBullet);
                 newBullet.SetActive(false);
                 return newBullet;
             }
         }
-        else
+        else if (listSelected == 1)
         {
-            for (int i = 0; i < bulletType1.Count; i ++)
+            for (int i = 0; i < bulletType2.Count; i++)
             {
                 if (!bulletType2[i].activeInHierarchy)
                 {

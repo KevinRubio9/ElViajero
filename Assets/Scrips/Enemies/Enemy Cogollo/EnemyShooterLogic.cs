@@ -40,10 +40,7 @@ public class EnemyShooterLogic : MonoBehaviour
     }
     void Update()
     {
-
         pinnedPlayer = Physics.Raycast(transform.position, transform.forward, distanceDetection, layerPlayer);
-
-
 
         if (isPatrolling && !playerDetected)
         {
@@ -51,7 +48,6 @@ public class EnemyShooterLogic : MonoBehaviour
             Patrol(); 
             agent.angularSpeed = 120f;
         }
-
         else if (playerDetected )
         {
             LookTarget();
@@ -67,7 +63,6 @@ public class EnemyShooterLogic : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-
         if (other.gameObject.CompareTag("Player"))
         {
             isPatrolling = false;
