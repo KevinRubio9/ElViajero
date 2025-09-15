@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class UiController : MonoBehaviour
 {
-    [SerializeField] GameObject menuInicial, menuPausa, menuGameOver, menuHud, menuConfiguración;
+    [SerializeField] GameObject menuInicial, menuPausa, menuGameOver, menuHud, menuConfiguracion;
 
     private void Start()
     {
@@ -29,7 +29,7 @@ public class UiController : MonoBehaviour
         menuPausa.SetActive(true);
         menuGameOver.SetActive(false);
         menuHud.SetActive(false);
-        menuConfiguración.SetActive(false);
+        menuConfiguracion.SetActive(false);
     }
     public void ShowGameOver()
     {
@@ -37,7 +37,7 @@ public class UiController : MonoBehaviour
         menuPausa.SetActive(false);
         menuGameOver.SetActive(true);
         menuHud.SetActive(false);
-        menuConfiguración.SetActive(false);
+        menuConfiguracion.SetActive(false);
     }
     public void ShowHud()
     {
@@ -45,7 +45,7 @@ public class UiController : MonoBehaviour
         menuPausa.SetActive(false);
         menuGameOver.SetActive(false);
         menuHud.SetActive(true);
-        menuConfiguración.SetActive(false);
+        menuConfiguracion.SetActive(false);
     }
     public void ShowConfiguration()
     {
@@ -53,7 +53,7 @@ public class UiController : MonoBehaviour
         menuPausa.SetActive(false);
         menuGameOver.SetActive(false);
         menuHud.SetActive(false);
-        menuConfiguración.SetActive(true);
+        menuConfiguracion.SetActive(true);
     }
 
     public void ShowStart()
@@ -62,6 +62,6 @@ public class UiController : MonoBehaviour
         menuPausa.SetActive(false);
         menuGameOver.SetActive(false);
         menuHud.SetActive(false);
-        menuConfiguración.SetActive(false);
+        menuConfiguracion.SetActive(false);
     }
 }
