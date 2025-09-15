@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BulletEnemy : MonoBehaviour
 {
@@ -29,11 +30,18 @@ public class BulletEnemy : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    // private void OnCollisionEnter(Collision collision)
+    //{
+    //    if(collision.gameObject.CompareTag("Player"))
+    //  {
+    //    gameObject.SetActive(false);
+    //}
+    //}
+    public void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.name == "Player")
         {
-            gameObject.SetActive(false);
+            SceneManager.LoadScene("DiseñoTutorial");
         }
     }
 
