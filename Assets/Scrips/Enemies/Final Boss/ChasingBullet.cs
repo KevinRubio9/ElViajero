@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ChasingBullet : MonoBehaviour
 {
-    public Transform target;
+    public GameObject target;
     public float speed;
     public float lifeTime;
     Rigidbody rb;
@@ -12,8 +12,9 @@ public class ChasingBullet : MonoBehaviour
     void Awake()
     {
         StartCoroutine(DisableBullet());
-        FindPlayer();
+        target = GetPlayer();
         rb = GetComponent<Rigidbody>();
+
     }
 
     // Update is called once per frame
@@ -24,7 +25,7 @@ public class ChasingBullet : MonoBehaviour
 
     public void ChasingTarget()
     {
-        Vector3 direction = target.position - transform.position;
+        Vector3 direction = target.transform.position - transform.position;
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
 
@@ -32,13 +33,17 @@ public class ChasingBullet : MonoBehaviour
 
         rb.linearVelocity = transform.forward * speed;
     }
-    public void FindPlayer()
+    public GameObject GetPlayer()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        
+
         if (player != null)
         {
-            target = player.transform;
+            return player;
+        }
+        else
+        {
+            return null;
         }
     }
 

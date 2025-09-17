@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FinalBossLogic : MonoBehaviour
@@ -8,9 +9,10 @@ public class FinalBossLogic : MonoBehaviour
     BulletPoolBoss bulletPool;
     public Transform pointBullet1;
     public Transform pointBullet2;
-    public int numberList;
     public float fireRate;
     float rateTimeShoot;
+    public List<WeakPointBoss> weakPoints;
+    public bool weakPointsActive = false;
 
 
 
@@ -30,6 +32,17 @@ public class FinalBossLogic : MonoBehaviour
             Shoot();
             rateTimeShoot = Time.time + fireRate;
         }
+
+        if (CheckWeakActive())
+        {
+            gameObject.SetActive(false);
+        }
+
+        if (weakPointsActive)
+        {
+            gameObject.SetActive(false);
+        }
+
     }
 
     public void LookTarget()
@@ -42,8 +55,6 @@ public class FinalBossLogic : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, sdRotate * Time.deltaTime);
         }
-
-
     }
 
     public void LookPointsBullet()
@@ -71,27 +82,36 @@ public class FinalBossLogic : MonoBehaviour
             GameObject bulletAvaiable = bulletPool.UseBullet(0);
             bulletAvaiable.SetActive(true);
 
-
-
             bulletAvaiable.transform.position = pointBullet1.position;
             bulletAvaiable.transform.rotation = pointBullet1.rotation;
         }
         else
         {
-
             GameObject bulletAvaiable = bulletPool.UseBullet(1);
             bulletAvaiable.SetActive(true);
-
-           
 
             bulletAvaiable.transform.position = pointBullet2.position;
             bulletAvaiable.transform.rotation = pointBullet2.rotation;
         }
-
     }
+
+    public bool CheckWeakActive()
+    {
+        foreach (var x in weakPoints)
+        {
+            if (!x.active)
+            {
+                return weakPointsActive = false;
+            }
+        }
+
+        Debug.Log("todas las marcas fueron activadas");
+        return weakPointsActive = true;
+    }
+
     private void OnDrawGizmos()
     {
-        Gizmos.DrawRay(pointBullet1.position,pointBullet1.transform.forward*20f);
-        Gizmos.DrawRay(pointBullet2.position,pointBullet2.transform.forward*20f);
+        Gizmos.DrawRay(pointBullet1.position, pointBullet1.transform.forward * 20f);
+        Gizmos.DrawRay(pointBullet2.position, pointBullet2.transform.forward * 20f);
     }
 }
