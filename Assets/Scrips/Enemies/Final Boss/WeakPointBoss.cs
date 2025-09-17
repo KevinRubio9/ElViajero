@@ -5,7 +5,7 @@ using System.Collections;
 
 public class WeakPointBoss : MonoBehaviour
 {
-    private bool active = false;
+    public bool active = false;
     public float timeActive;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
