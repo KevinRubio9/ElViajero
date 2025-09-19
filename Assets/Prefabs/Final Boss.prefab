@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 295973370333623642}
   m_Layer: 0
-  m_Name: Point Bullet 2
+  m_Name: Point Bullet R
   m_TagString: Untagged
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -220,12 +220,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae6da3217d1e7d408a13848ae4bd550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  playerController: {fileID: 0}
   sdRotate: 10
-  pointBullet1: {fileID: 2178296079217100019}
-  pointBullet2: {fileID: 295973370333623642}
-  numberList: 0
+  pointBulletL: {fileID: 2178296079217100019}
+  pointBulletR: {fileID: 295973370333623642}
   fireRate: 2
+  fireRateBurst: 0.5
+  weakPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  weakPointsActive: 0
+  maxBullet: 3
+  bulletsInstantiate: 0
 --- !u!135 &4633860465100086990
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -257,7 +263,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2178296079217100019}
   m_Layer: 0
-  m_Name: Point Bullet 1
+  m_Name: Point Bullet L
   m_TagString: Untagged
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

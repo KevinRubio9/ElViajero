@@ -20,6 +20,6 @@ public class DashState : BaseState
 
     public override void ExitState(BaseState newState)
     {
-
+        controller.ChangeState(newState);
     }
 }

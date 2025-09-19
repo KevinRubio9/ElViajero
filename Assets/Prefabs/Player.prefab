@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
-  timePoisoned: 0
+  timePoisoned: 3
   poisoned: 0
   speed: 10
   speedCorrupted: 5
@@ -409,8 +409,8 @@ MonoBehaviour:
   isGrounded: 0
   speedDash: 10
   speedDashCorrupted: 5
-  cooldownDash: 4
-  timeDash: 3
+  cooldownDash: 1
+  timeDash: 0.5
   movDash: {x: 0, y: 0, z: 0}
   canDash: 1
   isTackled: 0

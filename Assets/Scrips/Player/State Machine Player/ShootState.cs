@@ -15,6 +15,7 @@ public class ShootState : BaseState
 
     public override void ExitState(BaseState newState)
     {
+        controller.ChangeState(newState);
 
     }
 }

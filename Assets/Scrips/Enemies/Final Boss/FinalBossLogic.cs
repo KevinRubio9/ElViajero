@@ -8,9 +8,10 @@ public class FinalBossLogic : MonoBehaviour
     public PlayerController playerController;
     public float sdRotate;
     BulletPoolBoss bulletPool;
-    public Transform pointBullet1;
-    public Transform pointBullet2;
+    public Transform pointBulletL;
+    public Transform pointBulletR;
     public float fireRate;
+    public float fireRateBurst;
     float rateTimeShoot;
     public List<WeakPointBoss> weakPoints;
     public bool weakPointsActive = false;
@@ -68,18 +69,18 @@ public class FinalBossLogic : MonoBehaviour
 
     public void LookPointsBullet()
     {
-        Vector3 direction1 = playerController.transform.position - pointBullet1.position;
+        Vector3 direction1 = playerController.transform.position - pointBulletL.position;
         if (direction1 != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction1);
-            pointBullet1.rotation = Quaternion.Slerp(pointBullet1.rotation, targetRotation, sdRotate * Time.deltaTime);
+            pointBulletL.rotation = Quaternion.Slerp(pointBulletL.rotation, targetRotation, sdRotate * Time.deltaTime);
         }
 
-        Vector3 direction2 = playerController.transform.position - pointBullet2.position;
+        Vector3 direction2 = playerController.transform.position - pointBulletR.position;
         if (direction2 != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction2);
-            pointBullet2.rotation = Quaternion.Slerp(pointBullet2.rotation, targetRotation, sdRotate * Time.deltaTime);
+            pointBulletR.rotation = Quaternion.Slerp(pointBulletR.rotation, targetRotation, sdRotate * Time.deltaTime);
         }
     }
 
@@ -88,19 +89,19 @@ public class FinalBossLogic : MonoBehaviour
         int randomList = Random.Range(0, 4);
         if (randomList == 0)
         {
-            GameObject bulletAvaiable = bulletPool.UseBullet(0);
-            bulletAvaiable.SetActive(true);
-
-            bulletAvaiable.transform.position = pointBullet1.position;
-            bulletAvaiable.transform.rotation = pointBullet1.rotation;
-        }
-        else
-        {
             GameObject bulletAvaiable = bulletPool.UseBullet(1);
             bulletAvaiable.SetActive(true);
 
-            bulletAvaiable.transform.position = pointBullet2.position;
-            bulletAvaiable.transform.rotation = pointBullet2.rotation;
+            bulletAvaiable.transform.position = pointBulletR.position;
+            bulletAvaiable.transform.rotation = pointBulletR.rotation;
+        }
+        else
+        {
+            GameObject bulletAvaiable = bulletPool.UseBullet(0);
+            bulletAvaiable.SetActive(true);
+
+            bulletAvaiable.transform.position = pointBulletL.position;
+            bulletAvaiable.transform.rotation = pointBulletL.rotation;
         }
     }
     public void Shoot()
@@ -108,8 +109,8 @@ public class FinalBossLogic : MonoBehaviour
         GameObject bulletAvaiable = bulletPool.UseBullet(0);
         bulletAvaiable.SetActive(true);
         bulletsInstantiate++;
-        bulletAvaiable.transform.position = pointBullet1.position;
-        bulletAvaiable.transform.rotation = pointBullet1.rotation;
+        bulletAvaiable.transform.position = pointBulletL.position;
+        bulletAvaiable.transform.rotation = pointBulletL.rotation;
     }
 
     public void ShootBurst()
@@ -118,7 +119,7 @@ public class FinalBossLogic : MonoBehaviour
         if (bulletsInstantiate < maxBullet && Time.time >= rateTimeShoot)
         {
             Shoot();
-            rateTimeShoot = Time.time + fireRate;
+            rateTimeShoot = Time.time + fireRateBurst;
         }
     }
     public bool CheckWeakActive()
@@ -138,7 +139,7 @@ public class FinalBossLogic : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawRay(pointBullet1.position, pointBullet1.transform.forward * 20f);
-        Gizmos.DrawRay(pointBullet2.position, pointBullet2.transform.forward * 20f);
+        Gizmos.DrawRay(pointBulletL.position, pointBulletL.transform.forward * 20f);
+        Gizmos.DrawRay(pointBulletR.position, pointBulletR.transform.forward * 20f);
     }
 }

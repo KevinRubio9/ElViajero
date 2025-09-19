@@ -7,16 +7,26 @@ public class IdleState : BaseState
 
     public override void EnterState()
     {
-        Debug.Log("Entro en estado Idle");
+
     }
 
     public override void UpdateState()
     {
+        Debug.Log("Esta en estado Idle");
 
+        if (Input.GetButtonDown("Jump") && controller.isGrounded)
+        {
+            ExitState(controller.jump);
+        }
+
+        if (controller.movHori != 0  || controller.movVert != 0)
+        {
+            ExitState(controller.run);
+        }
     }
 
     public override void ExitState(BaseState newState)
     {
-
+        controller.ChangeState(newState);
     }
 }

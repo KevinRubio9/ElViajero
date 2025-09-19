@@ -58,6 +58,12 @@ public class PlayerController : MonoBehaviour
     public float tackleForce;
     public float tackleTimer;
 
+
+    private Vector3 lastPosition;
+    public float VelocityY { get => _velocityY; set => _velocityY = value; }
+    public float _velocityY;
+
+
     private void Awake()
     {
         character = GetComponent<CharacterController>();
@@ -79,37 +85,15 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics.CheckBox(centerPoint.position, sizeDetection, Quaternion.identity, layerGround);
 
-        // condicion de salto
-        if (Input.GetButtonDown("Jump"))
-        {
-            ChangeState(jump);
-        }
-   
-        // movimiento eje X y Z
+
         movHori = Input.GetAxis("Horizontal");
         movVert = Input.GetAxis("Vertical");
-        Vector3 mov = new Vector3(movHori, 0, movVert);
-
-        float camDirection = cam.eulerAngles.y;
-        Vector3 movByCam = Quaternion.Euler(0f, camDirection, 0f) * mov;
-        if (!poisoned)
-        {
-            character.Move(movByCam * speed * Time.deltaTime);
-
-        }
-        else { character.Move(movByCam * speedCorrupted * Time.deltaTime); }
-        if (mov != Vector3.zero)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(movByCam);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, sdRotate * Time.deltaTime);
-        }
-        velocity.y += gravity * Time.deltaTime;
-        character.Move(velocity * Time.deltaTime);
 
         // condicion de dash
         if (Input.GetButtonDown("Fire3") && canDash)
         {
-            ChangeState(dash);
+            StartCoroutine(Dash());
+            //ChangeState(dash);
         }
 
         if (isTackled)
@@ -122,6 +106,12 @@ public class PlayerController : MonoBehaviour
                 isTackled = false;
             }
         }
+
+        velocity.y += gravity * Time.deltaTime;
+        character.Move(velocity * Time.deltaTime);
+        currentState?.UpdateState();
+
+        CalculateSpeed();
     }
 
     public void ChangeState(BaseState newState)
@@ -142,15 +132,15 @@ public class PlayerController : MonoBehaviour
         float vertDash = Input.GetAxisRaw("Vertical");
         movDash = new Vector3(horiDash, 0, vertDash);
 
-        if (movDash == Vector3.zero)
-        {
-            movDash = transform.forward;
-        }
+        //if (movDash == Vector3.zero)
+        //{
+        //    movDash = transform.forward;
+        //}
 
         float timer = 0;
         while (timer < timeDash)
         {
-            character.Move(movDash * speedDash * Time.deltaTime);
+            character.Move(transform.forward * speedDash * Time.deltaTime);
             timer += Time.deltaTime;
             yield return null;
         }
@@ -164,7 +154,17 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(timePoisoned);
         poisoned = false;
     }
+    public void CalculateSpeed()
+    {
+        // Diferencia de posición entre frames
+        Vector3 deltaPosition = transform.position - lastPosition;
 
+        // Velocidad vertical = cambio en Y / tiempo
+        _velocityY = deltaPosition.y / Time.deltaTime;
+
+        // Guardar posición actual para el siguiente frame
+        lastPosition = transform.position;
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Bullet1"))
