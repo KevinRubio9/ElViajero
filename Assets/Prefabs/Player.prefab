@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8592115783289863748}
   - component: {fileID: 8507632959908267169}
   - component: {fileID: 1982275074798866247}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3681261579959411663}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 2131338138377808489}
   - component: {fileID: 9089339439984098152}
   - component: {fileID: 1035568739188552904}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5284219914095234436}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
@@ -291,7 +291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4860835480069794775}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Center point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,9 +326,9 @@ GameObject:
   - component: {fileID: 344968722791119147}
   - component: {fileID: 4457099705334552615}
   - component: {fileID: 1477146351384316714}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
-  m_TagString: BulletP
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

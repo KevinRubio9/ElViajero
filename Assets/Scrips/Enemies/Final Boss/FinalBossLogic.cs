@@ -4,8 +4,8 @@ using UnityEngine;
 public class FinalBossLogic : MonoBehaviour
 {
 
-    public Transform player;
-    PlayerController playerController;
+    //public Transform player;
+    public PlayerController playerController;
     public float sdRotate;
     BulletPoolBoss bulletPool;
     public Transform pointBullet1;
@@ -14,6 +14,9 @@ public class FinalBossLogic : MonoBehaviour
     float rateTimeShoot;
     public List<WeakPointBoss> weakPoints;
     public bool weakPointsActive = false;
+    public float maxBullet;
+    public float bulletsInstantiate;
+
 
 
 
@@ -29,16 +32,13 @@ public class FinalBossLogic : MonoBehaviour
         LookTarget();
         LookPointsBullet();
 
-
         if (playerController.poisoned)
         {
-            ShootBulst();
-
+            ShootBurst();
         }
-
         else if (!playerController.poisoned)
-
         {
+            bulletsInstantiate = 0;
             if (Time.time >= rateTimeShoot)
             {
                 ShootRandom();
@@ -46,7 +46,6 @@ public class FinalBossLogic : MonoBehaviour
             }
 
         }
-
 
         if (CheckWeakActive())
         {
@@ -57,7 +56,7 @@ public class FinalBossLogic : MonoBehaviour
 
     public void LookTarget()
     {
-        Vector3 direction = player.position - transform.position;
+        Vector3 direction = playerController.transform.position - transform.position;
         direction.y = 0f;
 
         if (direction != Vector3.zero)
@@ -69,14 +68,14 @@ public class FinalBossLogic : MonoBehaviour
 
     public void LookPointsBullet()
     {
-        Vector3 direction1 = player.position - pointBullet1.position;
+        Vector3 direction1 = playerController.transform.position - pointBullet1.position;
         if (direction1 != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction1);
             pointBullet1.rotation = Quaternion.Slerp(pointBullet1.rotation, targetRotation, sdRotate * Time.deltaTime);
         }
 
-        Vector3 direction2 = player.position - pointBullet2.position;
+        Vector3 direction2 = playerController.transform.position - pointBullet2.position;
         if (direction2 != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction2);
@@ -108,17 +107,17 @@ public class FinalBossLogic : MonoBehaviour
     {
         GameObject bulletAvaiable = bulletPool.UseBullet(0);
         bulletAvaiable.SetActive(true);
-
-        bulletAvaiable.transform.position = pointBullet2.position;
-        bulletAvaiable.transform.rotation = pointBullet2.rotation;
-
+        bulletsInstantiate++;
+        bulletAvaiable.transform.position = pointBullet1.position;
+        bulletAvaiable.transform.rotation = pointBullet1.rotation;
     }
 
-    public void ShootBulst() 
+    public void ShootBurst()
     {
-        if (Time.time >= rateTimeShoot)
+        Debug.Log("enter in burst mode");
+        if (bulletsInstantiate < maxBullet && Time.time >= rateTimeShoot)
         {
-            ShootRandom();
+            Shoot();
             rateTimeShoot = Time.time + fireRate;
         }
     }
@@ -136,7 +135,7 @@ public class FinalBossLogic : MonoBehaviour
         return weakPointsActive = true;
     }
 
-    
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawRay(pointBullet1.position, pointBullet1.transform.forward * 20f);

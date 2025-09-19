@@ -102,7 +102,6 @@ public class PlayerController : MonoBehaviour
         {
             Quaternion targetRotation = Quaternion.LookRotation(movByCam);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, sdRotate * Time.deltaTime);
-
         }
         velocity.y += gravity * Time.deltaTime;
         character.Move(velocity * Time.deltaTime);
@@ -134,7 +133,6 @@ public class PlayerController : MonoBehaviour
     public void StartDash()
     {
         StartCoroutine(Dash());
-
     }
 
     public IEnumerator Dash()
@@ -173,7 +171,6 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(Poisoned());
         }
-
     }
 
     private void OnDrawGizmos()
@@ -189,7 +186,6 @@ public class PlayerController : MonoBehaviour
     }
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-
         FallingPlatform platform = hit.collider.GetComponent<FallingPlatform>();
         if (platform != null)
         {

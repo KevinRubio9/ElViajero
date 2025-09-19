@@ -11,10 +11,14 @@ public class ChasingBullet : MonoBehaviour
 
     void Awake()
     {
-        StartCoroutine(DisableBullet());
         target = GetPlayer();
         rb = GetComponent<Rigidbody>();
 
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(DisableBullet());
     }
 
     // Update is called once per frame

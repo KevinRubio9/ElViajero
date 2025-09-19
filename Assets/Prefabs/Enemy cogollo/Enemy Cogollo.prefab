@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 5237675014680095044}
   - component: {fileID: 4372847184756759908}
   m_Layer: 7
-  m_Name: Enemy shooter
+  m_Name: Enemy Cogollo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -453,14 +453,13 @@ MonoBehaviour:
   - {fileID: 6537337551853612216}
   - {fileID: 4829941169463278227}
   currentTargert: 0
+  maxDistance: 1
   rotationSd: 10
   pointBullet: {fileID: 4307710200304801871}
   fireRate: 2
   pinnedPlayer: 0
   playerInZone: 0
   distanceDetection: 10
-  sizeDetection: {x: 1, y: 1, z: 10}
-  pointCenterDetection: {fileID: 6630629033788705447}
   layerPlayer:
     serializedVersion: 2
     m_Bits: 256
