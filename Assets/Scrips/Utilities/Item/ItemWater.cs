@@ -8,7 +8,7 @@ public class ItemWater : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>(); 
+            LifeController playerHealth = other.GetComponent<LifeController>(); 
             if (playerHealth != null)
             {
                 playerHealth.Heal(amountCure);

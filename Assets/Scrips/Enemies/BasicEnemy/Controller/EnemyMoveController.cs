@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class EnemyMoveController : MonoBehaviour
 {
     StatesBase currentStatus;
+    public LifeController life;
 
     [Header("Components")]
 
@@ -34,19 +35,24 @@ public class EnemyMoveController : MonoBehaviour
     public PatrolState patrol;
     public TackleState tackle;
     public ChaseState Chase;
+    public DeadState Dead;
 
     public void Awake()
     {
         //anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        life = GetComponent<LifeController>();
     }
     void Start()
     {
         patrol = new PatrolState(this);
         Chase = new ChaseState(this);
         tackle = new TackleState(this);
+        Dead = new DeadState(this);
 
         ChangeStatus(patrol);
+        life.onDead += HandleDead;
+
     }
 
     void Update()
@@ -54,10 +60,20 @@ public class EnemyMoveController : MonoBehaviour
         if (currentStatus != null)
         {
             currentStatus.UpdateState();
-            Debug.Log("Estado actual: " + currentStatus.GetType().Name);
-            currentStatus.UpdateState();
+        
         }
 
+    }
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Bullet1"))
+        {
+            ChangeStatus(Dead);
+        }
+    }
+    public void HandleDead()
+    {
+        ChangeStatus(Dead);
     }
     public void ChangeStatus(StatesBase newStatus)
     {

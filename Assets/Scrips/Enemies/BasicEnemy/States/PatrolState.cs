@@ -21,7 +21,7 @@ public class PatrolState : StatesBase
         
         if (controller.currDistance <= controller.actionDistance)
         {
-            Debug.Log("Player serca cambiando a chase");
+           
             ExitState(controller.Chase);
         }
         else
