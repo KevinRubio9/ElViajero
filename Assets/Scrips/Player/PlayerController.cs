@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.DrawCube(centerPoint.position, sizeDetection);
     }
-    public void Tackle(Transform pusher, float force, float duration = 1f)
+    public void Tackle(Transform pusher, float force, float duration = 0.5f)
     {
         tackleDirection = (transform.position - pusher.position).normalized;
         tackleForce = force;

@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sdBullet: 100
+  damage: 2
 --- !u!54 &2643464689996399722
 Rigidbody:
   m_ObjectHideFlags: 0
