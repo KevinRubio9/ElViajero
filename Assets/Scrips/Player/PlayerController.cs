@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 
 {
     CharacterController character;
+    LifeController life;
 
     [Header("Envenenamiento")]
     public float timePoisoned;
@@ -59,6 +60,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         character = GetComponent<CharacterController>();
+        life = GetComponent<LifeController>();
+       
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -149,7 +152,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet1"))
         {
-           StartCoroutine(Poisoned());
+            life.TakeDamage(1);
+            StartCoroutine(Poisoned());
         }
  
     }

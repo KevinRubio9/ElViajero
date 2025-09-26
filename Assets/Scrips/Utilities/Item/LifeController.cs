@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class LifeController : MonoBehaviour
 {
+    public EnemyMoveController enemyMoveController;
     [SerializeField] int maxHealth = 0;
     [SerializeField] int currentHealth;
 
-    public System.Action onDead;
     void Start()
     {
         currentHealth = maxHealth;
@@ -25,12 +25,26 @@ public class LifeController : MonoBehaviour
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
+            HandleDeath();
+        }
+    }
+    private void HandleDeath()
+    {
+        if (enemyMoveController != null)
+        {
+            enemyMoveController.HandleDead();
+
+
+        }
+        else
+        {
+            
             Dead();
         }
     }
     public void Dead()
     {
         Debug.Log("Dead");
-        onDead?.Invoke();
+        Destroy(gameObject);
     }
 }

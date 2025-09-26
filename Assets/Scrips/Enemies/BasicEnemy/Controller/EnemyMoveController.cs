@@ -51,7 +51,7 @@ public class EnemyMoveController : MonoBehaviour
         Dead = new DeadState(this);
 
         ChangeStatus(patrol);
-        life.onDead += HandleDead;
+
 
     }
 
@@ -60,17 +60,11 @@ public class EnemyMoveController : MonoBehaviour
         if (currentStatus != null)
         {
             currentStatus.UpdateState();
-        
+
         }
 
     }
-    public void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("Bullet1"))
-        {
-            ChangeStatus(Dead);
-        }
-    }
+
     public void HandleDead()
     {
         ChangeStatus(Dead);

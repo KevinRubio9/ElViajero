@@ -7,6 +7,7 @@ public class EnemyShooterLogic : MonoBehaviour
 {
 
     [SerializeField] Transform player;
+    LifeController lifeEnemy;
 
     //patrol
     NavMeshAgent agent;
@@ -34,6 +35,7 @@ public class EnemyShooterLogic : MonoBehaviour
     {
         bulletPool = FindAnyObjectByType<BulletPoolEnemies>();
         agent = GetComponent<NavMeshAgent>();
+        lifeEnemy = GetComponent<LifeController>();
 
         foreach (Transform t in pointsMov)
         {
@@ -124,6 +126,8 @@ public class EnemyShooterLogic : MonoBehaviour
     {
         Gizmos.DrawRay(transform.position, transform.forward * distanceDetection);
     }
+ 
+
 
 }
 

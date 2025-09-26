@@ -15,7 +15,7 @@ public class DeadState : StatesBase
     {
         if (currentTimer <= 0f)
         {
-            GameObject.Destroy(controller.gameObject);
+            controller.life.Dead();
         }
         currentTimer -= Time.deltaTime;
     }

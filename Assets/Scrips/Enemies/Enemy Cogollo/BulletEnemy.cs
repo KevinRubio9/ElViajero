@@ -6,7 +6,7 @@ public class BulletEnemy : MonoBehaviour
     Rigidbody rb;
     [SerializeField] float sdBullet;
     [SerializeField] float lifeTime;
-
+    [SerializeField] int damage = 1;
     private void OnEnable()
     {
         StartCoroutine(DisableBullet());
@@ -33,7 +33,17 @@ public class BulletEnemy : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            gameObject.SetActive(false);
+            LifeController life = collision.gameObject.GetComponent<LifeController>();
+
+            if (life != null)
+            {
+                life.TakeDamage(damage);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
+               
         }
     }
 
