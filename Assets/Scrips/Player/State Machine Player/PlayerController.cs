@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 
 {
 
+    public Animator anim;
+
     public CharacterController character;
     BaseState currentState;
     public IdleState idle;
@@ -67,6 +69,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         character = GetComponent<CharacterController>();
+        anim = GetComponent<Animator>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 

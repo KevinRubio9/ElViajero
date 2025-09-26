@@ -326,6 +326,7 @@ GameObject:
   - component: {fileID: 344968722791119147}
   - component: {fileID: 4457099705334552615}
   - component: {fileID: 1477146351384316714}
+  - component: {fileID: -6506092034395241687}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -388,6 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90904f68e25d6fa468e478cf6510eeec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   character: {fileID: 0}
   timePoisoned: 3
   poisoned: 0
@@ -417,6 +419,7 @@ MonoBehaviour:
   tackleDirection: {x: 0, y: 0, z: 0}
   tackleForce: 0
   tackleTimer: 0
+  _velocityY: 0
 --- !u!114 &4457099705334552615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,3 +447,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
+--- !u!95 &-6506092034395241687
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8759472233722192318}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d0b59ad630143444d95ec025ddc2f4a2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

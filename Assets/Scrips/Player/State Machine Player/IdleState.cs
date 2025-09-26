@@ -7,7 +7,7 @@ public class IdleState : BaseState
 
     public override void EnterState()
     {
-
+        controller.anim.CrossFade("Idle",0.1f);
     }
 
     public override void UpdateState()

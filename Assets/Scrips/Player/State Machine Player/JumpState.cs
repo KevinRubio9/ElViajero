@@ -7,6 +7,8 @@ public class JumpState : BaseState
     public JumpState(PlayerController controllerParameter) : base(controllerParameter) { }
     public override void EnterState()
     {
+        controller.anim.CrossFade("Jump",0.1f);
+
         if (!controller.poisoned)
         {
             controller.velocity.y = Mathf.Sqrt(controller.forceJump * -2 * controller.gravity);
@@ -43,6 +45,7 @@ public class JumpState : BaseState
 
         if (controller.velocity.y < 0 && !controller.isGrounded)
         {
+            controller.anim.CrossFade("Fall",0.1f);
             Debug.Log("Esta cayendo metanle anim de caer, gracias");
         }
 

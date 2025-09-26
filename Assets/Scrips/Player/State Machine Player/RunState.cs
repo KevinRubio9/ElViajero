@@ -10,7 +10,7 @@ public class RunState : BaseState
 
     public override void EnterState()
     {
-
+        controller.anim.CrossFade("Run",0.1f);
     }
 
     public override void UpdateState()
