@@ -14,6 +14,11 @@ public class IdleState : BaseState
     {
         Debug.Log("Esta en estado Idle");
 
+        if (Input.GetButtonDown("Fire3") && controller.canDash)
+        {
+            ExitState(controller.dash);
+        }
+
         if (Input.GetButtonDown("Jump") && controller.isGrounded)
         {
             ExitState(controller.jump);

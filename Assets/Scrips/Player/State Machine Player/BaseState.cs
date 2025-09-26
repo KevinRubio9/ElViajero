@@ -11,5 +11,8 @@ public abstract class BaseState
 
     public abstract void EnterState();
     public abstract void UpdateState();
+    public virtual void AnimationEvent()
+    {
+    }
     public abstract void ExitState(BaseState newState);
 }
