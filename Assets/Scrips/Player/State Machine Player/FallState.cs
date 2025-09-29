@@ -39,6 +39,10 @@ public class FallState : BaseState
             }
             else { ExitState(controller.run); }
         }
+        if (Input.GetButtonDown("Fire3") && controller.canDash)
+        {
+            ExitState(controller.dash);
+        }
     }
     public override void ExitState(BaseState newState)
     {
