@@ -56,7 +56,10 @@ public class JumpState : BaseState
             ExitState(controller.fall);
         }
 
-
+        if (Input.GetButtonDown("Fire1"))
+        {
+            ExitState(controller.shoot);
+        }
 
     }
 

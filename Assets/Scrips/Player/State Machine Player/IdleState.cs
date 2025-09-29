@@ -7,7 +7,7 @@ public class IdleState : BaseState
 
     public override void EnterState()
     {
-        controller.anim.CrossFade("Idle",0.1f);
+        controller.anim.CrossFade("Idle",0.1f,0);
     }
 
     public override void UpdateState()
@@ -27,6 +27,10 @@ public class IdleState : BaseState
         if (controller.movHori != 0  || controller.movVert != 0)
         {
             ExitState(controller.run);
+        }
+        if (Input.GetButtonDown("Fire1"))
+        {
+            ExitState(controller.shoot);
         }
     }
 

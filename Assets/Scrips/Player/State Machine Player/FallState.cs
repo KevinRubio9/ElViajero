@@ -43,6 +43,11 @@ public class FallState : BaseState
         {
             ExitState(controller.dash);
         }
+        if (Input.GetButtonDown("Fire1"))
+        {
+            ExitState(controller.shoot);
+        }
+
     }
     public override void ExitState(BaseState newState)
     {

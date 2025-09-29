@@ -10,7 +10,7 @@ public class RunState : BaseState
 
     public override void EnterState()
     {
-        controller.anim.CrossFade("Run",0.1f);
+        controller.anim.CrossFade("Run",0.1f,0);
     }
 
     public override void UpdateState()
@@ -48,7 +48,10 @@ public class RunState : BaseState
         {
             ExitState(controller.idle);
         }
-
+        if (Input.GetButtonDown("Fire1"))
+        {
+            ExitState(controller.shoot);
+        }
     }
 
     public override void ExitState(BaseState newState)

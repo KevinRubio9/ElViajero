@@ -17,7 +17,6 @@ public class ShootPlayer : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            controller.anim.Play("Shoot");
             Shoot();
         }
 
