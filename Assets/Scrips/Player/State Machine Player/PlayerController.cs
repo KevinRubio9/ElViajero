@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Timeline;
 
 public class PlayerController : MonoBehaviour
@@ -199,8 +200,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     public void AnimationEvent()
     {
         currentState?.AnimationEvent();
+    } 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.name == "Lava")
+        {
+            SceneManager.LoadScene("DiseñoTutorial");
+        }
+
     }
 }

@@ -8,6 +8,12 @@ public class TrapShooter : MonoBehaviour
     public float rateShoot;
     public Transform pointShoot;
     float timerShoot;
+    [SerializeField] AudioSource audSou;
+
+    private void Start()
+    {
+        audSou = GetComponent<AudioSource>();
+    }
 
 
 
@@ -18,6 +24,7 @@ public class TrapShooter : MonoBehaviour
         {
             Instantiate(prefebBullet, pointShoot.position, pointShoot.rotation);
             timerShoot = Time.time + rateShoot;
+            audSou.Play();
         }
     }
 }
