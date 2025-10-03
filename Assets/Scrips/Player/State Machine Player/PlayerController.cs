@@ -209,7 +209,7 @@ public class PlayerController : MonoBehaviour
     {
         if(other.gameObject.name == "Lava")
         {
-            SceneManager.LoadScene("DiseñoTutorial");
+            SceneManager.LoadScene("DisenoTutorial");
         }
 
     }
