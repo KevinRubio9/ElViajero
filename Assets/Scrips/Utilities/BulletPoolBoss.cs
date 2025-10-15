@@ -40,7 +40,7 @@ public class BulletPoolBoss : MonoBehaviour
     {
         if (listSelected == 0)
         {
-            for( int i = 0; i < bulletType1.Count;i++)
+            for( int i = 0; i < bulletType1.Count; i++)
             { 
                 if (!bulletType1[i].activeInHierarchy)
                 {

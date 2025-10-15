@@ -1,15 +1,20 @@
 using System.Collections;
-using System.Net.Sockets;
-using Unity.Cinemachine;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Timeline;
 
 public class PlayerController : MonoBehaviour
 
 {
-    CharacterController character;
-    LifeController life;
+
+    public Animator anim;
+
+    public CharacterController character;
+    BaseState currentState;
+    public IdleState idle;
+    public RunState run;
+    public JumpState jump;
+    public DashState dash;
+    public ShootState shoot;
 
     [Header("Envenenamiento")]
     public float timePoisoned;
@@ -21,93 +26,77 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float speedCorrupted;
     public float sdRotate;
-    [SerializeField] float forceJump;
-    [SerializeField] float forceJumpCorrupted;
+    public float forceJump;
+    public float forceJumpCorrupted;
     public Transform cam; //Enlazar la freelookcamera desde el prefab de camara
-    private float movHori;
-    private float movVert;
-    private float gravity = -9.81f;
-    private Vector3 velocity;
+    public float movHori;
+    public float movVert;
+    public float gravity = -9.81f;
+    public Vector3 velocity;
 
 
     [Space]
     [Header("Detecion de suelo")]
 
-    [SerializeField] Transform centerPoint;
-    [SerializeField] Vector3 sizeDetection;
-    [SerializeField] LayerMask layerGround;
-    private bool isGrounded;
+    public Transform centerPoint;
+    public Vector3 sizeDetection;
+    public LayerMask layerGround;
+    public bool isGrounded;
 
     [Space]
     [Header("Dash")]
 
-    [SerializeField] float speedDash;
-    [SerializeField] float speedDashCorrupted;
-    [SerializeField] float cooldownDash;
-    [SerializeField] float timeDash;
-    private Vector3 movDash;
-    private bool canDash = true;
+    public float speedDash;
+    public float speedDashCorrupted;
+    public float cooldownDash;
+    public float timeDash;
+    public Vector3 movDash;
+    public bool canDash = true;
 
     [Space]
     [Header("Tackle")]
-    private bool isTackled;
-    private Vector3 tackleDirection;
-    private float tackleForce;
-    private float tackleTimer;
+    public bool isTackled;
+    public Vector3 tackleDirection;
+    public float tackleForce;
+    public float tackleTimer;
 
 
+    private Vector3 lastPosition;
+    public float VelocityY { get => _velocityY; set => _velocityY = value; }
+    public float _velocityY;
+
+
+    private void Awake()
+    {
+        character = GetComponent<CharacterController>();
+        anim = GetComponent<Animator>();
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     void Start()
     {
-        character = GetComponent<CharacterController>();
-        life = GetComponent<LifeController>();
-       
-        Cursor.lockState = CursorLockMode.Locked;
+        idle = new IdleState (this);
+        run = new RunState (this);
+        jump = new JumpState (this);
+        dash = new DashState (this);
+        shoot = new ShootState (this);
+        ChangeState(idle);
     }
 
     // Update is called once per frame
     void Update()
     {
-
         isGrounded = Physics.CheckBox(centerPoint.position, sizeDetection, Quaternion.identity, layerGround);
 
 
-        // condicion de salto
-        if (Input.GetButtonDown("Jump") && isGrounded && !poisoned)
-        {
-            velocity.y = Mathf.Sqrt(forceJump * -2 * gravity);
-        }
-        else if (Input.GetButtonDown("Jump") && isGrounded && poisoned)
-        {
-            velocity.y = Mathf.Sqrt(forceJumpCorrupted * -2 * gravity);
-        }
-        // movimiento eje X y Z
         movHori = Input.GetAxis("Horizontal");
         movVert = Input.GetAxis("Vertical");
-        Vector3 mov = new Vector3(movHori, 0, movVert);
-
-        float camDirection = cam.eulerAngles.y;
-        Vector3 movByCam = Quaternion.Euler(0f, camDirection, 0f) * mov;
-        if (!poisoned)
-        {
-            character.Move(movByCam * speed * Time.deltaTime);
-
-        }
-        else { character.Move(movByCam * speedCorrupted * Time.deltaTime); }
-        if (mov != Vector3.zero)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(movByCam);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, sdRotate * Time.deltaTime);
-
-        }
-        velocity.y += gravity * Time.deltaTime;
-        character.Move(velocity * Time.deltaTime);
 
         // condicion de dash
         if (Input.GetButtonDown("Fire3") && canDash)
         {
-
-            StartCoroutine(dash());
+            StartCoroutine(Dash());
+            //ChangeState(dash);
         }
 
         if (isTackled)
@@ -121,49 +110,70 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        velocity.y += gravity * Time.deltaTime;
+        character.Move(velocity * Time.deltaTime);
+        currentState?.UpdateState();
 
+        CalculateSpeed();
     }
 
-    IEnumerator dash()
+    public void ChangeState(BaseState newState)
+    {
+        currentState = newState;
+        currentState.EnterState();
+    }
+
+    public void StartDash()
+    {
+        StartCoroutine(Dash());
+    }
+
+    public IEnumerator Dash()
     {
         canDash = false;
         float horiDash = Input.GetAxisRaw("Horizontal");
         float vertDash = Input.GetAxisRaw("Vertical");
         movDash = new Vector3(horiDash, 0, vertDash);
 
-        if (movDash == Vector3.zero)
-        {
-            movDash = transform.forward;
-        }
+        //if (movDash == Vector3.zero)
+        //{
+        //    movDash = transform.forward;
+        //}
 
         float timer = 0;
         while (timer < timeDash)
         {
-            character.Move(movDash * speedDash * Time.deltaTime);
+            character.Move(transform.forward * speedDash * Time.deltaTime);
             timer += Time.deltaTime;
             yield return null;
         }
         yield return new WaitForSeconds(cooldownDash);
         canDash = true;
     }
-
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Bullet1"))
-        {
-            life.TakeDamage(1);
-            StartCoroutine(Poisoned());
-        }
- 
-    }
-   
-    IEnumerator Poisoned ()
+    IEnumerator Poisoned()
     {
         poisoned = true;
 
         yield return new WaitForSeconds(timePoisoned);
         poisoned = false;
+    }
+    public void CalculateSpeed()
+    {
+        // Diferencia de posición entre frames
+        Vector3 deltaPosition = transform.position - lastPosition;
+
+        // Velocidad vertical = cambio en Y / tiempo
+        _velocityY = deltaPosition.y / Time.deltaTime;
+
+        // Guardar posición actual para el siguiente frame
+        lastPosition = transform.position;
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet1"))
+        {
+            StartCoroutine(Poisoned());
+        }
     }
 
     private void OnDrawGizmos()
@@ -179,7 +189,6 @@ public class PlayerController : MonoBehaviour
     }
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-
         FallingPlatform platform = hit.collider.GetComponent<FallingPlatform>();
         if (platform != null)
         {
