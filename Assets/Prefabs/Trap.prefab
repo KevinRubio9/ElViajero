@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0961, y: 1, z: 0.387}
-  m_LocalScale: {x: 1.7182199, y: 3, z: 1.7873677}
+  m_LocalScale: {x: 1.71822, y: 3, z: 1.7873677}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7988587730258372373}
@@ -157,9 +157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbae57bbfe4d97e4db46b8e245022061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefebBullet: {fileID: 5165086892487437411, guid: ebaaaca488d47f446883946fc011c242, type: 3}
   rateShoot: 1
   pointShoot: {fileID: 5722804613062586471}
-  audSou: {fileID: 0}
 --- !u!65 &6722734887890688165
 BoxCollider:
   m_ObjectHideFlags: 0
