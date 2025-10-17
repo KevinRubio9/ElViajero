@@ -1,4 +1,3 @@
-using Unity.Android.Gradle.Manifest;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
@@ -7,15 +6,22 @@ public class JumpState : BaseState
     public JumpState(PlayerController controllerParameter) : base(controllerParameter) { }
     public override void EnterState()
     {
-        controller.anim.CrossFade("Jump",0.1f);
+        if (controller.isGrounded)
+        {
+            controller.anim.CrossFade("Jump", 0.1f);
 
-        if (!controller.poisoned)
-        {
-            controller.velocity.y = Mathf.Sqrt(controller.forceJump * -2 * controller.gravity);
+            if (!controller.poisoned)
+            {
+                controller.velocity.y = Mathf.Sqrt(controller.forceJump * -2 * controller.gravity);
+            }
+            else if (controller.poisoned)
+            {
+                controller.velocity.y = Mathf.Sqrt(controller.forceJumpCorrupted * -2 * controller.gravity);
+            }
         }
-        else if (controller.poisoned)
+        else
         {
-            controller.velocity.y = Mathf.Sqrt(controller.forceJumpCorrupted * -2 * controller.gravity);
+            controller.anim.CrossFade("JumpIdle", 0.1f);
         }
     }
 
@@ -38,6 +44,7 @@ public class JumpState : BaseState
             Quaternion targetRotation = Quaternion.LookRotation(movByCam);
             controller.transform.rotation = Quaternion.Slerp(controller.transform.rotation, targetRotation, controller.sdRotate * Time.deltaTime);
         }
+
         if (Input.GetButtonDown("Fire3") && controller.canDash)
         {
             ExitState(controller.dash);
@@ -45,18 +52,12 @@ public class JumpState : BaseState
 
         if (controller.velocity.y < 0 && !controller.isGrounded)
         {
-            controller.anim.CrossFade("Fall",0.1f);
-            Debug.Log("Esta cayendo metanle anim de caer, gracias");
+            ExitState(controller.fall);
         }
 
-        if (controller.isGrounded && controller.VelocityY < 0)
+        if (Input.GetButtonDown("Fire1"))
         {
-            Debug.Log("WHAAt");
-            if (controller.movHori == 0 && controller.movVert == 0)
-            {
-                ExitState(controller.idle);
-            }
-            else { ExitState(controller.run); }
+            ExitState(controller.shoot);
         }
 
     }

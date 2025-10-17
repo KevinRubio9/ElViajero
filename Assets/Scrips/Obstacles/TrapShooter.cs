@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class TrapShooter : MonoBehaviour
 {
@@ -20,4 +21,5 @@ public class TrapShooter : MonoBehaviour
             timerShoot = Time.time + rateShoot;
         }
     }
+
 }

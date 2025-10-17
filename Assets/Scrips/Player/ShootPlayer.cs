@@ -5,9 +5,11 @@ public class ShootPlayer : MonoBehaviour
 
     public Transform pointBullet;
     BulletPool bulletPool;
+    public PlayerController controller;
     void Start()
     {
-       bulletPool = FindAnyObjectByType<BulletPool>();
+        bulletPool = FindAnyObjectByType<BulletPool>();
+        controller = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -26,6 +28,6 @@ public class ShootPlayer : MonoBehaviour
         bulletAvaiable.SetActive(true);
         bulletAvaiable.transform.position = pointBullet.position;
         bulletAvaiable.transform.rotation = pointBullet.rotation;
-        
+
     }
 }

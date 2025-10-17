@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Timeline;
 
 public class PlayerController : MonoBehaviour
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public IdleState idle;
     public RunState run;
     public JumpState jump;
+    public FallState fall;
     public DashState dash;
     public ShootState shoot;
 
@@ -52,6 +54,7 @@ public class PlayerController : MonoBehaviour
     public float timeDash;
     public Vector3 movDash;
     public bool canDash = true;
+    public bool inDash = false;
 
     [Space]
     [Header("Tackle")]
@@ -65,19 +68,22 @@ public class PlayerController : MonoBehaviour
     public float VelocityY { get => _velocityY; set => _velocityY = value; }
     public float _velocityY;
 
+    [SerializeField] AnimationInvoker animInvoker;
 
     private void Awake()
     {
         character = GetComponent<CharacterController>();
-        anim = GetComponent<Animator>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Start()
     {
+        animInvoker.AnimationEventInvoked += AnimationEvent;
+
         idle = new IdleState (this);
         run = new RunState (this);
         jump = new JumpState (this);
+        fall = new FallState (this);
         dash = new DashState (this);
         shoot = new ShootState (this);
         ChangeState(idle);
@@ -93,11 +99,7 @@ public class PlayerController : MonoBehaviour
         movVert = Input.GetAxis("Vertical");
 
         // condicion de dash
-        if (Input.GetButtonDown("Fire3") && canDash)
-        {
-            StartCoroutine(Dash());
-            //ChangeState(dash);
-        }
+
 
         if (isTackled)
         {
@@ -143,10 +145,12 @@ public class PlayerController : MonoBehaviour
         float timer = 0;
         while (timer < timeDash)
         {
+            inDash=true;
             character.Move(transform.forward * speedDash * Time.deltaTime);
             timer += Time.deltaTime;
             yield return null;
         }
+        inDash = false;
         yield return new WaitForSeconds(cooldownDash);
         canDash = true;
     }
@@ -194,5 +198,19 @@ public class PlayerController : MonoBehaviour
         {
             platform.ActivateFalling();
         }
+    }
+
+
+    public void AnimationEvent()
+    {
+        currentState?.AnimationEvent();
+    } 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.name == "Lava")
+        {
+            SceneManager.LoadScene("DisenoTutorial");
+        }
+
     }
 }

@@ -116,7 +116,7 @@ Transform:
   m_GameObject: {fileID: 8180895568799313182}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3.99}
+  m_LocalPosition: {x: -5.1198273, y: 0.25, z: 16.170338}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -207,6 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dffd68a72e95e3a44ac20f5760047171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  life: {fileID: 0}
   agent: {fileID: 0}
   targetAgent: {fileID: 0}
   actionDistance: 4
@@ -233,5 +234,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227ab4aee9e56814a94ea6772ac5288e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyMoveController: {fileID: 0}
   maxHealth: 5
   currentHealth: 5

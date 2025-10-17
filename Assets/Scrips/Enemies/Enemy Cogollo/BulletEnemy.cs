@@ -1,12 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BulletEnemy : MonoBehaviour
 {
     Rigidbody rb;
     [SerializeField] float sdBullet;
     [SerializeField] float lifeTime;
-    [SerializeField] int damage = 1;
+
     private void OnEnable()
     {
         StartCoroutine(DisableBullet());
@@ -29,21 +30,18 @@ public class BulletEnemy : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    // private void OnCollisionEnter(Collision collision)
+    //{
+    //    if(collision.gameObject.CompareTag("Player"))
+    //  {
+    //    gameObject.SetActive(false);
+    //}
+    //}
+    public void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.name == "Player")
         {
-            LifeController life = collision.gameObject.GetComponent<LifeController>();
-
-            if (life != null)
-            {
-                life.TakeDamage(damage);
-            }
-            else
-            {
-                gameObject.SetActive(false);
-            }
-               
+            SceneManager.LoadScene("DiseñoTutorial");
         }
     }
 
