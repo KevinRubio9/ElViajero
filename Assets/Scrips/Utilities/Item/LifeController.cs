@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LifeController : MonoBehaviour
 {
-     EnemyMoveController enemyMoveController;
+    EnemyMoveController enemyMoveController;
     [SerializeField] int maxHealth = 0;
     [SerializeField] int currentHealth;
 
@@ -38,7 +38,7 @@ public class LifeController : MonoBehaviour
         }
         else
         {
-            
+
             Dead();
         }
     }

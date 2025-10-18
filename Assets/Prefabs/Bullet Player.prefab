@@ -4954,6 +4954,7 @@ GameObject:
   - component: {fileID: 2643464689996399722}
   - component: {fileID: -6196525990262339954}
   - component: {fileID: -6214373793698724553}
+  - component: {fileID: 6328329818309361088}
   m_Layer: 0
   m_Name: Bullet Player
   m_TagString: BulletP
@@ -5055,3 +5056,16 @@ MonoBehaviour:
   amountBullet: 0
   prefabBullet: {fileID: 0}
   bullets: []
+--- !u!114 &6328329818309361088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8342202713435218203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e7bd9629472174c9b06a2de83ea495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
