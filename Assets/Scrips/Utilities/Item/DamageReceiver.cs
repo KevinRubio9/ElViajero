@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class DamageReceiver : MonoBehaviour
 {
-    [HideInInspector] private int defaultDamage = 10; // por si el objeto no tiene script Damage
+    [HideInInspector] private int defaultDamage = 10; 
     private LifeController life;
 
     private void Start()
