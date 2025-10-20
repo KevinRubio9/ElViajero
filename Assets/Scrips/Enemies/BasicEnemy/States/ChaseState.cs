@@ -5,12 +5,13 @@ public class ChaseState : StatesBase
     public ChaseState(EnemyMoveController parameters) : base(parameters) { }
     public override void EnterState()
     {
-        //controller.anim.CrossFade("Chase", 0.1f);
+        controller.anim.CrossFade("Walk", 0.1f);
         
     }
     public override void UpdateState()
     {
-     
+
+        Debug.Log("Hongo esta en estado seguir");
         if (controller.targetAgent == null) return;
 
         controller.currDistance = Vector3.Distance(controller.transform.position, controller.targetAgent.position);

@@ -6,11 +6,13 @@ public class TackleState : StatesBase
     public override void EnterState()
     {
       
-        //controller.anim.CrossFade("Tackle", 0.1f);
+        controller.anim.CrossFade("Tackle", 0.1f);
 
     }
     public override void UpdateState()
     {
+
+        Debug.Log("Hongo esta tacleando");
         if (controller.targetAgent == null) return;
 
         controller.currDistance = Vector3.Distance(controller.transform.position, controller.targetAgent.position);
