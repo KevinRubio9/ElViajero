@@ -78,8 +78,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        animInvoker.AnimationEventInvoked += AnimationEvent;
-
         idle = new IdleState (this);
         run = new RunState (this);
         jump = new JumpState (this);
