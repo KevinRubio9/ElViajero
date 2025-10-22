@@ -9,13 +9,6 @@ public class EnemyShooterLogic : MonoBehaviour
     [SerializeField] Transform player;
     LifeController lifeEnemy;
 
-    //statemachine
-
-    BaseStateCogollo currentState;
-    public PatrolStateCogollo patrol;
-    public ShootStateCogollo shoot;
-    public DeadStateCogollo dead;
-
     //patrol
     public NavMeshAgent agent;
     public bool isPatrolling = true;
@@ -40,9 +33,7 @@ public class EnemyShooterLogic : MonoBehaviour
     // Update is called once per frame
     private void Start()
     {
-        patrol = new PatrolStateCogollo(this);
-        shoot = new ShootStateCogollo(this);
-        dead = new DeadStateCogollo(this);
+        
 
 
         bulletPool = FindAnyObjectByType<BulletPoolEnemies>();
@@ -57,18 +48,28 @@ public class EnemyShooterLogic : MonoBehaviour
     }
     void Update()
     {
-        currentState?.UpdateState();
+        
         pinnedPlayer = Physics.Raycast(transform.position, transform.forward, distanceDetection, layerPlayer);
         if (isPatrolling && !playerDetected)
         {
-            ChangeState(patrol);
+            agent.angularSpeed = 120f;
+            anim.SetBool("Player Detected",false);
+            //Patrol();
+        }
+        else if (playerDetected)
+        {
+            LookTarget();
+            agent.SetDestination(transform.position);
+            agent.updateRotation = false;
+            anim.SetBool("Player Detected", true);
+            //if (playerInZone && Time.time >= rateTimeShoot)
+            //{
+            //    Shoot();
+            //    rateTimeShoot = Time.time + fireRate;
+            //}
         }
     }
-    public void ChangeState(BaseStateCogollo newState)
-    {
-        currentState = newState;
-        currentState.EnterState();
-    }
+    
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
