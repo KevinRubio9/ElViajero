@@ -54,7 +54,7 @@ public class EnemyShooterLogic : MonoBehaviour
         {
             agent.angularSpeed = 120f;
             anim.SetBool("Player Detected",false);
-            //Patrol();
+            Patrol();
         }
         else if (playerDetected)
         {
@@ -87,6 +87,22 @@ public class EnemyShooterLogic : MonoBehaviour
             playerDetected = false;
             playerInZone = false;
         }
+    }
+    public void Patrol()
+    {
+        agent.updateRotation = true;
+        agent.stoppingDistance = 0;
+        float distanceTarget = Vector3.Distance(agent.transform.position, pointsMov[currentTargert].position);
+
+        if (distanceTarget <= maxDistance)
+        {
+            currentTargert++;
+            if (currentTargert >= pointsMov.Count)
+            { currentTargert = 0; }
+        }
+        agent.SetDestination(pointsMov[currentTargert].position);
+
+        Debug.Log(currentTargert);
     }
 
     public void LookTarget()
