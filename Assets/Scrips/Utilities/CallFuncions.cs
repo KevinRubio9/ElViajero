@@ -4,6 +4,7 @@ public class CallFuncions : MonoBehaviour
 {
 
     public EnemyShooterLogic enemySL;
+    [SerializeField] float distanceSound;
 
     public void CallShootCogollo()
     {
@@ -12,6 +13,6 @@ public class CallFuncions : MonoBehaviour
 
     public void CallSound()
     {
-        AudioManager.Instance.PlaySFX("Step Cogollo");
+        AudioManager.Instance.PlaySFX3D("Step Cogollo",transform,distanceSound);
     }
 }

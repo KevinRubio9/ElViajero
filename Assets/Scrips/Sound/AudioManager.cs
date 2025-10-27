@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -25,7 +27,7 @@ public class AudioManager : MonoBehaviour
 
         if (s == null)
         {
-            Debug.LogWarning("Sonido no encontrado");
+            Debug.LogWarning("Sonido no encontrado" + nameMusic);
         }
         else{
             musicSource.clip = s.clip;
@@ -38,7 +40,7 @@ public class AudioManager : MonoBehaviour
 
         if (s == null)
         {
-            Debug.LogWarning("sonido no encontrado");
+            Debug.LogWarning("sonido no encontrado" + nameSFX);
         }
         else
         {
@@ -46,4 +48,40 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void PlaySFX3D(string nameSFX, Transform followTarget, float maxDistance)
+    {
+        Sound s = Array.Find(sfxSounds, x => x.name == nameSFX);
+
+        if (s == null)
+        {
+            Debug.LogWarning("sonido no encontrado" + nameSFX);
+            return;
+        }
+
+        GameObject followAudioObject = new GameObject("FollowAudio" + nameSFX);
+        followAudioObject.transform.position = followTarget .position;
+
+        AudioSource audioSource = followAudioObject.AddComponent<AudioSource>();
+
+        audioSource.clip = s.clip;
+        audioSource.spatialBlend = 1f;
+        audioSource.maxDistance = maxDistance;
+        audioSource.rolloffMode = AudioRolloffMode.Logarithmic;
+        audioSource.Play();
+
+        StartCoroutine(FollowTarget(followAudioObject.transform, followTarget, s.clip.length));
+    }
+    private IEnumerator FollowTarget(Transform audioTransform, Transform target , float duration)
+    {
+        float timer = 0f;
+
+        while (timer < duration && target != null)
+        {
+            audioTransform.position = target.position;
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        Destroy(audioTransform.gameObject);
+    }
 }
