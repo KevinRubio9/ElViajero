@@ -1198,7 +1198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7984159907290358486}
   m_Layer: 0
-  m_Name: Limits
+  m_Name: LimitsLevel1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
