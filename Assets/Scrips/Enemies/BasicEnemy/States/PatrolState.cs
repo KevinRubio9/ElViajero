@@ -6,7 +6,7 @@ public class PatrolState : StatesBase
     public PatrolState(EnemyMoveController parameters) : base(parameters) { }
     public override void EnterState()
     {
-        //controller.anim.CrossFade("Walk", 0.1f);
+        controller.anim.CrossFade("Walk", 0.1f);
         controller.agent.speed = controller.patrolSpeed;
         
 
@@ -17,6 +17,7 @@ public class PatrolState : StatesBase
     }
     public override void UpdateState()
     {
+        Debug.Log("Hongo en estado de patrullaje");
         controller.currDistance = Vector3.Distance(controller.transform.position, controller.targetAgent.position);
         
         if (controller.currDistance <= controller.actionDistance)

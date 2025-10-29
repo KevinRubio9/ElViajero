@@ -34,16 +34,19 @@ public class BulletToPlayer : MonoBehaviour
     }
     public void OnCollisionEnter(Collision collision)
     {
-        LifeController life = collision.gameObject.GetComponent<LifeController>();
-
-        if (life != null)
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            life.TakeDamage(damage);
+            LifeController life = collision.gameObject.GetComponent<LifeController>();
+
+            if (life != null)
+            {
+                life.TakeDamage(damage);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
         }
 
-        gameObject.SetActive(false);
-        timer = 0;
     }
-
-
 }

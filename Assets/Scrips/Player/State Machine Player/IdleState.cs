@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class IdleState : BaseState
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public IdleState(PlayerController controllerParameter) : base(controllerParameter) { }
 
     public override void EnterState()

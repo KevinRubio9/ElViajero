@@ -36,7 +36,6 @@ public class ShootState : BaseState
             time = 0;
         }
 
-        Debug.Log("El tiempo transcurrido es: " + time);
     /*    if (controller.isGrounded && controller.movHori == 0 && controller.movVert == 0)
         {
             ExitState(controller.idle);

@@ -1,19 +1,19 @@
-using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.AI;
 using Unity.Mathematics;
+using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyShooterLogic : MonoBehaviour
 {
-
+    public Animator anim;
     [SerializeField] Transform player;
     LifeController lifeEnemy;
 
     //patrol
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
     public bool isPatrolling = true;
     public bool playerDetected;
-    [SerializeField] List<Transform> pointsMov;
+    public List<Transform> pointsMov;
     public int currentTargert = 0;
     public float maxDistance;
     [SerializeField] float rotationSd;
@@ -22,8 +22,8 @@ public class EnemyShooterLogic : MonoBehaviour
     //shoot
     BulletPoolEnemies bulletPool;
     [SerializeField] Transform pointBullet;
-    [SerializeField] float fireRate;
-    float rateTimeShoot;
+    public float fireRate;
+    public float rateTimeShoot;
     public bool pinnedPlayer;
     public bool playerInZone;
     public float distanceDetection;
@@ -33,6 +33,9 @@ public class EnemyShooterLogic : MonoBehaviour
     // Update is called once per frame
     private void Start()
     {
+        
+
+
         bulletPool = FindAnyObjectByType<BulletPoolEnemies>();
         agent = GetComponent<NavMeshAgent>();
         lifeEnemy = GetComponent<LifeController>();
@@ -41,14 +44,16 @@ public class EnemyShooterLogic : MonoBehaviour
         {
             t.SetParent(null);
         }
+
     }
     void Update()
     {
+        
         pinnedPlayer = Physics.Raycast(transform.position, transform.forward, distanceDetection, layerPlayer);
-
         if (isPatrolling && !playerDetected)
         {
             agent.angularSpeed = 120f;
+            anim.SetBool("Player Detected",false);
             Patrol();
         }
         else if (playerDetected)
@@ -56,14 +61,15 @@ public class EnemyShooterLogic : MonoBehaviour
             LookTarget();
             agent.SetDestination(transform.position);
             agent.updateRotation = false;
-            if (playerInZone && Time.time >= rateTimeShoot)
-            {
-                Shoot();
-                rateTimeShoot = Time.time + fireRate;
-            }
+            anim.SetBool("Player Detected", true);
+            //if (playerInZone && Time.time >= rateTimeShoot)
+            //{
+            //    Shoot();
+            //    rateTimeShoot = Time.time + fireRate;
+            //}
         }
     }
-
+    
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -82,13 +88,12 @@ public class EnemyShooterLogic : MonoBehaviour
             playerInZone = false;
         }
     }
-
     public void Patrol()
     {
         agent.updateRotation = true;
         agent.stoppingDistance = 0;
-        float distanceTarget  = Vector3.Distance(agent.transform.position, pointsMov[currentTargert].position);
-        
+        float distanceTarget = Vector3.Distance(agent.transform.position, pointsMov[currentTargert].position);
+
         if (distanceTarget <= maxDistance)
         {
             currentTargert++;
@@ -99,7 +104,8 @@ public class EnemyShooterLogic : MonoBehaviour
 
         Debug.Log(currentTargert);
     }
-    private void LookTarget()
+
+    public void LookTarget()
     {
         Vector3 direction = player.position - transform.position;
         if (direction != Vector3.zero)
@@ -114,8 +120,9 @@ public class EnemyShooterLogic : MonoBehaviour
         }
 
     }
-    private void Shoot()
+    public void Shoot()
     {
+
         GameObject bulletAvaiable = bulletPool.UseBullet();
         bulletAvaiable.SetActive(true);
         bulletAvaiable.transform.position = pointBullet.position;
@@ -126,9 +133,6 @@ public class EnemyShooterLogic : MonoBehaviour
     {
         Gizmos.DrawRay(transform.position, transform.forward * distanceDetection);
     }
- 
-
-
 }
 
 

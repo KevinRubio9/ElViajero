@@ -11,7 +11,7 @@ public class EnemyMoveController : MonoBehaviour
 
     [Header("Components")]
 
-    //public Animator anim;
+    public Animator anim;
     public NavMeshAgent agent;
 
     [Header("Player")]
@@ -39,7 +39,6 @@ public class EnemyMoveController : MonoBehaviour
 
     public void Awake()
     {
-        //anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         life = GetComponent<LifeController>();
     }
