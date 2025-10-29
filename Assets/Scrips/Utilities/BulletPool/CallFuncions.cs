@@ -4,7 +4,8 @@ public class CallFuncions : MonoBehaviour
 {
 
     public EnemyShooterLogic enemySL;
-    [SerializeField] float distanceSound;
+    [SerializeField] float maxHearingRange;
+    [SerializeField] float minHearingRange;
 
     public void CallShootCogollo()
     {
@@ -13,6 +14,6 @@ public class CallFuncions : MonoBehaviour
 
     public void CallSound()
     {
-        AudioManager.Instance.PlaySFX3D("Step Cogollo",transform,distanceSound);
+        AudioManager.Instance.PlaySFX3D("Step Cogollo",transform,minHearingRange,maxHearingRange);
     }
 }

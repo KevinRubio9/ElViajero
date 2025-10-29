@@ -4972,6 +4972,7 @@ GameObject:
   - component: {fileID: 4457099705334552615}
   - component: {fileID: 1477146351384316714}
   - component: {fileID: 2429408945429910490}
+  - component: {fileID: 98884950673844199}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -5096,7 +5097,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227ab4aee9e56814a94ea6772ac5288e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMoveController: {fileID: 0}
   maxHealth: 100
   currentHealth: 0
 --- !u!114 &2429408945429910490
@@ -5114,6 +5114,14 @@ MonoBehaviour:
   amountBullet: 0
   prefabBullet: {fileID: 8342202713435218203, guid: 5329d228a989d0344bb90575221791bf, type: 3}
   bullets: []
+--- !u!81 &98884950673844199
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8759472233722192318}
+  m_Enabled: 1
 --- !u!1 &8913449171806344471
 GameObject:
   m_ObjectHideFlags: 0
