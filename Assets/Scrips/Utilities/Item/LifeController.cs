@@ -10,6 +10,7 @@ public class LifeController : MonoBehaviour
     {
         currentHealth = maxHealth;
 
+
     }
     public void Heal(int amount)
     {
@@ -22,7 +23,9 @@ public class LifeController : MonoBehaviour
     }
     public void TakeDamage(int amount)
     {
+        
         currentHealth -= amount;
+
         if (currentHealth <= 0)
         {
             HandleDeath();
