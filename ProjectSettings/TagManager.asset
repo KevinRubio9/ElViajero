@@ -9,6 +9,7 @@ TagManager:
   - BulletP
   - Enemy
   - Wall1
+  - Platform
   layers:
   - Default
   - TransparentFX
