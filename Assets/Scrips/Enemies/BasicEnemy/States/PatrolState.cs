@@ -6,7 +6,7 @@ public class PatrolState : StatesBase
     public PatrolState(EnemyMoveController parameters) : base(parameters) { }
     public override void EnterState()
     {
-        controller.anim.CrossFade("Walk", 0.1f);
+        controller.anim.SetBool("isWalking", true);
         controller.agent.speed = controller.patrolSpeed;
         
 
@@ -22,8 +22,8 @@ public class PatrolState : StatesBase
         
         if (controller.currDistance <= controller.actionDistance)
         {
-           
-            ExitState(controller.Chase);
+
+            controller.ChangeStatus(controller.Chase);
         }
         else
         {
@@ -49,7 +49,6 @@ public class PatrolState : StatesBase
     }
     public override void ExitState(StatesBase newState)
     {
-        controller.ChangeStatus(newState);
-     
+        controller.anim.SetBool("isWalking", false);
     }
 }

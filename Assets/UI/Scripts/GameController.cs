@@ -19,13 +19,14 @@ public class GameController : MonoBehaviour
 
     public void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject);    
+            Destroy(gameObject);
         }
         Time.timeScale = 0f;
     }
@@ -67,7 +68,6 @@ public class GameController : MonoBehaviour
     }
     public void RestartGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-   
 }
