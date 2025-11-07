@@ -20,6 +20,13 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public void Start()
+    {
+        if (GameController.instance != null)
+        {
+            ApplyVolumeSettings();
+        }
+    }
 
     public void PlayMusic(string nameMusic)
     {
@@ -29,7 +36,8 @@ public class AudioManager : MonoBehaviour
         {
             Debug.LogWarning("Sonido no encontrado" + nameMusic);
         }
-        else{
+        else
+        {
             musicSource.clip = s.clip;
             musicSource.Play();
         }
@@ -59,7 +67,7 @@ public class AudioManager : MonoBehaviour
         }
 
         GameObject followAudioObject = new GameObject("FollowAudio" + nameSFX);
-        followAudioObject.transform.position = followTarget .position;
+        followAudioObject.transform.position = followTarget.position;
 
         AudioSource audioSource = followAudioObject.AddComponent<AudioSource>();
 
@@ -71,7 +79,7 @@ public class AudioManager : MonoBehaviour
 
         StartCoroutine(FollowTarget(followAudioObject.transform, followTarget, s.clip.length));
     }
-    private IEnumerator FollowTarget(Transform audioTransform, Transform target , float duration)
+    private IEnumerator FollowTarget(Transform audioTransform, Transform target, float duration)
     {
         float timer = 0f;
 
@@ -83,5 +91,12 @@ public class AudioManager : MonoBehaviour
         }
 
         Destroy(audioTransform.gameObject);
+    }
+    public void ApplyVolumeSettings()
+    {
+        if (GameController.instance == null) return;
+
+        musicSource.volume = GameController.instance.musicVolume;
+        sfxSource.volume = GameController.instance.sfxVolume;
     }
 }
