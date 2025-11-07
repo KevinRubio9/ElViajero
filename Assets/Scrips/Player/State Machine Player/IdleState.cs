@@ -11,7 +11,7 @@ public class IdleState : BaseState
 
     public override void UpdateState()
     {
-        Debug.Log("Esta en estado Idle");
+        //Debug.Log("Esta en estado Idle");
 
         if (Input.GetButtonDown("Fire3") && controller.canDash)
         {
@@ -36,5 +36,10 @@ public class IdleState : BaseState
     public override void ExitState(BaseState newState)
     {
         controller.ChangeState(newState);
+    }
+
+    public override void FixedUpdateState()
+    {
+        
     }
 }

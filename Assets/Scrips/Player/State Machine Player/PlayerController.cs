@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Timeline;
+using UnityEngine.TextCore.Text;
 
 public class PlayerController : MonoBehaviour
 
@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
 
     public Animator anim;
 
-    public CharacterController character;
+    //public CharacterController character;
+    public Rigidbody rigid;
     BaseState currentState;
     public IdleState idle;
     public RunState run;
@@ -34,7 +35,6 @@ public class PlayerController : MonoBehaviour
     public float movHori;
     public float movVert;
     public float gravity = -9.81f;
-    public Vector3 velocity;
 
 
     [Space]
@@ -65,25 +65,27 @@ public class PlayerController : MonoBehaviour
 
 
     private Vector3 lastPosition;
-    public float VelocityY { get => _velocityY; set => _velocityY = value; }
-    public float _velocityY;
+    //public float VelocityY { get => _velocityY; set => _velocityY = value; }
+    //public float _velocityY;
+    Vector3 mov;
 
     [SerializeField] AnimationInvoker animInvoker;
 
     private void Awake()
     {
-        character = GetComponent<CharacterController>();
+        //character = GetComponent<CharacterController>();
+        rigid = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Start()
     {
-        idle = new IdleState (this);
-        run = new RunState (this);
-        jump = new JumpState (this);
-        fall = new FallState (this);
-        dash = new DashState (this);
-        shoot = new ShootState (this);
+        idle = new IdleState(this);
+        run = new RunState(this);
+        jump = new JumpState(this);
+        fall = new FallState(this);
+        dash = new DashState(this);
+        shoot = new ShootState(this);
         ChangeState(idle);
     }
 
@@ -101,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
         if (isTackled)
         {
-            character.Move(tackleDirection * tackleForce * Time.deltaTime);
+            rigid.linearVelocity = tackleDirection * tackleForce * Time.deltaTime;
             tackleTimer -= Time.deltaTime;
 
             if (tackleTimer <= 0)
@@ -110,13 +112,34 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        velocity.y += gravity * Time.deltaTime;
-        character.Move(velocity * Time.deltaTime);
+        //velocity.y += gravity * Time.deltaTime;
+        //rigid.linearVelocity = velocity * Time.deltaTime;
         currentState?.UpdateState();
 
         CalculateSpeed();
+
+        mov = new Vector3(movHori, 0, movVert);
+
+        float camDirection = cam.eulerAngles.y;
+        Vector3 movByCam = Quaternion.Euler(0f, camDirection, 0f) * mov;
+
+        if (mov != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(movByCam);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, sdRotate * Time.deltaTime);
+        }
     }
 
+    private void FixedUpdate()
+    {
+        currentState?.FixedUpdateState();
+    }
+    public void Movement()
+    {
+        Vector3 direction = transform.forward * mov.magnitude * speed;
+        direction.y = rigid.linearVelocity.y;
+        rigid.linearVelocity = direction;
+    }
     public void ChangeState(BaseState newState)
     {
         currentState = newState;
@@ -141,14 +164,15 @@ public class PlayerController : MonoBehaviour
         //}
 
         float timer = 0;
+        rigid.linearVelocity = transform.forward * speedDash ;
         while (timer < timeDash)
         {
-            inDash=true;
-            character.Move(transform.forward * speedDash * Time.deltaTime);
+            inDash = true;
             timer += Time.deltaTime;
             yield return null;
         }
         inDash = false;
+        rigid.linearVelocity = Vector3.zero;
         yield return new WaitForSeconds(cooldownDash);
         canDash = true;
     }
@@ -161,14 +185,14 @@ public class PlayerController : MonoBehaviour
     }
     public void CalculateSpeed()
     {
-        // Diferencia de posición entre frames
-        Vector3 deltaPosition = transform.position - lastPosition;
+        //// Diferencia de posiciÃ³n entre frames
+        //Vector3 deltaPosition = transform.position - lastPosition;
 
-        // Velocidad vertical = cambio en Y / tiempo
-        _velocityY = deltaPosition.y / Time.deltaTime;
+        //// Velocidad vertical = cambio en Y / tiempo
+        //_velocityY = deltaPosition.y / Time.deltaTime;
 
-        // Guardar posición actual para el siguiente frame
-        lastPosition = transform.position;
+        //// Guardar posiciÃ³n actual para el siguiente frame
+        //lastPosition = transform.position;
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -202,10 +226,10 @@ public class PlayerController : MonoBehaviour
     public void AnimationEvent()
     {
         currentState?.AnimationEvent();
-    } 
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name == "Lava")
+        if (other.gameObject.name == "Lava")
         {
             SceneManager.LoadScene("DisenoTutorial");
         }
