@@ -8,6 +8,10 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
     public Sound[] musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
+    [SerializeField]AudioMixer mixer;
+    float masterVolume;
+    float musicVolume;
+    float sfxVolume;
     private void Awake()
     {
         if (Instance == null)
@@ -84,5 +88,21 @@ public class AudioManager : MonoBehaviour
         }
 
         Destroy(audioTransform.gameObject);
+    }
+
+    public void ChanceMasterVolume(float newVolume)
+    {
+        masterVolume = newVolume;
+        mixer.SetFloat("MasterVolume",newVolume);
+    }
+    public void ChanceMusicVolume(float newVolume)
+    {
+        musicVolume = newVolume;
+        mixer.SetFloat("MusicVolume", newVolume);
+    }
+    public void ChanceSFXVolume(float newVolume)
+    {
+        sfxVolume = newVolume;
+        mixer.SetFloat("SFXVolume", newVolume);
     }
 }
