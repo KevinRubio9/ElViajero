@@ -11,7 +11,7 @@ public class PlatformFollowPlayr : MonoBehaviour
     // Update is called once per frame
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "RotatePlatform")
+        if (collision.gameObject.name == "Platform")
         {
             Debug.Log("xD");
             transform.SetParent(collision.gameObject.transform);
@@ -20,10 +20,11 @@ public class PlatformFollowPlayr : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.name == "RotatePlatform")
+        if (collision.gameObject.name == "Platform")
         {
             Debug.Log("xD");
             transform.SetParent(null);
+            transform.localScale = new Vector3(0,0,0);
         }
     }
 }

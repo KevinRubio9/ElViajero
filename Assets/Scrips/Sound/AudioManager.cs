@@ -8,6 +8,10 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
     public Sound[] musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
+    [SerializeField]AudioMixer mixer;
+    float masterVolume;
+    float musicVolume;
+    float sfxVolume;
     private void Awake()
     {
         if (Instance == null)
@@ -20,13 +24,6 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void Start()
-    {
-        if (GameController.instance != null)
-        {
-            ApplyVolumeSettings();
-        }
-    }
 
     public void PlayMusic(string nameMusic)
     {
@@ -36,8 +33,7 @@ public class AudioManager : MonoBehaviour
         {
             Debug.LogWarning("Sonido no encontrado" + nameMusic);
         }
-        else
-        {
+        else{
             musicSource.clip = s.clip;
             musicSource.Play();
         }
@@ -56,7 +52,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySFX3D(string nameSFX, Transform followTarget, float maxDistance)
+    public void PlaySFX3D(string nameSFX, Transform followTarget, float minDistance, float maxDistance)
     {
         Sound s = Array.Find(sfxSounds, x => x.name == nameSFX);
 
@@ -67,19 +63,20 @@ public class AudioManager : MonoBehaviour
         }
 
         GameObject followAudioObject = new GameObject("FollowAudio" + nameSFX);
-        followAudioObject.transform.position = followTarget.position;
+        followAudioObject.transform.position = followTarget .position;
 
         AudioSource audioSource = followAudioObject.AddComponent<AudioSource>();
 
         audioSource.clip = s.clip;
         audioSource.spatialBlend = 1f;
+        audioSource.minDistance = minDistance;
         audioSource.maxDistance = maxDistance;
         audioSource.rolloffMode = AudioRolloffMode.Logarithmic;
         audioSource.Play();
 
         StartCoroutine(FollowTarget(followAudioObject.transform, followTarget, s.clip.length));
     }
-    private IEnumerator FollowTarget(Transform audioTransform, Transform target, float duration)
+    private IEnumerator FollowTarget(Transform audioTransform, Transform target , float duration)
     {
         float timer = 0f;
 
@@ -92,11 +89,20 @@ public class AudioManager : MonoBehaviour
 
         Destroy(audioTransform.gameObject);
     }
-    public void ApplyVolumeSettings()
-    {
-        if (GameController.instance == null) return;
 
-        musicSource.volume = GameController.instance.musicVolume;
-        sfxSource.volume = GameController.instance.sfxVolume;
+    public void ChanceMasterVolume(float newVolume)
+    {
+        masterVolume = newVolume;
+        mixer.SetFloat("MasterVolume",newVolume);
+    }
+    public void ChanceMusicVolume(float newVolume)
+    {
+        musicVolume = newVolume;
+        mixer.SetFloat("MusicVolume", newVolume);
+    }
+    public void ChanceSFXVolume(float newVolume)
+    {
+        sfxVolume = newVolume;
+        mixer.SetFloat("SFXVolume", newVolume);
     }
 }
