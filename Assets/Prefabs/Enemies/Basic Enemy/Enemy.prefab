@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: {fileID: 2163502397919671017}
-  anim: {fileID: 0}
+  anim: {fileID: 7984845352778861416}
   agent: {fileID: 7673042110709032133}
   targetAgent: {fileID: 0}
   actionDistance: 4
