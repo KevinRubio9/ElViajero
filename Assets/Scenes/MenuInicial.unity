@@ -537,7 +537,7 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1001 &6439195804355238840
+--- !u!1001 &2036201857
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -587,7 +587,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6412058529558716325, guid: 3dfda1d3666f7504097dd4ed4365dda1, type: 3}
       propertyPath: m_Name
-      value: Ui
+      value: Ui (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -600,7 +600,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 425194802}
   - {fileID: 1493926173}
-  - {fileID: 6439195804355238840}
   - {fileID: 1305429424}
   - {fileID: 1293114749}
   - {fileID: 827061788}
+  - {fileID: 2036201857}
