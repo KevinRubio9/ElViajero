@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public FallState fall;
     public DashState dash;
     public ShootState shoot;
+    public DeadStatePlayer dead;
 
     [Header("Envenenamiento")]
     public float timePoisoned;
@@ -57,6 +58,11 @@ public class PlayerController : MonoBehaviour
     public bool inDash = false;
 
     [Space]
+    [Header("Muerte")]
+
+    LifeController life;
+
+    [Space]
     [Header("Tackle")]
     public bool isTackled;
     public Vector3 tackleDirection;
@@ -76,6 +82,8 @@ public class PlayerController : MonoBehaviour
         //character = GetComponent<CharacterController>();
         rigid = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
+        life = GetComponent<LifeController>();
+
     }
 
     void Start()
@@ -86,6 +94,7 @@ public class PlayerController : MonoBehaviour
         fall = new FallState(this);
         dash = new DashState(this);
         shoot = new ShootState(this);
+        dead = new DeadStatePlayer(this);
         ChangeState(idle);
     }
 
@@ -127,6 +136,12 @@ public class PlayerController : MonoBehaviour
         {
             Quaternion targetRotation = Quaternion.LookRotation(movByCam);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, sdRotate * Time.deltaTime);
+        }
+
+        if (life.currentHealth <= 0)
+        {
+            ChangeState(dead);
+            this.enabled = false;
         }
     }
 
@@ -183,6 +198,8 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(timePoisoned);
         poisoned = false;
     }
+
+
     public void CalculateSpeed()
     {
         //// Diferencia de posición entre frames
@@ -222,17 +239,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    public void AnimationEvent()
-    {
-        currentState?.AnimationEvent();
-    }
-    private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Lava")
         {
             SceneManager.LoadScene("DisenoTutorial");
         }
-
     }
 }
