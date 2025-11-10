@@ -15,6 +15,7 @@ public class BulletEnemy : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+
     }
 
     // Update is called once per frame
@@ -30,13 +31,13 @@ public class BulletEnemy : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    // private void OnCollisionEnter(Collision collision)
-    //{
-    //    if(collision.gameObject.CompareTag("Player"))
-    //  {
-    //    gameObject.SetActive(false);
-    //}
-    //}
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            gameObject.SetActive(false);
+        }
+    }
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Player")

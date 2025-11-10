@@ -52,7 +52,10 @@ public class EnemyMoveController : MonoBehaviour
 
         ChangeStatus(patrol);
 
-
+        foreach (Transform t in patrolPoints)
+        {
+            t.SetParent(null);
+        }
     }
 
     void Update()

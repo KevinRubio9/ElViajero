@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 212038130334754247}
   - component: {fileID: 8836096505556762583}
   - component: {fileID: 1949745352161286395}
+  - component: {fileID: -3385193567115216961}
   m_Layer: 0
   m_Name: BulletTrap1
   m_TagString: Untagged
@@ -159,7 +160,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sdBullet: 20
   lifeTime: 1
-  damage: 1
 --- !u!54 &8836096505556762583
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -208,6 +208,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-3385193567115216961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5165086892487437411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e7bd9629472174c9b06a2de83ea495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
 --- !u!1 &5675192757460066172
 GameObject:
   m_ObjectHideFlags: 0
