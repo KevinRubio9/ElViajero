@@ -9,8 +9,6 @@ public class LifeController : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-
-
     }
     public void Heal(int amount)
     {
@@ -23,13 +21,11 @@ public class LifeController : MonoBehaviour
     }
     public void TakeDamage(int amount)
     {
-        
         currentHealth -= amount;
 
         if (currentHealth <= 0)
         {
             HandleDeath();
-
         }
     }
     private void HandleDeath()
@@ -49,6 +45,4 @@ public class LifeController : MonoBehaviour
         //gameObject.SetActive(false);
         //Destroy(gameObject);
     }
-
-    
 }

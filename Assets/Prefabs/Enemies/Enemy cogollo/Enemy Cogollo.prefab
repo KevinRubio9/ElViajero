@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 3217322688304417834}
   - component: {fileID: 5237675014680095044}
   - component: {fileID: 4372847184756759908}
+  - component: {fileID: 3530757756985184561}
   m_Layer: 7
   m_Name: Enemy Cogollo
   m_TagString: Untagged
@@ -303,6 +304,20 @@ MonoBehaviour:
   layerPlayer:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &3530757756985184561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7410245097182656824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227ab4aee9e56814a94ea6772ac5288e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
+  currentHealth: 0
 --- !u!1001 &4408931180590758332
 PrefabInstance:
   m_ObjectHideFlags: 0
