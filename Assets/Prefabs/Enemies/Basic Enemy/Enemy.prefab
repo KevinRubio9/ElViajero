@@ -137,7 +137,6 @@ GameObject:
   - component: {fileID: 4916869094950965982}
   - component: {fileID: 3002111739584001924}
   - component: {fileID: 2163502397919671017}
-  - component: {fileID: 4229482790878395257}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Enemy
@@ -233,8 +232,8 @@ MonoBehaviour:
   actionDistance: 4
   currDistance: 0
   patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 6230780220491994669}
+  - {fileID: 6587193640969881865}
   - {fileID: 1443242804493749927}
   - {fileID: 3156500020059967459}
   currentPoint: 0
@@ -258,29 +257,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   currentHealth: 5
---- !u!136 &4229482790878395257
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8180895568799313182}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.6463487
-  m_Height: 4.0879593
-  m_Direction: 1
-  m_Center: {x: 0.014634848, y: 2.0562005, z: 0}
 --- !u!1001 &2916081173227174598
 PrefabInstance:
   m_ObjectHideFlags: 0

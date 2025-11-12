@@ -41,7 +41,6 @@ public class BulletToPlayer : MonoBehaviour
             if (life != null)
             {
                 life.TakeDamage(damage);
-                gameObject.SetActive(false);
             }
             else
             {
