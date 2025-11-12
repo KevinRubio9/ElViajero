@@ -60,7 +60,7 @@ public class EnemyMoveController : MonoBehaviour
 
     void Update()
     {
-        if (currentStatus != null)
+        if (currentStatus != null && life.currentHealth > 0)
         {
             currentStatus.UpdateState();
 
@@ -70,6 +70,7 @@ public class EnemyMoveController : MonoBehaviour
 
     public void HandleDead()
     {
+        Debug.Log("Quiero morirme");
         ChangeStatus(Dead);
     }
     public void ChangeStatus(StatesBase newStatus)
