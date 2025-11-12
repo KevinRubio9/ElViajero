@@ -2,13 +2,12 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem.Processors;
-using UnityEngine.Rendering;
 
 public class EnemyShooterLogic : MonoBehaviour
 {
     public Animator anim;
     [SerializeField] Transform player;
+    LifeController lifeEnemy;
 
     //patrol
     public NavMeshAgent agent;
@@ -30,54 +29,47 @@ public class EnemyShooterLogic : MonoBehaviour
     public float distanceDetection;
     public LayerMask layerPlayer;
 
-    //Dead
-    LifeController life;
 
     // Update is called once per frame
     private void Start()
     {
+        
+
+
         bulletPool = FindAnyObjectByType<BulletPoolEnemies>();
         agent = GetComponent<NavMeshAgent>();
-        life = GetComponent<LifeController>();
+        lifeEnemy = GetComponent<LifeController>();
 
         foreach (Transform t in pointsMov)
         {
             t.SetParent(null);
         }
+
     }
     void Update()
     {
+        
         pinnedPlayer = Physics.Raycast(transform.position, transform.forward, distanceDetection, layerPlayer);
-        if (life.currentHealth <= 0)
+        if (isPatrolling && !playerDetected)
         {
-            Dead();
+            agent.angularSpeed = 120f;
+            anim.SetBool("Player Detected",false);
+            Patrol();
+        }
+        else if (playerDetected)
+        {
+            LookTarget();
             agent.SetDestination(transform.position);
-        }
-        else
-        {
-            anim.SetBool("Enemy Alive", true);
-            if (isPatrolling && !playerDetected)
-            {
-                agent.angularSpeed = 120f;
-                anim.SetBool("Player Detected", false);
-                Patrol();
-            }
-            else if (playerDetected)
-            {
-                LookTarget();
-                agent.SetDestination(transform.position);
-                agent.updateRotation = false;
-                anim.SetBool("Player Detected", true);
-            }
-            //this.enabled = false;
+            agent.updateRotation = false;
+            anim.SetBool("Player Detected", true);
+            //if (playerInZone && Time.time >= rateTimeShoot)
+            //{
+            //    Shoot();
+            //    rateTimeShoot = Time.time + fireRate;
+            //}
         }
     }
-
-    private void Dead()
-    {
-        anim.Play("Hurt");
-        //anim.SetBool("Enemy Alive", false);
-    }
+    
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -130,6 +122,7 @@ public class EnemyShooterLogic : MonoBehaviour
     }
     public void Shoot()
     {
+
         GameObject bulletAvaiable = bulletPool.UseBullet();
         bulletAvaiable.SetActive(true);
         bulletAvaiable.transform.position = pointBullet.position;
