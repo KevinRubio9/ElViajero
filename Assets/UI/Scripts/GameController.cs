@@ -17,6 +17,10 @@ public class GameController : MonoBehaviour
     public eventsGameDelegates configurationEvent;
     public eventsGameDelegates startmenuEvent;
 
+    public float musicVolume = 1f;
+    public float sfxVolume = 1f;
+    private string menuAnterior = "";
+
     public void Awake()
     {
         if (instance == null)
@@ -70,4 +74,50 @@ public class GameController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    public void ConfigurationFromMenuInicio()
+    {
+        menuAnterior = "inicio";
+        Time.timeScale = 0f;
+        configurationEvent?.Invoke();
+    }
+    public void ConfigurationFromPause()
+    {
+        menuAnterior = "pausa";
+        Time.timeScale = 0f;
+        configurationEvent?.Invoke();
+    }
+
+    public void back()
+    {
+        if (menuAnterior == "inicio")
+        {
+            StartMenu();
+        }
+        else if (menuAnterior == "pausa")
+        {
+            PauseGame();
+        }
+        menuAnterior = "";
+    }
+    public void SetMusicVolume(float value)
+    {
+        musicVolume = value;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.musicSource.volume = value;
+            AudioManager.Instance.musicSource.mute = (value <= 0f);
+        }
+    }
+    public void SetSFXVolume(float value)
+    {
+        sfxVolume = value;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.sfxSource.volume = value;
+            AudioManager.Instance.sfxSource.mute = (value <= 0f);
+        }
+    }
+
 }
