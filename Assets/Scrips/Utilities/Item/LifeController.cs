@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class LifeController : MonoBehaviour
 {
-    [SerializeField]EnemyMoveController enemyMoveController;
+    EnemyMoveController enemyMoveController;
     [SerializeField] int maxHealth = 0;
     public int currentHealth;
 
     void Start()
     {
         currentHealth = maxHealth;
+
+
     }
-   
     public void Heal(int amount)
     {
         currentHealth += amount;
@@ -22,15 +23,17 @@ public class LifeController : MonoBehaviour
     }
     public void TakeDamage(int amount)
     {
+        
         currentHealth -= amount;
+
         if (currentHealth <= 0)
         {
             HandleDeath();
+
         }
     }
     private void HandleDeath()
     {
-        Debug.Log("Dead");
         if (enemyMoveController != null)
         {
             enemyMoveController.HandleDead();
@@ -47,4 +50,6 @@ public class LifeController : MonoBehaviour
         Destroy(gameObject);
 
     }
+
+    
 }
