@@ -13,11 +13,23 @@ public class SettingsManager : MonoBehaviour
     public TMP_Dropdown resolutionsDropDown;
     Resolution[] resolutions;
 
-    [Header("Volume")]
+    [Header("Audio Volume")]
 
     public Slider slider;
+    public float sliderValue;
+
+    [Header("Music Volume")]
+
+    [Header("Brightness")]
+
+    public Slider sliderB;
+    public float sliderValueB;
+    public Image brightnessPanel;
+
     void Start()
     {
+        //Resolution
+
         if (Screen.fullScreen)
         {
             toggle.isOn = true;
@@ -29,11 +41,16 @@ public class SettingsManager : MonoBehaviour
         }
 
         CheckResolution();
-    }
 
-    void Update()
-    {
+        //Audio Volume
 
+        sliderValue = PlayerPrefs.GetFloat("audioVolume", 0.5f);
+        AudioListener.volume = slider.value;
+
+        //Brightness
+
+        sliderB.value = PlayerPrefs.GetFloat("brightness", 0.5f);
+        brightnessPanel.color = new Color(brightnessPanel.color.r, brightnessPanel.color.g, brightnessPanel.color.b, sliderB.value);
     }
 
     public void FullScreenActivated(bool fullScreen)
@@ -74,4 +91,18 @@ public class SettingsManager : MonoBehaviour
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
+    public void ChangeSliderVolume(float value)
+    {
+        sliderValue = value;
+        PlayerPrefs.SetFloat("AudioVolume", sliderValue);
+        AudioListener.volume = slider.value;
+    }
+
+    public void ChangeSliderBrightness(float value)
+    {
+        sliderValue = value;
+        PlayerPrefs.SetFloat("brightness", sliderValue);
+        brightnessPanel.color = new Color(brightnessPanel.color.r, brightnessPanel.color.g, brightnessPanel.color.b, sliderB.value);
+    }
 }
+
