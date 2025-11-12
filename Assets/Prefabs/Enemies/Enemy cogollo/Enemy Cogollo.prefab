@@ -199,9 +199,11 @@ GameObject:
   - component: {fileID: 3217322688304417834}
   - component: {fileID: 5237675014680095044}
   - component: {fileID: 4372847184756759908}
+  - component: {fileID: 3530757756985184561}
+  - component: {fileID: 1079065570755832981}
   m_Layer: 7
   m_Name: Enemy Cogollo
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -303,6 +305,43 @@ MonoBehaviour:
   layerPlayer:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &3530757756985184561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7410245097182656824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227ab4aee9e56814a94ea6772ac5288e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
+  currentHealth: 0
+--- !u!136 &1079065570755832981
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7410245097182656824}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2.136255
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.09824765, z: 0}
 --- !u!1001 &4408931180590758332
 PrefabInstance:
   m_ObjectHideFlags: 0
