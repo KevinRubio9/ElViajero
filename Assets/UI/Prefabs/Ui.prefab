@@ -1067,6 +1067,7 @@ GameObject:
   - component: {fileID: 3737785068441599856}
   - component: {fileID: 2730644961817791076}
   - component: {fileID: 4497142147568409939}
+  - component: {fileID: 3497358434466349991}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1178,6 +1179,26 @@ MonoBehaviour:
   menuGameOver: {fileID: 4308753221323682536}
   menuHud: {fileID: 3708486654301952742}
   menuConfiguracion: {fileID: 800056813106522390}
+--- !u!114 &3497358434466349991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205529738264453677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5717af4e917ed34e813abef8107b998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggle: {fileID: 0}
+  resolutionsDropDown: {fileID: 0}
+  generalVolumeSlider: {fileID: 8768146000439065287}
+  sliderValue: 0
+  musicSlider: {fileID: 6734058051873160268}
+  sliderB: {fileID: 0}
+  sliderValueB: 0
+  brightnessPanel: {fileID: 0}
 --- !u!1 &1211330248485439499
 GameObject:
   m_ObjectHideFlags: 0
@@ -3573,7 +3594,19 @@ MonoBehaviour:
   m_Value: 80
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3497358434466349991}
+        m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
+        m_MethodName: ChangeMusicVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5412091520201383568
 GameObject:
   m_ObjectHideFlags: 0
@@ -4523,7 +4556,19 @@ MonoBehaviour:
   m_Value: 80
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3497358434466349991}
+        m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
+        m_MethodName: ChangeGeneralVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6633365680648019107
 GameObject:
   m_ObjectHideFlags: 0
