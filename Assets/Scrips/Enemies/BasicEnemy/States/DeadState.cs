@@ -9,7 +9,8 @@ public class DeadState : StatesBase
 
     public override void EnterState()
     {
-        controller.anim.SetBool("isDead", true);
+        Debug.Log("Hombre seta ha kiliado");
+        controller.anim.CrossFade("Dead",0.1f);
         currentTimer = deathTimer;
     }
     public override void UpdateState()
