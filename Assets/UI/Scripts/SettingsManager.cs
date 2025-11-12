@@ -15,11 +15,11 @@ public class SettingsManager : MonoBehaviour
 
     [Header("Audio Volume")]
 
-    public Slider slider;
+    public Slider generalVolumeSlider;
     public float sliderValue;
 
     [Header("Music Volume")]
-
+    public Slider musicSlider;
     [Header("Brightness")]
 
     public Slider sliderB;
@@ -45,7 +45,7 @@ public class SettingsManager : MonoBehaviour
         //Audio Volume
 
         sliderValue = PlayerPrefs.GetFloat("audioVolume", 0.5f);
-        AudioListener.volume = slider.value;
+        AudioListener.volume = generalVolumeSlider.value;
 
         //Brightness
 
@@ -91,11 +91,17 @@ public class SettingsManager : MonoBehaviour
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
-    public void ChangeSliderVolume(float value)
+    public void ChangeGeneralVolume()
     {
-        sliderValue = value;
+        AudioManager.Instance.ChanceMasterVolume(generalVolumeSlider.value);
         PlayerPrefs.SetFloat("AudioVolume", sliderValue);
-        AudioListener.volume = slider.value;
+
+    }
+    public void ChangeMusicVolume()
+    {
+        AudioManager.Instance.ChanceMusicVolume(musicSlider.value);
+        PlayerPrefs.SetFloat("AudioVolume", sliderValue);
+
     }
 
     public void ChangeSliderBrightness(float value)
