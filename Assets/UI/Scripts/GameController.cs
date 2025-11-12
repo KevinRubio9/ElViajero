@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
 
     public delegate void eventsGameDelegates();
 
-    public eventsGameDelegates startEvent;
+    //public eventsGameDelegates startEvent;
     public eventsGameDelegates gameOverEvent;
     public eventsGameDelegates pauseEvent;
     public eventsGameDelegates resumedEvent;
@@ -31,7 +31,7 @@ public class GameController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Time.timeScale = 1f;
+        Time.timeScale = 0f;
     }
 
     public void StartGame()
@@ -46,13 +46,11 @@ public class GameController : MonoBehaviour
     }
     public void StartMenu()
     {
-        menuAnterior = "inicio";
         Time.timeScale = 0f;
         startmenuEvent?.Invoke();
     }
     public void PauseGame()
     {
-        menuAnterior = "pausa";
         Time.timeScale = 0f;
         pauseEvent?.Invoke();
     }
@@ -86,12 +84,14 @@ public class GameController : MonoBehaviour
     {
         if (menuAnterior == "inicio")
         {
-            startmenuEvent?.Invoke();
+            SceneManager.LoadScene(0);
         }
         else if (menuAnterior == "pausa")
         {
             pauseEvent?.Invoke();
         }
         menuAnterior = "";
+
+        return;
     }
 }
