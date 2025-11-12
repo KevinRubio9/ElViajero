@@ -17,8 +17,7 @@ public class GameController : MonoBehaviour
     public eventsGameDelegates configurationEvent;
     public eventsGameDelegates startmenuEvent;
 
-    public float musicVolume = 1f;
-    public float sfxVolume = 1f;
+ 
     private string menuAnterior = "";
 
     public void Awake()
@@ -32,13 +31,12 @@ public class GameController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
     }
 
     public void StartGame()
     {
-        Time.timeScale = 1f;
-        startEvent?.Invoke();
+        SceneManager.LoadScene(1);
         Debug.Log("el juego inicio");
     }
     public void GameOver()
@@ -46,18 +44,15 @@ public class GameController : MonoBehaviour
         Time.timeScale = 0f;
         gameOverEvent?.Invoke();
     }
-    public void Configuration()
-    {
-        Time.timeScale = 0f;
-        configurationEvent?.Invoke();
-    }
     public void StartMenu()
     {
+        menuAnterior = "inicio";
         Time.timeScale = 0f;
         startmenuEvent?.Invoke();
     }
     public void PauseGame()
     {
+        menuAnterior = "pausa";
         Time.timeScale = 0f;
         pauseEvent?.Invoke();
     }
@@ -91,33 +86,12 @@ public class GameController : MonoBehaviour
     {
         if (menuAnterior == "inicio")
         {
-            StartMenu();
+            startmenuEvent?.Invoke();
         }
         else if (menuAnterior == "pausa")
         {
-            PauseGame();
+            pauseEvent?.Invoke();
         }
         menuAnterior = "";
     }
-    public void SetMusicVolume(float value)
-    {
-        musicVolume = value;
-
-        if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.musicSource.volume = value;
-            AudioManager.Instance.musicSource.mute = (value <= 0f);
-        }
-    }
-    public void SetSFXVolume(float value)
-    {
-        sfxVolume = value;
-
-        if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.sfxSource.volume = value;
-            AudioManager.Instance.sfxSource.mute = (value <= 0f);
-        }
-    }
-
 }
