@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LifeController : MonoBehaviour
 {
-    EnemyMoveController enemyMoveController;
+    [SerializeField]EnemyMoveController enemyMoveController;
     [SerializeField] int maxHealth = 0;
     public int currentHealth;
 
@@ -10,6 +10,7 @@ public class LifeController : MonoBehaviour
     {
         currentHealth = maxHealth;
     }
+   
     public void Heal(int amount)
     {
         currentHealth += amount;
@@ -22,7 +23,6 @@ public class LifeController : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
-
         if (currentHealth <= 0)
         {
             HandleDeath();
@@ -30,6 +30,7 @@ public class LifeController : MonoBehaviour
     }
     private void HandleDeath()
     {
+        Debug.Log("Dead");
         if (enemyMoveController != null)
         {
             enemyMoveController.HandleDead();
