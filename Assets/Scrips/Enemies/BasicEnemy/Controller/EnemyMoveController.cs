@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.LowLevel;
 
 public class EnemyMoveController : MonoBehaviour
 {
@@ -51,7 +52,10 @@ public class EnemyMoveController : MonoBehaviour
 
         ChangeStatus(patrol);
 
-
+        foreach (Transform t in patrolPoints)
+        {
+            t.SetParent(null);
+        }
     }
 
     void Update()
@@ -70,6 +74,14 @@ public class EnemyMoveController : MonoBehaviour
     }
     public void ChangeStatus(StatesBase newStatus)
     {
+        if (currentStatus == newStatus) return;
+
+        
+        if (currentStatus != null)
+        {
+            currentStatus.ExitState(newStatus);
+        }
+
         currentStatus = newStatus;
         currentStatus.EnterState();
     }

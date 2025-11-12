@@ -8,6 +8,10 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
     public Sound[] musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
+    [SerializeField]AudioMixer mixer;
+    float masterVolume;
+    float musicVolume;
+    float sfxVolume;
     private void Awake()
     {
         if (Instance == null)
@@ -48,7 +52,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySFX3D(string nameSFX, Transform followTarget, float maxDistance)
+    public void PlaySFX3D(string nameSFX, Transform followTarget, float minDistance, float maxDistance)
     {
         Sound s = Array.Find(sfxSounds, x => x.name == nameSFX);
 
@@ -65,6 +69,7 @@ public class AudioManager : MonoBehaviour
 
         audioSource.clip = s.clip;
         audioSource.spatialBlend = 1f;
+        audioSource.minDistance = minDistance;
         audioSource.maxDistance = maxDistance;
         audioSource.rolloffMode = AudioRolloffMode.Logarithmic;
         audioSource.Play();
@@ -83,5 +88,21 @@ public class AudioManager : MonoBehaviour
         }
 
         Destroy(audioTransform.gameObject);
+    }
+
+    public void ChanceMasterVolume(float newVolume)
+    {
+        masterVolume = newVolume;
+        mixer.SetFloat("MasterVolume",newVolume);
+    }
+    public void ChanceMusicVolume(float newVolume)
+    {
+        musicVolume = newVolume;
+        mixer.SetFloat("MusicVolume", newVolume);
+    }
+    public void ChanceSFXVolume(float newVolume)
+    {
+        sfxVolume = newVolume;
+        mixer.SetFloat("SFXVolume", newVolume);
     }
 }

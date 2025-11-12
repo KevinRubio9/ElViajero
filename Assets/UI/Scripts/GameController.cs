@@ -10,41 +10,39 @@ public class GameController : MonoBehaviour
 
     public delegate void eventsGameDelegates();
 
-    public eventsGameDelegates startEvent;
+    //public eventsGameDelegates startEvent;
     public eventsGameDelegates gameOverEvent;
     public eventsGameDelegates pauseEvent;
     public eventsGameDelegates resumedEvent;
     public eventsGameDelegates configurationEvent;
     public eventsGameDelegates startmenuEvent;
 
+ 
+    private string menuAnterior = "";
+
     public void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject);    
+            Destroy(gameObject);
         }
         Time.timeScale = 0f;
     }
 
     public void StartGame()
     {
-        Time.timeScale = 1f;
-        startEvent?.Invoke();
+        SceneManager.LoadScene(1);
         Debug.Log("el juego inicio");
     }
     public void GameOver()
     {
         Time.timeScale = 0f;
         gameOverEvent?.Invoke();
-    }
-    public void Configuration()
-    {
-        Time.timeScale = 0f;
-        configurationEvent?.Invoke();
     }
     public void StartMenu()
     {
@@ -67,7 +65,33 @@ public class GameController : MonoBehaviour
     }
     public void RestartGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-   
+    public void ConfigurationFromMenuInicio()
+    {
+        menuAnterior = "inicio";
+        Time.timeScale = 0f;
+        configurationEvent?.Invoke();
+    }
+    public void ConfigurationFromPause()
+    {
+        menuAnterior = "pausa";
+        Time.timeScale = 0f;
+        configurationEvent?.Invoke();
+    }
+
+    public void back()
+    {
+        if (menuAnterior == "inicio")
+        {
+            SceneManager.LoadScene(0);
+        }
+        else if (menuAnterior == "pausa")
+        {
+            pauseEvent?.Invoke();
+        }
+        menuAnterior = "";
+
+        return;
+    }
 }

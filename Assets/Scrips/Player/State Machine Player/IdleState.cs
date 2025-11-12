@@ -31,10 +31,16 @@ public class IdleState : BaseState
         {
             ExitState(controller.shoot);
         }
+        
     }
 
     public override void ExitState(BaseState newState)
     {
         controller.ChangeState(newState);
+    }
+
+    public override void FixedUpdateState()
+    {
+        
     }
 }

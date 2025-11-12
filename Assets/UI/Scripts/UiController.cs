@@ -13,13 +13,24 @@ public class UiController : MonoBehaviour
     }
     private void OnEnable()
     {
-        GameController.instance.startEvent += ShowHud;
+        //GameController.instance.startEvent += ShowHud;
         GameController.instance.gameOverEvent += ShowGameOver;
         GameController.instance.pauseEvent += ShowPause;
         GameController.instance.resumedEvent += ShowHud;
         GameController.instance.configurationEvent += ShowConfiguration;
         GameController.instance.startmenuEvent += ShowStart;
 
+    }
+    private void OnDisable()
+    {
+        if (GameController.instance == null) return;
+
+        //GameController.instance.startEvent -= ShowHud;
+        GameController.instance.gameOverEvent -= ShowGameOver;
+        GameController.instance.pauseEvent -= ShowPause;
+        GameController.instance.resumedEvent -= ShowHud;
+        GameController.instance.configurationEvent -= ShowConfiguration;
+        GameController.instance.startmenuEvent -= ShowStart;
     }
 
 
