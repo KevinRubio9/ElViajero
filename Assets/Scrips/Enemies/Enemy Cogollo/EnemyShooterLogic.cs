@@ -32,7 +32,6 @@ public class EnemyShooterLogic : MonoBehaviour
 
     //Dead
     LifeController life;
-    bool isDead;
 
     // Update is called once per frame
     private void Start()
@@ -53,7 +52,6 @@ public class EnemyShooterLogic : MonoBehaviour
         {
             Dead();
             agent.SetDestination(transform.position);
-            isDead = true;
         }
         else
         {
