@@ -16,15 +16,17 @@ public class SettingsManager : MonoBehaviour
     [Header("Audio Volume")]
 
     public Slider generalVolumeSlider;
-    public float sliderValue;
 
     [Header("Music Volume")]
+
     public Slider musicSlider;
+
     [Header("Brightness")]
 
     public Slider sliderB;
     public float sliderValueB;
     public Image brightnessPanel;
+    public List<string> options = new List<string>();
 
     void Start()
     {
@@ -44,8 +46,10 @@ public class SettingsManager : MonoBehaviour
 
         //Audio Volume
 
-        sliderValue = PlayerPrefs.GetFloat("audioVolume", 0.5f);
-        AudioListener.volume = generalVolumeSlider.value;
+        generalVolumeSlider.value = PlayerPrefs.GetFloat("AudioVolume");
+
+        //Music Volume
+        musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
 
         //Brightness
 
@@ -62,14 +66,16 @@ public class SettingsManager : MonoBehaviour
     {
         resolutions = Screen.resolutions;
         resolutionsDropDown.ClearOptions();
-
-        List<string> options = new List<string>();
+        Debug.Log(Screen.currentResolution.refreshRateRatio.numerator);
         int actualResolution = 0;
 
         for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height;
-            options.Add(option);
+            if (resolutions[i].refreshRateRatio.numerator == Screen.currentResolution.refreshRateRatio.numerator)
+            {
+                options.Add(option);
+            }
 
             if (Screen.fullScreen && resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
             {
@@ -93,21 +99,20 @@ public class SettingsManager : MonoBehaviour
     }
     public void ChangeGeneralVolume()
     {
-        AudioManager.Instance.ChanceMasterVolume(generalVolumeSlider.value*-1);
-        PlayerPrefs.SetFloat("AudioVolume", sliderValue);
+        AudioManager.Instance.ChanceMasterVolume(generalVolumeSlider.value * -1);
+        PlayerPrefs.SetFloat("AudioVolume", generalVolumeSlider.value * -1);
 
     }
     public void ChangeMusicVolume()
     {
-        AudioManager.Instance.ChanceMusicVolume(musicSlider.value*-1);
-        PlayerPrefs.SetFloat("AudioVolume", sliderValue);
+        AudioManager.Instance.ChanceMusicVolume(musicSlider.value * -1);
+        PlayerPrefs.SetFloat("MusicVolume", musicSlider.value * -1);
 
     }
 
     public void ChangeSliderBrightness(float value)
     {
-        sliderValue = value;
-        PlayerPrefs.SetFloat("brightness", sliderValue);
+        PlayerPrefs.SetFloat("brightness", value);
         brightnessPanel.color = new Color(brightnessPanel.color.r, brightnessPanel.color.g, brightnessPanel.color.b, sliderB.value);
     }
 }
