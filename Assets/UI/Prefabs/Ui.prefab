@@ -1192,7 +1192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 0}
-  resolutionsDropDown: {fileID: 0}
+  resolutionsDropDown: {fileID: 2197085874596132435}
   generalVolumeSlider: {fileID: 8768146000439065287}
   sliderValue: 0
   musicSlider: {fileID: 6734058051873160268}
