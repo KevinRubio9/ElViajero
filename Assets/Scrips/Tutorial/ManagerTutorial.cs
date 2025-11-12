@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 
-public class SettingsManager : MonoBehaviour
+public class ManagerTutorial : MonoBehaviour
 {
     [Header("Resolutions")]
 

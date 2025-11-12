@@ -103,13 +103,10 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics.CheckBox(centerPoint.position, sizeDetection, Quaternion.identity, layerGround);
 
-
         movHori = Input.GetAxis("Horizontal");
         movVert = Input.GetAxis("Vertical");
 
         // condicion de dash
-
-
         if (isTackled)
         {
             rigid.linearVelocity = tackleDirection * tackleForce * Time.deltaTime;
@@ -151,9 +148,17 @@ public class PlayerController : MonoBehaviour
     }
     public void Movement()
     {
-        Vector3 direction = transform.forward * mov.magnitude * speed;
-        direction.y = rigid.linearVelocity.y;
-        rigid.linearVelocity = direction;
+        if (!poisoned)
+        {
+            Vector3 direction = transform.forward * mov.magnitude * speed;
+            direction.y = rigid.linearVelocity.y;
+            rigid.linearVelocity = direction;
+        }
+        else {
+            Vector3 direction = transform.forward * mov.magnitude * speedCorrupted;
+            direction.y = rigid.linearVelocity.y;
+            rigid.linearVelocity = direction;
+        }
     }
     public void ChangeState(BaseState newState)
     {
@@ -218,7 +223,6 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Poisoned());
         }
     }
-
     private void OnDrawGizmos()
     {
         Gizmos.DrawCube(centerPoint.position, sizeDetection);
@@ -238,7 +242,6 @@ public class PlayerController : MonoBehaviour
             platform.ActivateFalling();
         }
     }
-
         private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Lava")
