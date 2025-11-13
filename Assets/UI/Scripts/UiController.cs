@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.AI;
 
 public class UiController : MonoBehaviour
 {
@@ -9,11 +10,19 @@ public class UiController : MonoBehaviour
 
     private void Start()
     {
-        ShowStart();
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            ShowStart();
+        }
+        else
+        {
+            ShowHud();
+        }
     }
+
     private void OnEnable()
     {
-        //GameController.instance.startEvent += ShowHud;
+
         GameController.instance.gameOverEvent += ShowGameOver;
         GameController.instance.pauseEvent += ShowPause;
         GameController.instance.resumedEvent += ShowHud;
@@ -25,7 +34,7 @@ public class UiController : MonoBehaviour
     {
         if (GameController.instance == null) return;
 
-        //GameController.instance.startEvent -= ShowHud;
+
         GameController.instance.gameOverEvent -= ShowGameOver;
         GameController.instance.pauseEvent -= ShowPause;
         GameController.instance.resumedEvent -= ShowHud;
@@ -41,6 +50,10 @@ public class UiController : MonoBehaviour
         menuGameOver.SetActive(false);
         menuHud.SetActive(false);
         menuConfiguracion.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 0f;
+      
     }
     public void ShowGameOver()
     {
@@ -49,6 +62,8 @@ public class UiController : MonoBehaviour
         menuGameOver.SetActive(true);
         menuHud.SetActive(false);
         menuConfiguracion.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
     public void ShowHud()
     {
@@ -57,6 +72,9 @@ public class UiController : MonoBehaviour
         menuGameOver.SetActive(false);
         menuHud.SetActive(true);
         menuConfiguracion.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = false;
+        Time.timeScale = 1f;
     }
     public void ShowConfiguration()
     {
@@ -64,15 +82,21 @@ public class UiController : MonoBehaviour
         menuPausa.SetActive(false);
         menuGameOver.SetActive(false);
         menuHud.SetActive(false);
-        menuConfiguracion.SetActive(true);
+        menuConfiguracion.SetActive(true); Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void ShowStart()
     {
-        menuInicial.SetActive(true);
-        menuPausa.SetActive(false);
-        menuGameOver.SetActive(false);
-        menuHud.SetActive(false);
-        menuConfiguracion.SetActive(false);
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            menuPausa?.SetActive(false);
+            menuGameOver?.SetActive(false);
+            menuHud?.SetActive(false);
+            menuConfiguracion?.SetActive(false);
+        }
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
     public eventsGameDelegates configurationEvent;
     public eventsGameDelegates startmenuEvent;
 
- 
+
     private string menuAnterior = "";
 
     public void Awake()
@@ -36,12 +36,26 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
-        Debug.Log("el juego inicio");
+        Time.timeScale = 1f;
+        StartCoroutine(ChangeScene(1)); // Carga sin congelar el juego
+    }
+
+    private IEnumerator ChangeScene(int index)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(index);
+
+        // Permite activar la escena cuando esté lista 
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        Debug.Log("Juego iniciado correctamente");
     }
     public void GameOver()
     {
         Time.timeScale = 0f;
+      
         gameOverEvent?.Invoke();
     }
     public void StartMenu()
@@ -52,11 +66,13 @@ public class GameController : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
         pauseEvent?.Invoke();
     }
     public void ResumedGame()
     {
         Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
         resumedEvent?.Invoke();
     }
     public void CloseGame()
@@ -84,14 +100,13 @@ public class GameController : MonoBehaviour
     {
         if (menuAnterior == "inicio")
         {
-            SceneManager.LoadScene(0);
+            startmenuEvent?.Invoke();
         }
         else if (menuAnterior == "pausa")
         {
-            pauseEvent?.Invoke();
+            pauseEvent?.Invoke(); // vuelve al menú de pausa
         }
-        menuAnterior = "";
 
-        return;
+        menuAnterior = "";
     }
 }

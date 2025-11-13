@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 5890944321415492601}
   - component: {fileID: 5418958845390057710}
   m_Layer: 5
-  m_Name: Botones (1)
+  m_Name: Imagenes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 418188186147504207, guid: 4d21f483b73d2654584072cb2f4535d5, type: 3}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
         m_MethodName: back
         m_Mode: 1
@@ -833,6 +833,8 @@ RectTransform:
   - {fileID: 1946045732975925223}
   - {fileID: 833227506759474889}
   - {fileID: 5890944321415492601}
+  - {fileID: 3681942249411392415}
+  - {fileID: 8195186626295935357}
   m_Father: {fileID: 4134003894974644629}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1000,7 +1002,7 @@ GameObject:
   - component: {fileID: 833227506759474889}
   - component: {fileID: 6337205779532048798}
   m_Layer: 5
-  m_Name: Botones
+  m_Name: Sliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1174,7 +1176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e5d654db96d8f4db6a177562ef1c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuInicial: {fileID: 6472929551104596309}
   menuPausa: {fileID: 8270365159378971503}
   menuGameOver: {fileID: 4308753221323682536}
   menuHud: {fileID: 3708486654301952742}
@@ -1191,12 +1192,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5717af4e917ed34e813abef8107b998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toggle: {fileID: 0}
+  toggle: {fileID: 3133601808309683065}
   resolutionsDropDown: {fileID: 2197085874596132435}
   generalVolumeSlider: {fileID: 8768146000439065287}
   sliderValue: 0
   musicSlider: {fileID: 6734058051873160268}
-  sliderB: {fileID: 0}
+  sliderB: {fileID: 2150569573924170079}
   sliderValueB: 0
   brightnessPanel: {fileID: 0}
 --- !u!1 &1211330248485439499
@@ -2488,7 +2489,7 @@ RectTransform:
   - {fileID: 5360003776272490040}
   - {fileID: 5891731617998508410}
   - {fileID: 1800192694628449278}
-  m_Father: {fileID: 1946045732975925223}
+  m_Father: {fileID: 8512789599818744149}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -3108,7 +3109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4747544631127177747
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3792,9 +3793,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4497142147568409939}
-        m_TargetAssemblyTypeName: UiController, Assembly-CSharp
-        m_MethodName: ShowHud
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4689,18 +4690,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4497142147568409939}
-        m_TargetAssemblyTypeName: UiController, Assembly-CSharp
-        m_MethodName: ShowConfiguration
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
         m_MethodName: ConfigurationFromMenuInicio
@@ -5846,9 +5835,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2640442201605534782}
-  - {fileID: 3681942249411392415}
   - {fileID: 7969415843895675096}
-  - {fileID: 8195186626295935357}
   m_Father: {fileID: 8512789599818744149}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -5919,12 +5906,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9133401287116208396}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1946045732975925223}
+  m_Father: {fileID: 8512789599818744149}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
