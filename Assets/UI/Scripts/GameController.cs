@@ -1,79 +1,72 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor.SearchService;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
+    private string fromName = "";
 
-    public delegate void eventsGameDelegates();
+    public delegate void EventsMenuDelegates();
 
-    //public eventsGameDelegates startEvent;
-    public eventsGameDelegates gameOverEvent;
-    public eventsGameDelegates pauseEvent;
-    public eventsGameDelegates resumedEvent;
-    public eventsGameDelegates configurationEvent;
-    public eventsGameDelegates startmenuEvent;
-
-
-    private string menuAnterior = "";
+    // public event EventsMenuDelegates startEvent;
+    public event EventsMenuDelegates pauseEvent;
+    public event EventsMenuDelegates gameOverEvent;
+    public event EventsMenuDelegates resumedEvent;
+    public event EventsMenuDelegates mainMenuEvent;
+    public event EventsMenuDelegates configurationEvent;
 
     public void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
-        Time.timeScale = 0f;
-    }
 
+        Time.timeScale = 0f;
+
+    }
     public void StartGame()
     {
-        Time.timeScale = 1f;
-        StartCoroutine(ChangeScene(1)); // Carga sin congelar el juego
-    }
+        SceneManager.LoadScene(1);
 
-    private IEnumerator ChangeScene(int index)
-    {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(index);
-
-        // Permite activar la escena cuando esté lista 
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
-
-        Debug.Log("Juego iniciado correctamente");
-    }
-    public void GameOver()
-    {
-        Time.timeScale = 0f;
-      
-        gameOverEvent?.Invoke();
-    }
-    public void StartMenu()
-    {
-        Time.timeScale = 0f;
-        startmenuEvent?.Invoke();
     }
     public void PauseGame()
     {
         Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.None;
         pauseEvent?.Invoke();
+    }
+    public void GameOver()
+    {
+        Time.timeScale = 0f;
+        gameOverEvent?.Invoke();
     }
     public void ResumedGame()
     {
         Time.timeScale = 1f;
-        Cursor.lockState = CursorLockMode.Locked;
         resumedEvent?.Invoke();
+    }
+    public void MainMenuGame()
+    {
+        Time.timeScale = 0f;
+        mainMenuEvent?.Invoke();
+    }
+    public void ConfigurationFomMain()
+    {
+        fromName = "inicio";
+        Time.timeScale = 0F;
+        configurationEvent?.Invoke();
+    }
+    public void ConfigurationFomPause()
+    {
+        fromName = "pause";
+        Time.timeScale = 0F;
+        configurationEvent?.Invoke();
     }
     public void CloseGame()
     {
@@ -83,30 +76,22 @@ public class GameController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    public void ConfigurationFromMenuInicio()
+    public void Back()
     {
-        menuAnterior = "inicio";
-        Time.timeScale = 0f;
-        configurationEvent?.Invoke();
-    }
-    public void ConfigurationFromPause()
-    {
-        menuAnterior = "pausa";
-        Time.timeScale = 0f;
-        configurationEvent?.Invoke();
-    }
+        if (fromName == "inicio")
+        {
+            mainMenuEvent.Invoke();
 
-    public void back()
-    {
-        if (menuAnterior == "inicio")
-        {
-            startmenuEvent?.Invoke();
         }
-        else if (menuAnterior == "pausa")
+        else if (fromName == "pause")
         {
-            pauseEvent?.Invoke(); // vuelve al menú de pausa
+            pauseEvent.Invoke();
         }
 
-        menuAnterior = "";
+        fromName = "";
+
     }
+
+
+
 }

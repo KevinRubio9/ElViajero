@@ -6,18 +6,13 @@ using UnityEngine.AI;
 
 public class UiController : MonoBehaviour
 {
-    [SerializeField] GameObject menuInicial, menuPausa, menuGameOver, menuHud, menuConfiguracion;
+    [SerializeField] GameObject menuPausa, menuGameOver, menuHud, menuConfiguracion;
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            ShowStart();
-        }
-        else
-        {
+       
             ShowHud();
-        }
+        
     }
 
     private void OnEnable()
@@ -27,7 +22,7 @@ public class UiController : MonoBehaviour
         GameController.instance.pauseEvent += ShowPause;
         GameController.instance.resumedEvent += ShowHud;
         GameController.instance.configurationEvent += ShowConfiguration;
-        GameController.instance.startmenuEvent += ShowStart;
+        GameController.instance.mainMenuEvent += ShowMainMenu;
 
     }
     private void OnDisable()
@@ -39,13 +34,13 @@ public class UiController : MonoBehaviour
         GameController.instance.pauseEvent -= ShowPause;
         GameController.instance.resumedEvent -= ShowHud;
         GameController.instance.configurationEvent -= ShowConfiguration;
-        GameController.instance.startmenuEvent -= ShowStart;
+        GameController.instance.mainMenuEvent -= ShowMainMenu;
     }
 
 
     public void ShowPause()
     {
-        menuInicial.SetActive(false);
+        
         menuPausa.SetActive(true);
         menuGameOver.SetActive(false);
         menuHud.SetActive(false);
@@ -57,7 +52,7 @@ public class UiController : MonoBehaviour
     }
     public void ShowGameOver()
     {
-        menuInicial.SetActive(false);
+       
         menuPausa.SetActive(false);
         menuGameOver.SetActive(true);
         menuHud.SetActive(false);
@@ -67,7 +62,7 @@ public class UiController : MonoBehaviour
     }
     public void ShowHud()
     {
-        menuInicial.SetActive(false);
+        
         menuPausa.SetActive(false);
         menuGameOver.SetActive(false);
         menuHud.SetActive(true);
@@ -78,7 +73,7 @@ public class UiController : MonoBehaviour
     }
     public void ShowConfiguration()
     {
-        menuInicial.SetActive(false);
+       
         menuPausa.SetActive(false);
         menuGameOver.SetActive(false);
         menuHud.SetActive(false);
@@ -86,17 +81,8 @@ public class UiController : MonoBehaviour
         Cursor.visible = true;
     }
 
-    public void ShowStart()
+    public void ShowMainMenu()
     {
-        if (SceneManager.GetActiveScene().buildIndex != 0)
-        {
-            menuPausa?.SetActive(false);
-            menuGameOver?.SetActive(false);
-            menuHud?.SetActive(false);
-            menuConfiguracion?.SetActive(false);
-        }
-
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        SceneManager.LoadScene(0);
     }
 }
