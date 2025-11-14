@@ -106,6 +106,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         isGrounded = Physics.CheckBox(centerPoint.position, sizeDetection, Quaternion.identity, layerGround);
 
 
