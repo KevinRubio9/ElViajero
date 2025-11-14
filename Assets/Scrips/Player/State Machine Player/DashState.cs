@@ -12,6 +12,10 @@ public class DashState : BaseState
         controller.StartDash();
 
     }
+    public override void FixedUpdateState()
+    {
+        
+    }
 
     public override void UpdateState()
     {
@@ -43,8 +47,4 @@ public class DashState : BaseState
         controller.ChangeState(newState);
     }
 
-    public override void FixedUpdateState()
-    {
-        
-    }
 }

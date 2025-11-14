@@ -58,6 +58,10 @@ public class PlayerController : MonoBehaviour
     public bool inDash = false;
 
     [Space]
+    [Header("Disparo")]
+    ShootPlayer shootPlayer;
+
+    [Space]
     [Header("Muerte")]
 
     LifeController life;
@@ -83,6 +87,7 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         life = GetComponent<LifeController>();
+        shootPlayer = GetComponent<ShootPlayer>();
 
     }
 
@@ -121,11 +126,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //velocity.y += gravity * Time.deltaTime;
-        //rigid.linearVelocity = velocity * Time.deltaTime;
         currentState?.UpdateState();
 
-        CalculateSpeed();
 
         mov = new Vector3(movHori, 0, movVert);
 
@@ -142,6 +144,7 @@ public class PlayerController : MonoBehaviour
         {
             ChangeState(dead);
             this.enabled = false;
+            GetComponent<ShootPlayer>().enabled = false;
         }
     }
 
@@ -173,10 +176,6 @@ public class PlayerController : MonoBehaviour
         float vertDash = Input.GetAxisRaw("Vertical");
         movDash = new Vector3(horiDash, 0, vertDash);
 
-        //if (movDash == Vector3.zero)
-        //{
-        //    movDash = transform.forward;
-        //}
 
         float timer = 0;
         rigid.linearVelocity = transform.forward * speedDash ;
@@ -200,17 +199,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void CalculateSpeed()
-    {
-        //// Diferencia de posición entre frames
-        //Vector3 deltaPosition = transform.position - lastPosition;
-
-        //// Velocidad vertical = cambio en Y / tiempo
-        //_velocityY = deltaPosition.y / Time.deltaTime;
-
-        //// Guardar posición actual para el siguiente frame
-        //lastPosition = transform.position;
-    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Bullet1"))

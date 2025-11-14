@@ -10,12 +10,12 @@ public class ManagerTutorial : MonoBehaviour
         if (pController.movHori != 0 || pController.movVert != 0)
         {
             jump.SetActive(true);
-            dash.SetActive(true);
         }
 
-        if (pController)
+        if (Input.GetButtonDown("Jump"))    
         {
-
+            dash.SetActive(true);
+            shoot.SetActive(true);
         }
     }
 }
