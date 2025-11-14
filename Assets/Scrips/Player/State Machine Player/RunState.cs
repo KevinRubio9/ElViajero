@@ -11,22 +11,15 @@ public class RunState : BaseState
     {
         controller.anim.CrossFade("Run",0.1f,0);
     }
+    public override void FixedUpdateState()
+    {
+        controller.Movement();
+    }
 
     public override void UpdateState()
     {
         Debug.Log("Esta en estado Run");
 
-        //Vector3 mov = new Vector3(controller.movHori, 0, controller.movVert);
-
-        //float camDirection = controller.cam.eulerAngles.y;
-        //Vector3 movByCam = Quaternion.Euler(0f, camDirection, 0f) * mov;
-
-
-        //if (mov != Vector3.zero)
-        //{
-        //    Quaternion targetRotation = Quaternion.LookRotation(movByCam);
-        //    controller.transform.rotation = Quaternion.Slerp(controller.transform.rotation, targetRotation, controller.sdRotate * Time.deltaTime);
-        //}
 
         if (Input.GetButtonDown("Jump") && controller.isGrounded)
         {
@@ -54,8 +47,4 @@ public class RunState : BaseState
 
     }
 
-    public override void FixedUpdateState()
-    {
-        controller.Movement();
-    }
 }

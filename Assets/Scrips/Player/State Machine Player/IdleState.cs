@@ -8,6 +8,10 @@ public class IdleState : BaseState
     {
         controller.anim.CrossFade("Idle",0.1f,0);
     }
+    public override void FixedUpdateState()
+    {
+        
+    }
 
     public override void UpdateState()
     {
@@ -39,8 +43,4 @@ public class IdleState : BaseState
         controller.ChangeState(newState);
     }
 
-    public override void FixedUpdateState()
-    {
-        
-    }
 }
