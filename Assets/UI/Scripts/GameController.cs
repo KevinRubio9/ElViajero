@@ -38,6 +38,8 @@ public class GameController : MonoBehaviour
     {
         SceneManager.LoadScene(1);
         Debug.Log("el juego inicio");
+        Time.timeScale = 1f;
+
     }
     public void GameOver()
     {
