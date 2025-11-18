@@ -9440,7 +9440,7 @@ Transform:
   m_GameObject: {fileID: 1459550719}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: -2, z: 47}
+  m_LocalPosition: {x: -5, y: -1.6, z: 47}
   m_LocalScale: {x: 100, y: 1, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10083,7 +10083,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: b8e162947d4b70148956c6712ccf7f9b, type: 2}
+  m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
 --- !u!4 &1715879008
 Transform:
@@ -10594,15 +10594,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1600787450480570600, guid: 26aee392996db4b43bd746e1d6efddd3, type: 3}
       propertyPath: m_LocalScale.x
-      value: 8.262267
+      value: 9.192081
+      objectReference: {fileID: 0}
+    - target: {fileID: 1600787450480570600, guid: 26aee392996db4b43bd746e1d6efddd3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5.131405
       objectReference: {fileID: 0}
     - target: {fileID: 1600787450480570600, guid: 26aee392996db4b43bd746e1d6efddd3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.3088
+      value: -0.3878
       objectReference: {fileID: 0}
     - target: {fileID: 1600787450480570600, guid: 26aee392996db4b43bd746e1d6efddd3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.630058
+      value: 2.8157
       objectReference: {fileID: 0}
     - target: {fileID: 1600787450480570600, guid: 26aee392996db4b43bd746e1d6efddd3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10636,6 +10640,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6181075988070250236, guid: 26aee392996db4b43bd746e1d6efddd3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8e0dd118b3d1c5f469e347a7d649920a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
