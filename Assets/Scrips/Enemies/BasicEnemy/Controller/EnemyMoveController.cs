@@ -63,9 +63,7 @@ public class EnemyMoveController : MonoBehaviour
         if (currentStatus != null)
         {
             currentStatus.UpdateState();
-
         }
-
     }
 
     public void HandleDead()

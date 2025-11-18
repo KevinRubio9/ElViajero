@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Timers;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
@@ -28,6 +29,8 @@ public class EnemyShooterLogic : MonoBehaviour
     public bool playerInZone;
     public float distanceDetection;
     public LayerMask layerPlayer;
+
+    //Dead
 
 
     // Update is called once per frame
@@ -68,6 +71,12 @@ public class EnemyShooterLogic : MonoBehaviour
             //    rateTimeShoot = Time.time + fireRate;
             //}
         }
+
+        if(lifeEnemy.currentHealth <= 0)
+        {
+            DeadCogollo();
+        }
+
     }
     
     private void OnTriggerStay(Collider other)
@@ -102,7 +111,7 @@ public class EnemyShooterLogic : MonoBehaviour
         }
         agent.SetDestination(pointsMov[currentTargert].position);
 
-        Debug.Log(currentTargert);
+        Debug.Log("Cogollo se esta dirigiendo al punto numero: " + currentTargert);
     }
 
     public void LookTarget()
@@ -127,6 +136,16 @@ public class EnemyShooterLogic : MonoBehaviour
         bulletAvaiable.SetActive(true);
         bulletAvaiable.transform.position = pointBullet.position;
         bulletAvaiable.transform.rotation = pointBullet.rotation;
+    }
+
+    public void DeadCogollo()
+    {
+        Debug.Log("Cogollo ha muerto");
+        anim.SetBool("Enemy Alive", false);
+        agent.SetDestination(transform.position);
+        isPatrolling = false;
+        playerDetected = false;
+        this.enabled = false;
     }
 
     private void OnDrawGizmos()

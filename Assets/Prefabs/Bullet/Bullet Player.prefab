@@ -5069,4 +5069,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  tag: Enemy
+  tagTarget: Enemy

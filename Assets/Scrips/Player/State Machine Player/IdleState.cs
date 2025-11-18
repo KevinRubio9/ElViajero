@@ -15,7 +15,7 @@ public class IdleState : BaseState
 
     public override void UpdateState()
     {
-        Debug.Log("Esta en estado Idle");
+        Debug.Log("Player sta en estado Idle");
 
         if (Input.GetButtonDown("Fire3") && controller.canDash)
         {
