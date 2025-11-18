@@ -39,13 +39,15 @@ public class JumpState : BaseState
             ExitState(controller.dash);
         }
 
-        if (controller.rigid.linearVelocity.y < 0 && !controller.isGrounded)
+        if (controller.rigid.linearVelocity.y < 0)
         {
             ExitState(controller.fall);
         }
 
+
         if (Input.GetButtonDown("Fire1"))
         {
+            controller.ShootBullet();
             ExitState(controller.shoot);
         }
 

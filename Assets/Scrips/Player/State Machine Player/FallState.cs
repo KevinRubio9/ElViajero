@@ -35,6 +35,7 @@ public class FallState : BaseState
         }
         if (Input.GetButtonDown("Fire1"))
         {
+            controller.ShootBullet();
             ExitState(controller.shoot);
         }
 

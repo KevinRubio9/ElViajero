@@ -33,6 +33,7 @@ public class IdleState : BaseState
         }
         if (Input.GetButtonDown("Fire1"))
         {
+            controller.ShootBullet();
             ExitState(controller.shoot);
         }
         
