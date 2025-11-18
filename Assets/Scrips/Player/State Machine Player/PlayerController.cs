@@ -199,6 +199,10 @@ public class PlayerController : MonoBehaviour
         poisoned = false;
     }
 
+    public void ShootBullet()
+    {
+        shootPlayer.Shoot();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {

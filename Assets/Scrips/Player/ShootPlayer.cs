@@ -13,10 +13,10 @@ public class ShootPlayer : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Shoot();
-        }
+        //if (Input.GetButtonDown("Fire1"))
+        //{
+        //    Shoot();
+        //}
     }
     public void Shoot()
     {
