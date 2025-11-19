@@ -6,7 +6,7 @@ public class PatrolState : StatesBase
     public PatrolState(EnemyMoveController parameters) : base(parameters) { }
     public override void EnterState()
     {
-        controller.anim.SetBool("isWalking", true);
+        //controller.anim.SetBool("isWalking", true);
         controller.agent.speed = controller.patrolSpeed;
         
 
@@ -17,12 +17,10 @@ public class PatrolState : StatesBase
     }
     public override void UpdateState()
     {
-        Debug.Log("Hongo en estado de patrullaje");
         controller.currDistance = Vector3.Distance(controller.transform.position, controller.targetAgent.position);
         
         if (controller.currDistance <= controller.actionDistance)
         {
-
             controller.ChangeStatus(controller.Chase);
         }
         else
@@ -31,6 +29,7 @@ public class PatrolState : StatesBase
 
             if (!controller.agent.pathPending && controller.agent.remainingDistance < 0.5f)
             {
+        Debug.Log("Hongo en estado de patrullaje");
                 if (controller.waitCounter <= 0f)
                 {
                     controller.currentPoint = (controller.currentPoint + 1) % controller.patrolPoints.Count;
@@ -43,9 +42,6 @@ public class PatrolState : StatesBase
                 }
             }
         }
-
-
-
     }
     public override void ExitState(StatesBase newState)
     {

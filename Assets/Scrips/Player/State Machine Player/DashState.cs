@@ -31,7 +31,7 @@ public class DashState : BaseState
             ExitState(controller.jump);
         }
 
-        if (!controller.inDash && controller.isGrounded && controller.rigid.linearVelocity.y < 0)
+        if (!controller.inDash && controller.isGrounded)
         {
             if (controller.movHori == 0 && controller.movVert == 0)
             {
