@@ -6,13 +6,29 @@ using UnityEngine.AI;
 
 public class UiController : MonoBehaviour
 {
+    public static UiController instance;
     [SerializeField] GameObject menuPausa, menuGameOver, menuHud, menuConfiguracion;
 
+    public void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        Time.timeScale = 0f;
+
+    }
     private void Start()
     {
-       
-            ShowHud();
-        
+
+        ShowHud();
+
     }
 
     private void OnEnable()
@@ -40,7 +56,7 @@ public class UiController : MonoBehaviour
 
     public void ShowPause()
     {
-        
+
         menuPausa.SetActive(true);
         menuGameOver.SetActive(false);
         menuHud.SetActive(false);
@@ -48,11 +64,11 @@ public class UiController : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Time.timeScale = 0f;
-      
+
     }
     public void ShowGameOver()
     {
-       
+
         menuPausa.SetActive(false);
         menuGameOver.SetActive(true);
         menuHud.SetActive(false);
@@ -62,7 +78,7 @@ public class UiController : MonoBehaviour
     }
     public void ShowHud()
     {
-        
+
         menuPausa.SetActive(false);
         menuGameOver.SetActive(false);
         menuHud.SetActive(true);
@@ -73,7 +89,7 @@ public class UiController : MonoBehaviour
     }
     public void ShowConfiguration()
     {
-       
+
         menuPausa.SetActive(false);
         menuGameOver.SetActive(false);
         menuHud.SetActive(false);

@@ -16,12 +16,14 @@ public class GameController : MonoBehaviour
     public event EventsMenuDelegates resumedEvent;
     public event EventsMenuDelegates mainMenuEvent;
     public event EventsMenuDelegates configurationEvent;
+    public event EventsMenuDelegates settingsEvent;
 
     public void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -60,7 +62,7 @@ public class GameController : MonoBehaviour
     {
         fromName = "inicio";
         Time.timeScale = 0F;
-        configurationEvent?.Invoke();
+        settingsEvent?.Invoke();
     }
     public void ConfigurationFomPause()
     {
@@ -80,12 +82,12 @@ public class GameController : MonoBehaviour
     {
         if (fromName == "inicio")
         {
-            mainMenuEvent.Invoke();
+            StartGame();
 
         }
         else if (fromName == "pause")
         {
-            pauseEvent.Invoke();
+            PauseGame();
         }
 
         fromName = "";

@@ -11,8 +11,8 @@ public class InicialMenu : MonoBehaviour
     }
     public void Update()
     {
-        GameController.instance.configurationEvent += MainMenu;
-        GameController.instance.mainMenuEvent += Settings;
+        GameController.instance.settingsEvent += Settings;
+        GameController.instance.mainMenuEvent += MainMenu;
     }
     public void MainMenu()
     {
