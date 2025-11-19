@@ -9,9 +9,14 @@ public class DeadStatePlayer : BaseState
         Debug.Log("nos morimos perro");
         controller.anim.CrossFade("Dead", 0.1f);
     }
+    public override void FixedUpdateState()
+    {
+
+    }
 
     public override void UpdateState()
     {
+        Debug.Log("Player esta en estado Dead");
 
     }
 

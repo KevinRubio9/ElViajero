@@ -5070,6 +5070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+<<<<<<< HEAD
 --- !u!1001 &3570681989268625513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5132,3 +5133,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e41aa4529690dc4448859a6d45f36a47, type: 3}
   m_PrefabInstance: {fileID: 3570681989268625513}
   m_PrefabAsset: {fileID: 0}
+=======
+  tag: Enemy
+>>>>>>> Develop
