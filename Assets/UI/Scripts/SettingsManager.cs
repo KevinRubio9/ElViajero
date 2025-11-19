@@ -93,13 +93,13 @@ public class SettingsManager : MonoBehaviour
     }
     public void ChangeGeneralVolume()
     {
-        AudioManager.Instance.ChanceMasterVolume(generalVolumeSlider.value*-1);
+        AudioManager.Instance.ChanceMasterVolume(generalVolumeSlider.value * -1);
         PlayerPrefs.SetFloat("AudioVolume", sliderValue);
 
     }
     public void ChangeMusicVolume()
     {
-        AudioManager.Instance.ChanceMusicVolume(musicSlider.value*-1);
+        AudioManager.Instance.ChanceMusicVolume(musicSlider.value * -1);
         PlayerPrefs.SetFloat("AudioVolume", sliderValue);
 
     }

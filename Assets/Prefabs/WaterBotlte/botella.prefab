@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8052044380361792601}
   - component: {fileID: 6063048762137072744}
   - component: {fileID: 6032126936783933048}
+  - component: {fileID: 3271070528968521109}
   m_Layer: 0
   m_Name: botella
   m_TagString: Untagged
@@ -101,3 +102,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amountCure: 1
+--- !u!136 &3271070528968521109
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170894288072659372}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.024613377
+  m_Height: 0.04922675
+  m_Direction: 1
+  m_Center: {x: 0.00294925, y: 0.0028228858, z: -0.001969121}
