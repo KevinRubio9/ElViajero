@@ -13,8 +13,7 @@ public class ItemWater : MonoBehaviour
             {
                 playerHealth.Heal(amountCure);
             }
-            Destroy(gameObject);
-
         }
+        Destroy(gameObject);
     }
 }
