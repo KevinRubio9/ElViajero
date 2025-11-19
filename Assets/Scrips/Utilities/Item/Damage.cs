@@ -3,6 +3,7 @@ using UnityEngine;
 public class Damage : MonoBehaviour
 {
     [SerializeField] public int damage = 10;
+    [SerializeField] string tagTarget;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -23,7 +24,7 @@ public class Damage : MonoBehaviour
 
         //  Si el objeto tiene LifeController (otro enemigo o destructible)
         LifeController otherLife = target.GetComponent<LifeController>();
-        if (otherLife != null)
+        if (otherLife != null && collision.gameObject.CompareTag(tagTarget))
         {
             otherLife.TakeDamage(damage);
             Debug.Log($"{gameObject.name} hizo {damage} de daño a {target.name}");

@@ -8,10 +8,14 @@ public class IdleState : BaseState
     {
         controller.anim.CrossFade("Idle",0.1f,0);
     }
+    public override void FixedUpdateState()
+    {
+        
+    }
 
     public override void UpdateState()
     {
-        //Debug.Log("Esta en estado Idle");
+        Debug.Log("Player sta en estado Idle");
 
         if (Input.GetButtonDown("Fire3") && controller.canDash)
         {
@@ -29,6 +33,7 @@ public class IdleState : BaseState
         }
         if (Input.GetButtonDown("Fire1"))
         {
+            controller.ShootBullet();
             ExitState(controller.shoot);
         }
         
@@ -39,8 +44,4 @@ public class IdleState : BaseState
         controller.ChangeState(newState);
     }
 
-    public override void FixedUpdateState()
-    {
-        
-    }
 }

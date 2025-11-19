@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  tag: Player
 --- !u!1 &5675192757460066172
 GameObject:
   m_ObjectHideFlags: 0
