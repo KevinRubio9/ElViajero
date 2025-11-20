@@ -12,18 +12,18 @@ public class MovingPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.right * speed* Time.deltaTime);
-        if (transform.position.z != 30.16f)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, 30.16f);
-        }
+        transform.Translate(Vector3.down * speed * Time.deltaTime);
+        //if (transform.position.z != 30.16f)
+        //{
+        //    transform.position = new Vector3(transform.position.x, transform.position.y, 30.16f);
+        //}
     }
 
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "ReloadPlatform")
         {
-                transform.position = new Vector3(-50.5f, 13, 29);
+            transform.position = new Vector3(-50.5f, 14.52815f, 29);
         }
     }
 }

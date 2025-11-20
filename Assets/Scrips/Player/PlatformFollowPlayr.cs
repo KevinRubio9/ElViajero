@@ -20,7 +20,7 @@ public class PlatformFollowPlayr : MonoBehaviour
         {
             Debug.Log("xD");
             transform.SetParent(collision.gameObject.transform);
-            transform.localScale = new Vector3(1, 1, 1);
+            //transform.localScale = new Vector3(1, 1, 1);
         }
     }
 
