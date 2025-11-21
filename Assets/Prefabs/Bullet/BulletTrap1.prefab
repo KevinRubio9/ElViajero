@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 8836096505556762583}
   - component: {fileID: 1949745352161286395}
   - component: {fileID: -3385193567115216961}
+  - component: {fileID: 8602914660212140362}
   m_Layer: 0
   m_Name: BulletTrap1
   m_TagString: Untagged
@@ -215,9 +216,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5165086892487437411}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66e7bd9629472174c9b06a2de83ea495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  tagTarget: Player
+--- !u!114 &8602914660212140362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5165086892487437411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a201f70fc2c6724da49d105a7fbbe84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1

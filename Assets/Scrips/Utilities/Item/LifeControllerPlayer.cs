@@ -6,10 +6,9 @@ public class LifeControllerPlayer : MonoBehaviour
     public Action<int> damagePlayer;
     public Action<int> healPlayer;
     [SerializeField] private int maxHealth = 10;
-    [SerializeField] private int currentHealth;
+    [SerializeField] public int currentHealth;
 
-    public GameController gameController;
-
+    public UiController controller;
     void Start()
     {
         currentHealth = maxHealth;
@@ -36,7 +35,7 @@ public class LifeControllerPlayer : MonoBehaviour
     private void HandleDeath()
     {
 
-        gameController.GameOver();
+        controller.ShowGameOver();
     }
 
     public int GetMaxHealth() => maxHealth;
