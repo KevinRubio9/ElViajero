@@ -12,7 +12,7 @@ public class FallState : BaseState
     }
     public override void FixedUpdateState()
     {
-      
+        controller.Movement();
     }
 
     public override void UpdateState()
