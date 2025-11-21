@@ -149,5 +149,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eca58082448ead4da81148ece187c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sdBullet: 100
+  sdBullet: 10
   lifeTime: 3
