@@ -7,6 +7,8 @@ using TMPro;
 
 public class SettingsManager : MonoBehaviour
 {
+    public static SettingsManager instance;
+
     [Header("Resolutions")]
 
     public Toggle toggle;
@@ -26,7 +28,8 @@ public class SettingsManager : MonoBehaviour
     public float sliderValueB;
     public Image brightnessPanel;
 
-    void Start()
+    
+    public void Start()
     {
         //Resolution
 

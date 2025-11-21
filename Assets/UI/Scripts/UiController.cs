@@ -9,21 +9,7 @@ public class UiController : MonoBehaviour
     public static UiController instance;
     [SerializeField] GameObject menuPausa, menuGameOver, menuHud, menuConfiguracion;
 
-    public void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        Time.timeScale = 0f;
-
-    }
+  
     private void Start()
     {
 
@@ -75,6 +61,7 @@ public class UiController : MonoBehaviour
         menuConfiguracion.SetActive(false);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        Time.timeScale = 0f;
     }
     public void ShowHud()
     {
@@ -95,10 +82,12 @@ public class UiController : MonoBehaviour
         menuHud.SetActive(false);
         menuConfiguracion.SetActive(true); Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        Time.timeScale = 0f;
     }
 
     public void ShowMainMenu()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
 }
