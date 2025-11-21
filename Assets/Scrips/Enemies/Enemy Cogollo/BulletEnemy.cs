@@ -22,7 +22,7 @@ public class BulletEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-       transform.Translate(Vector3.forward*sdBullet*Time.fixedDeltaTime,Space.Self);
+        rb.linearVelocity = transform.forward * sdBullet;
     }
 
     IEnumerator DisableBullet()
@@ -35,6 +35,7 @@ public class BulletEnemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            rb.linearVelocity = Vector3.zero;
             gameObject.SetActive(false);
         }
     }

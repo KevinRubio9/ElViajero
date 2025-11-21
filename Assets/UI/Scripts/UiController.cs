@@ -9,7 +9,7 @@ public class UiController : MonoBehaviour
     public static UiController instance;
     [SerializeField] GameObject menuPausa, menuGameOver, menuHud, menuConfiguracion;
 
-  
+
     private void Start()
     {
 
@@ -54,7 +54,7 @@ public class UiController : MonoBehaviour
     }
     public void ShowGameOver()
     {
-
+        Debug.Log("Se mostro game over");
         menuPausa.SetActive(false);
         menuGameOver.SetActive(true);
         menuHud.SetActive(false);

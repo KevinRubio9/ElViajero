@@ -230,8 +230,8 @@ MonoBehaviour:
   anim: {fileID: 7984845352778861416}
   agent: {fileID: 7673042110709032133}
   targetAgent: {fileID: 0}
-  actionDistance: 4
-  currDistance: 0
+  actionDistance: 20
+  currDistance: 15
   patrolPoints:
   - {fileID: 6230780220491994669}
   - {fileID: 6587193640969881865}

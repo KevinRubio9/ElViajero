@@ -55,11 +55,12 @@ MonoBehaviour:
   - name: Shoot Player
     clip: {fileID: 8300000, guid: 95ca7ada08ed3c945b68a304b066ed38, type: 3}
   - name: Shoot Trap
-    clip: {fileID: 8300000, guid: 620dfe5c97b926e4385468a843eb9d94, type: 3}
+    clip: {fileID: 8300000, guid: dcea5f72e2a8bf64d8873684040c13da, type: 3}
   - name: Shoot Cogollo
     clip: {fileID: 8300000, guid: 821f62492a11f2642af423e18c9f6e70, type: 3}
   musicSource: {fileID: 4425341318653506430}
   sfxSource: {fileID: 8810120367268173911}
+  mixer: {fileID: 0}
 --- !u!1 &1277563129648031900
 GameObject:
   m_ObjectHideFlags: 0
