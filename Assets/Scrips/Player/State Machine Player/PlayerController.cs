@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
     [Space]
     [Header("Muerte")]
 
-    LifeController life;
+    LifeControllerPlayer life;
 
     [Space]
     [Header("Tackle")]
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
         //character = GetComponent<CharacterController>();
         rigid = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
-        life = GetComponent<LifeController>();
+        life = GetComponent<LifeControllerPlayer>();
         shootPlayer = GetComponent<ShootPlayer>();
 
     }
@@ -179,7 +179,7 @@ public class PlayerController : MonoBehaviour
 
 
         float timer = 0;
-        rigid.linearVelocity = transform.forward * speedDash ;
+        rigid.linearVelocity = transform.forward * speedDash;
         while (timer < timeDash)
         {
             inDash = true;
@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-        private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Lava")
         {
