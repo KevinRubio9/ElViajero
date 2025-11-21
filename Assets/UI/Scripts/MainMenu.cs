@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InicialMenu : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class InicialMenu : MonoBehaviour
     {
         GameController.instance.settingsEvent += Settings;
         GameController.instance.mainMenuEvent += MainMenu;
+    }
+    public void Game()
+    {
+        SceneManager.LoadScene(1);
+
     }
     public void MainMenu()
     {
