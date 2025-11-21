@@ -22,7 +22,8 @@ public class BulletEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-       transform.Translate(Vector3.forward*sdBullet*Time.fixedDeltaTime,Space.Self);
+       //transform.Translate(Vector3.forward*sdBullet*Time.fixedDeltaTime,Space.Self);
+        rb.linearVelocity = transform.forward * sdBullet;
     }
 
     IEnumerator DisableBullet()
