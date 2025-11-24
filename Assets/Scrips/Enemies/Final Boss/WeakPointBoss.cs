@@ -1,39 +1,36 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using JetBrains.Annotations;
 
 public class WeakPointBoss : MonoBehaviour
 {
-    public bool active = false;
-    public float timeActive;
-    public float currentTime = 0f;
-    Coroutine coroutineActiveWeak;
+    [SerializeField] FinalBossLogic Boss;
+    public bool active;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-
+    private void Start()
+    {
+        active = true;
+    }
     public void OnCollisionEnter(Collision collision)
     {
-        
+
         if (collision.gameObject.CompareTag("BulletP"))
         {
-
-            if (coroutineActiveWeak != null )
-            {
-                StopCoroutine(TimeActivePoint());
-            }
-            collision.gameObject.SetActive(false);
-            coroutineActiveWeak = StartCoroutine(TimeActivePoint());
+            StartCoroutine(Boss.Hurt());
+            Invoke("DisableObject", 2.1f);
         }
     }
 
-    public IEnumerator TimeActivePoint()
+    private void DisableObject()
     {
-        active = true;
-        yield return new WaitForSeconds(timeActive);
+        gameObject.SetActive(false);
+    }
+    private void OnDisable()
+    {
         active = false;
-
-        coroutineActiveWeak = null;
     }
 
 }

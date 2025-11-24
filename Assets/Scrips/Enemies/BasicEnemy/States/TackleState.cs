@@ -5,8 +5,6 @@ public class TackleState : StatesBase
     public TackleState(EnemyMoveController parameters) : base(parameters) { }
     public override void EnterState()
     {
-        controller.anim.SetBool("isWalking", false);
-        controller.anim.SetBool("isAttacking", true);
         controller.agent.isStopped = true;
     }
     public override void UpdateState()

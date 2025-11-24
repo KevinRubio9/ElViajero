@@ -346,7 +346,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5526919624253674262
 Transform:
   m_ObjectHideFlags: 0
@@ -717,7 +717,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1861180854992130332, guid: 4fa4fcbb878103347ba7f1371d0d72c4, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2716246238514753176, guid: 4fa4fcbb878103347ba7f1371d0d72c4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

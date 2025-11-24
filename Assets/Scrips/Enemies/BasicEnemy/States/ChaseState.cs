@@ -5,8 +5,6 @@ public class ChaseState : StatesBase
     public ChaseState(EnemyMoveController parameters) : base(parameters) { }
     public override void EnterState()
     {
-        controller.anim.SetBool("isAttacking", false);
-        controller.anim.SetBool("isWalking", true);
         controller.agent.isStopped = false;
     }
     public override void UpdateState()
@@ -32,7 +30,6 @@ public class ChaseState : StatesBase
     }
     public override void ExitState(StatesBase newState)
     {
-        controller.anim.SetBool("isWalking", false);
         controller.agent.isStopped = true;
       
        

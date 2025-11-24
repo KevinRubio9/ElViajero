@@ -14,19 +14,22 @@ public class FinalBossLogic : MonoBehaviour
     public float fireRate;
     public float fireRateBurst;
     float rateTimeShoot;
+    public bool canShoot;
     public List<WeakPointBoss> weakPoints;
-    public bool weakPointsActive = false;
+    public bool weakPointsDestroy = false;
     public float maxBullet;
     public float bulletsInstantiate;
     [SerializeField] Animator anim;
-
+    Transform water;
 
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        canShoot = true;
         bulletPool = FindAnyObjectByType<BulletPoolBoss>();
+        water =gameObject.transform.GetChild(3);
     }
 
     // Update is called once per frame
@@ -35,11 +38,11 @@ public class FinalBossLogic : MonoBehaviour
         LookTarget();
         LookPointsBullet();
 
-        if (playerController.poisoned)
+        if (playerController.poisoned && canShoot)
         {
             ShootBurst();
         }
-        else if (!playerController.poisoned)
+        else if (!playerController.poisoned && canShoot)
         {
             bulletsInstantiate = 0;
             if (Time.time >= rateTimeShoot)
@@ -47,14 +50,12 @@ public class FinalBossLogic : MonoBehaviour
                 ShootRandom();
                 rateTimeShoot = Time.time + fireRate;
             }
-
         }
 
         if (CheckWeakActive())
         {
             gameObject.SetActive(false);
         }
-
     }
 
     public void LookTarget()
@@ -131,22 +132,27 @@ public class FinalBossLogic : MonoBehaviour
     {
         foreach (var x in weakPoints)
         {
-            if (!x.active)
+            if (x.active)
             {
-                return weakPointsActive = false;
+                return weakPointsDestroy = false;
             }
         }
 
-        Debug.Log("todas las marcas fueron activadas");
-        return weakPointsActive = true;
+        Debug.Log("todas las marcas fueron desactivadas");
+        return weakPointsDestroy = true;
     }
 
-    IEnumerator Shooting()
+    public IEnumerator Hurt()
     {
-        anim.SetBool("InShoot",true);
-
-        yield return new WaitForEndOfFrame();
-        anim.SetBool("InShoot", false);
+        canShoot = false;
+        water.gameObject.SetActive(true);
+        anim.SetBool("Hurt",true);
+        Debug.Log("El boss a recibido un golpe");
+        yield return new WaitForSeconds(2);
+        canShoot = true; 
+        bulletsInstantiate = 0;
+        anim.SetBool("Hurt", false);
+        water.gameObject.SetActive(false);
     }
 
     public void DisableInShoot()

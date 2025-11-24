@@ -35,16 +35,9 @@ public class BulletEnemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            rb.linearVelocity = Vector3.zero;
             gameObject.SetActive(false);
         }
-    }
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.name == "Player")
-        {
-            SceneManager.LoadScene("DiseñoTutorial");
-        }
+        else { gameObject.SetActive(false); }
     }
 
     private void OnDisable()

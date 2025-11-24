@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7435415750426008680}
   - component: {fileID: -5713850102422585094}
   - component: {fileID: -8281220251060561489}
+  - component: {fileID: -1082545437368763503}
   m_Layer: 0
   m_Name: BulletEnemyType2
   m_TagString: Bullet2
@@ -151,3 +152,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sdBullet: 10
   lifeTime: 3
+--- !u!114 &-1082545437368763503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5802159665996751612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a201f70fc2c6724da49d105a7fbbe84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  tagTarget: Player

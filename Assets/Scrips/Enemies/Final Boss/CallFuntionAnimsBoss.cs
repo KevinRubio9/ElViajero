@@ -8,4 +8,5 @@ public class CallFuntionAnimsBoss : MonoBehaviour
     {
         logicBoss.DisableInShoot();
     }
+
 }

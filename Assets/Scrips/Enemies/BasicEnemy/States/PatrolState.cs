@@ -45,6 +45,5 @@ public class PatrolState : StatesBase
     }
     public override void ExitState(StatesBase newState)
     {
-        controller.anim.SetBool("isWalking", false);
     }
 }
