@@ -12,22 +12,26 @@ public class DashState : BaseState
         controller.StartDash();
 
     }
+    public override void FixedUpdateState()
+    {
+        
+    }
 
     public override void UpdateState()
     {
         Debug.Log("Esta en estado Dash");
 
 
-        if (!controller.inDash && controller.velocity.y < 0 && !controller.isGrounded)
+        if (!controller.inDash && controller.rigid.linearVelocity.y < 0 && !controller.isGrounded)
         {
             ExitState(controller.fall);
         }
-        if (!controller.inDash && controller.velocity.y > 0 && !controller.isGrounded)
+        if (!controller.inDash && controller.rigid.linearVelocity.y > 0 && !controller.isGrounded)
         {
             ExitState(controller.jump);
         }
 
-        if (!controller.inDash && controller.isGrounded && controller.VelocityY == 0)
+        if (!controller.inDash && controller.isGrounded)
         {
             if (controller.movHori == 0 && controller.movVert == 0)
             {
@@ -42,4 +46,5 @@ public class DashState : BaseState
     {
         controller.ChangeState(newState);
     }
+
 }

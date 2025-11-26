@@ -2,66 +2,92 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.AI;
 
 public class UiController : MonoBehaviour
 {
-    [SerializeField] GameObject menuInicial, menuPausa, menuGameOver, menuHud, menuConfiguracion;
+    public static UiController instance;
+    [SerializeField] GameObject menuPausa, menuGameOver, menuHud, menuConfiguracion;
+
 
     private void Start()
     {
-        ShowStart();
+
+        ShowHud();
+
     }
+
     private void OnEnable()
     {
-        GameController.instance.startEvent += ShowHud;
+
         GameController.instance.gameOverEvent += ShowGameOver;
         GameController.instance.pauseEvent += ShowPause;
         GameController.instance.resumedEvent += ShowHud;
         GameController.instance.configurationEvent += ShowConfiguration;
-        GameController.instance.startmenuEvent += ShowStart;
+        GameController.instance.mainMenuEvent += ShowMainMenu;
 
+    }
+    private void OnDisable()
+    {
+        if (GameController.instance == null) return;
+
+
+        GameController.instance.gameOverEvent -= ShowGameOver;
+        GameController.instance.pauseEvent -= ShowPause;
+        GameController.instance.resumedEvent -= ShowHud;
+        GameController.instance.configurationEvent -= ShowConfiguration;
+        GameController.instance.mainMenuEvent -= ShowMainMenu;
     }
 
 
     public void ShowPause()
     {
-        menuInicial.SetActive(false);
+
         menuPausa.SetActive(true);
         menuGameOver.SetActive(false);
         menuHud.SetActive(false);
         menuConfiguracion.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 0f;
+
     }
     public void ShowGameOver()
     {
-        menuInicial.SetActive(false);
+        Debug.Log("Se mostro game over");
         menuPausa.SetActive(false);
         menuGameOver.SetActive(true);
         menuHud.SetActive(false);
         menuConfiguracion.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 0f;
     }
     public void ShowHud()
     {
-        menuInicial.SetActive(false);
+
         menuPausa.SetActive(false);
         menuGameOver.SetActive(false);
         menuHud.SetActive(true);
         menuConfiguracion.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = false;
+        Time.timeScale = 1f;
     }
     public void ShowConfiguration()
     {
-        menuInicial.SetActive(false);
+
         menuPausa.SetActive(false);
         menuGameOver.SetActive(false);
         menuHud.SetActive(false);
-        menuConfiguracion.SetActive(true);
+        menuConfiguracion.SetActive(true); Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 0f;
     }
 
-    public void ShowStart()
+    public void ShowMainMenu()
     {
-        menuInicial.SetActive(true);
-        menuPausa.SetActive(false);
-        menuGameOver.SetActive(false);
-        menuHud.SetActive(false);
-        menuConfiguracion.SetActive(false);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0);
     }
 }

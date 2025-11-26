@@ -8,6 +8,8 @@ TagManager:
   - Bullet2
   - BulletP
   - Enemy
+  - Wall1
+  - Platform
   layers:
   - Default
   - TransparentFX

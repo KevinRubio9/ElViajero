@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Timeline;
+using UnityEngine.TextCore.Text;
 
 public class PlayerController : MonoBehaviour
 
@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
 
     public Animator anim;
 
-    public CharacterController character;
+    //public CharacterController character;
+    public Rigidbody rigid;
     BaseState currentState;
     public IdleState idle;
     public RunState run;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public FallState fall;
     public DashState dash;
     public ShootState shoot;
+    public DeadStatePlayer dead;
 
     [Header("Envenenamiento")]
     public float timePoisoned;
@@ -34,7 +36,6 @@ public class PlayerController : MonoBehaviour
     public float movHori;
     public float movVert;
     public float gravity = -9.81f;
-    public Vector3 velocity;
 
 
     [Space]
@@ -57,6 +58,15 @@ public class PlayerController : MonoBehaviour
     public bool inDash = false;
 
     [Space]
+    [Header("Disparo")]
+    ShootPlayer shootPlayer;
+
+    [Space]
+    [Header("Muerte")]
+
+    LifeControllerPlayer life;
+
+    [Space]
     [Header("Tackle")]
     public bool isTackled;
     public Vector3 tackleDirection;
@@ -65,33 +75,38 @@ public class PlayerController : MonoBehaviour
 
 
     private Vector3 lastPosition;
-    public float VelocityY { get => _velocityY; set => _velocityY = value; }
-    public float _velocityY;
+    //public float VelocityY { get => _velocityY; set => _velocityY = value; }
+    //public float _velocityY;
+    Vector3 mov;
 
     [SerializeField] AnimationInvoker animInvoker;
 
     private void Awake()
     {
-        character = GetComponent<CharacterController>();
+        //character = GetComponent<CharacterController>();
+        rigid = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
+        life = GetComponent<LifeControllerPlayer>();
+        shootPlayer = GetComponent<ShootPlayer>();
+
     }
 
     void Start()
     {
-        animInvoker.AnimationEventInvoked += AnimationEvent;
-
-        idle = new IdleState (this);
-        run = new RunState (this);
-        jump = new JumpState (this);
-        fall = new FallState (this);
-        dash = new DashState (this);
-        shoot = new ShootState (this);
+        idle = new IdleState(this);
+        run = new RunState(this);
+        jump = new JumpState(this);
+        fall = new FallState(this);
+        dash = new DashState(this);
+        shoot = new ShootState(this);
+        dead = new DeadStatePlayer(this);
         ChangeState(idle);
     }
 
     // Update is called once per frame
     void Update()
     {
+
         isGrounded = Physics.CheckBox(centerPoint.position, sizeDetection, Quaternion.identity, layerGround);
 
 
@@ -103,7 +118,7 @@ public class PlayerController : MonoBehaviour
 
         if (isTackled)
         {
-            character.Move(tackleDirection * tackleForce * Time.deltaTime);
+            rigid.linearVelocity = tackleDirection * tackleForce * Time.deltaTime;
             tackleTimer -= Time.deltaTime;
 
             if (tackleTimer <= 0)
@@ -112,13 +127,38 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        velocity.y += gravity * Time.deltaTime;
-        character.Move(velocity * Time.deltaTime);
         currentState?.UpdateState();
 
-        CalculateSpeed();
+
+        mov = new Vector3(movHori, 0, movVert);
+
+        float camDirection = cam.eulerAngles.y;
+        Vector3 movByCam = Quaternion.Euler(0f, camDirection, 0f) * mov;
+
+        if (mov != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(movByCam);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, sdRotate * Time.deltaTime);
+        }
+
+        if (life.currentHealth <= 0)
+        {
+            ChangeState(dead);
+            this.enabled = false;
+            GetComponent<ShootPlayer>().enabled = false;
+        }
     }
 
+    private void FixedUpdate()
+    {
+        currentState?.FixedUpdateState();
+    }
+    public void Movement()
+    {
+        Vector3 direction = transform.forward * mov.magnitude * speed;
+        direction.y = rigid.linearVelocity.y;
+        rigid.linearVelocity = direction;
+    }
     public void ChangeState(BaseState newState)
     {
         currentState = newState;
@@ -137,20 +177,17 @@ public class PlayerController : MonoBehaviour
         float vertDash = Input.GetAxisRaw("Vertical");
         movDash = new Vector3(horiDash, 0, vertDash);
 
-        //if (movDash == Vector3.zero)
-        //{
-        //    movDash = transform.forward;
-        //}
 
         float timer = 0;
+        rigid.linearVelocity = transform.forward * speedDash;
         while (timer < timeDash)
         {
-            inDash=true;
-            character.Move(transform.forward * speedDash * Time.deltaTime);
+            inDash = true;
             timer += Time.deltaTime;
             yield return null;
         }
         inDash = false;
+        rigid.linearVelocity = Vector3.zero;
         yield return new WaitForSeconds(cooldownDash);
         canDash = true;
     }
@@ -161,17 +198,12 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(timePoisoned);
         poisoned = false;
     }
-    public void CalculateSpeed()
+
+    public void ShootBullet()
     {
-        // Diferencia de posición entre frames
-        Vector3 deltaPosition = transform.position - lastPosition;
-
-        // Velocidad vertical = cambio en Y / tiempo
-        _velocityY = deltaPosition.y / Time.deltaTime;
-
-        // Guardar posición actual para el siguiente frame
-        lastPosition = transform.position;
+        shootPlayer.Shoot();
     }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Bullet1"))
@@ -184,7 +216,7 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.DrawCube(centerPoint.position, sizeDetection);
     }
-    public void Tackle(Transform pusher, float force, float duration = 1f)
+    public void Tackle(Transform pusher, float force, float duration = 0.5f)
     {
         tackleDirection = (transform.position - pusher.position).normalized;
         tackleForce = force;
@@ -200,17 +232,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    public void AnimationEvent()
-    {
-        currentState?.AnimationEvent();
-    } 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name == "Lava")
+        if (other.gameObject.name == "Lava")
         {
             SceneManager.LoadScene("DisenoTutorial");
         }
-
     }
 }

@@ -1,65 +1,73 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
+    private string fromName = "";
 
-    public delegate void eventsGameDelegates();
+    public delegate void EventsMenuDelegates();
 
-    public eventsGameDelegates startEvent;
-    public eventsGameDelegates gameOverEvent;
-    public eventsGameDelegates pauseEvent;
-    public eventsGameDelegates resumedEvent;
-    public eventsGameDelegates configurationEvent;
-    public eventsGameDelegates startmenuEvent;
+    // public event EventsMenuDelegates startEvent;
+    public event EventsMenuDelegates pauseEvent;
+    public event EventsMenuDelegates gameOverEvent;
+    public event EventsMenuDelegates resumedEvent;
+    public event EventsMenuDelegates mainMenuEvent;
+    public event EventsMenuDelegates configurationEvent;
+    public event EventsMenuDelegates settingsEvent;
 
     public void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject);    
+            Destroy(gameObject);
         }
-        Time.timeScale = 0f;
-    }
 
+        Time.timeScale = 0f;
+
+    }
     public void StartGame()
     {
-        Time.timeScale = 1f;
-        startEvent?.Invoke();
-        Debug.Log("el juego inicio");
-    }
-    public void GameOver()
-    {
-        Time.timeScale = 0f;
-        gameOverEvent?.Invoke();
-    }
-    public void Configuration()
-    {
-        Time.timeScale = 0f;
-        configurationEvent?.Invoke();
-    }
-    public void StartMenu()
-    {
-        Time.timeScale = 0f;
-        startmenuEvent?.Invoke();
+        SceneManager.LoadScene(1);
+
     }
     public void PauseGame()
     {
         Time.timeScale = 0f;
         pauseEvent?.Invoke();
     }
+    public void GameOver()
+    {
+        Time.timeScale = 0f;
+        gameOverEvent?.Invoke();
+    }
     public void ResumedGame()
     {
         Time.timeScale = 1f;
         resumedEvent?.Invoke();
+    }
+    public void MainMenuGame()
+    {
+        Time.timeScale = 0f;
+        mainMenuEvent?.Invoke();
+    }
+    public void ConfigurationFomMain()
+    {
+        fromName = "inicio";
+        Time.timeScale = 0F;
+        settingsEvent?.Invoke();
+    }
+    public void ConfigurationFomPause()
+    {
+        fromName = "pause";
+        Time.timeScale = 0F;
+        configurationEvent?.Invoke();
     }
     public void CloseGame()
     {
@@ -67,7 +75,24 @@ public class GameController : MonoBehaviour
     }
     public void RestartGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-   
+    public void Back()
+    {
+        if (fromName == "inicio")
+        {
+            StartGame();
+
+        }
+        else if (fromName == "pause")
+        {
+            PauseGame();
+        }
+
+        fromName = "";
+
+    }
+
+
+
 }

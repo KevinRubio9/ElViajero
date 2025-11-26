@@ -9,6 +9,8 @@ public class DeadState : StatesBase
 
     public override void EnterState()
     {
+        Debug.Log("Hongo entro en estado de muerte");
+        controller.anim.CrossFade("Dead",0.1f);
         currentTimer = deathTimer;
     }
     public override void UpdateState()
@@ -21,6 +23,8 @@ public class DeadState : StatesBase
     }
     public override void ExitState(StatesBase newState)
     {
-        controller.ChangeStatus(newState);
+
+        controller.anim.SetBool("isDead", false);
+
     }
 }

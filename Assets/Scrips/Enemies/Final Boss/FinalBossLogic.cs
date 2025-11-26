@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ public class FinalBossLogic : MonoBehaviour
     public bool weakPointsActive = false;
     public float maxBullet;
     public float bulletsInstantiate;
+    [SerializeField] Animator anim;
 
 
 
@@ -91,6 +93,7 @@ public class FinalBossLogic : MonoBehaviour
         {
             GameObject bulletAvaiable = bulletPool.UseBullet(1);
             bulletAvaiable.SetActive(true);
+            anim.SetBool("InShoot", true);
 
             bulletAvaiable.transform.position = pointBulletR.position;
             bulletAvaiable.transform.rotation = pointBulletR.rotation;
@@ -99,6 +102,7 @@ public class FinalBossLogic : MonoBehaviour
         {
             GameObject bulletAvaiable = bulletPool.UseBullet(0);
             bulletAvaiable.SetActive(true);
+            anim.SetBool("InShoot", true);
 
             bulletAvaiable.transform.position = pointBulletL.position;
             bulletAvaiable.transform.rotation = pointBulletL.rotation;
@@ -108,6 +112,7 @@ public class FinalBossLogic : MonoBehaviour
     {
         GameObject bulletAvaiable = bulletPool.UseBullet(0);
         bulletAvaiable.SetActive(true);
+        anim.SetBool("InShoot", true);
         bulletsInstantiate++;
         bulletAvaiable.transform.position = pointBulletL.position;
         bulletAvaiable.transform.rotation = pointBulletL.rotation;
@@ -134,6 +139,19 @@ public class FinalBossLogic : MonoBehaviour
 
         Debug.Log("todas las marcas fueron activadas");
         return weakPointsActive = true;
+    }
+
+    IEnumerator Shooting()
+    {
+        anim.SetBool("InShoot",true);
+
+        yield return new WaitForEndOfFrame();
+        anim.SetBool("InShoot", false);
+    }
+
+    public void DisableInShoot()
+    {
+        anim.SetBool("InShoot",false);
     }
 
 

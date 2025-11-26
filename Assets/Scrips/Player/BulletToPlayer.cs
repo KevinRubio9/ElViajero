@@ -9,12 +9,13 @@ public class BulletToPlayer : MonoBehaviour
     public int damage = 0;
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+       rb = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
     {
-        transform.Translate(Vector3.forward * sdBullet * Time.fixedDeltaTime, Space.Self);
+        //transform.Translate(Vector3.forward * sdBullet * Time.fixedDeltaTime, Space.Self);
+        rb.linearVelocity = transform.forward*sdBullet; 
     }
     private void Update()
     {
@@ -34,16 +35,21 @@ public class BulletToPlayer : MonoBehaviour
     }
     public void OnCollisionEnter(Collision collision)
     {
-        LifeController life = collision.gameObject.GetComponent<LifeController>();
-
-        if (life != null)
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            life.TakeDamage(damage);
+            LifeController life = collision.gameObject.GetComponent<LifeController>();
+
+            if (life != null)
+            {
+                life.TakeDamage(damage);
+                gameObject.SetActive(false);
+            }
+
+        }
+        else if (!collision.gameObject.CompareTag("Player"))
+        {
+            gameObject.SetActive(false);
         }
 
-        gameObject.SetActive(false);
-        timer = 0;
     }
-
-
 }

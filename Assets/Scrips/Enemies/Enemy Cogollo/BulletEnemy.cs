@@ -1,12 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BulletEnemy : MonoBehaviour
 {
     Rigidbody rb;
     [SerializeField] float sdBullet;
     [SerializeField] float lifeTime;
-    [SerializeField] int damage = 1;
+
     private void OnEnable()
     {
         StartCoroutine(DisableBullet());
@@ -14,6 +15,7 @@ public class BulletEnemy : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+
     }
 
     // Update is called once per frame
@@ -31,19 +33,16 @@ public class BulletEnemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            LifeController life = collision.gameObject.GetComponent<LifeController>();
-
-            if (life != null)
-            {
-                life.TakeDamage(damage);
-            }
-            else
-            {
-                gameObject.SetActive(false);
-            }
-               
+            gameObject.SetActive(false);
+        }
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "Player")
+        {
+            SceneManager.LoadScene("DiseñoTutorial");
         }
     }
 

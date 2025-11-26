@@ -8,13 +8,12 @@ public class ItemWater : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            LifeController playerHealth = other.GetComponent<LifeController>(); 
+            LifeControllerPlayer playerHealth = other.GetComponent<LifeControllerPlayer>(); 
             if (playerHealth != null)
             {
                 playerHealth.Heal(amountCure);
             }
-            Destroy(gameObject);
-
         }
+        Destroy(gameObject);
     }
 }

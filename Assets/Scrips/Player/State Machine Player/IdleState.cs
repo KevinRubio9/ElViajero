@@ -2,17 +2,20 @@ using UnityEngine;
 
 public class IdleState : BaseState
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public IdleState(PlayerController controllerParameter) : base(controllerParameter) { }
 
     public override void EnterState()
     {
         controller.anim.CrossFade("Idle",0.1f,0);
     }
+    public override void FixedUpdateState()
+    {
+        
+    }
 
     public override void UpdateState()
     {
-        Debug.Log("Esta en estado Idle");
+        Debug.Log("Player sta en estado Idle");
 
         if (Input.GetButtonDown("Fire3") && controller.canDash)
         {
@@ -30,12 +33,15 @@ public class IdleState : BaseState
         }
         if (Input.GetButtonDown("Fire1"))
         {
+            controller.ShootBullet();
             ExitState(controller.shoot);
         }
+        
     }
 
     public override void ExitState(BaseState newState)
     {
         controller.ChangeState(newState);
     }
+
 }
